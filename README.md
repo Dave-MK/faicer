@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Ledger
 
-## Getting Started
+Mock-first scaffold for the `AI Ledger` Milestone 0 foundation and Milestone 1-ready auth and tenancy shell.
 
-First, run the development server:
+## What is in this repo
+
+- Next.js 16 App Router app
+- mock-backed sign in, sign up, sign out, and organisation creation flows
+- centralized session and workspace permission helpers
+- Supabase SSR utility files and `src/proxy.ts` for the production auth path
+- initial SQL migration and seed placeholders for:
+  - `organisations`
+  - `profiles`
+  - `memberships`
+  - `audit_events`
+- unit and E2E test scaffolding
+
+## Scope guard
+
+This repo intentionally stops before Milestone 2.
+
+Included now:
+
+- scaffold and docs
+- env parsing
+- mock auth shell
+- organisation creation flow
+- role-aware dashboard shell
+- permission helpers
+- migration and seed placeholders
+- test harness setup
+
+Not started yet:
+
+- AI tool register
+- use-case register
+- policy builder
+- training
+- incidents
+- evidence pack
+
+## Run locally
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Copy the example env file:
+
+```bash
+cp .env.example .env.local
+```
+
+3. Start the app:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000/welcome](http://localhost:3000/welcome)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Demo users
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Use these seeded emails on the sign-in page:
 
-## Learn More
+- `owner@brightforge.test`
+- `admin@brightforge.test`
+- `staff@brightforge.test`
 
-To learn more about Next.js, take a look at the following resources:
+No password is required in mock mode.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run dev
+npm run build
+npm run start
+npm run lint
+npm run test
+npm run test:e2e
+npm run typecheck
+```
 
-## Deploy on Vercel
+## Supabase path
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The runnable app uses mock mode when Supabase env vars are absent, and switches to real Supabase Auth plus Postgres tables when they are present.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+When you are ready to connect a real project:
+
+1. Set `NEXT_PUBLIC_SUPABASE_URL`
+2. Set `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+3. Replace the mock store flows with real Supabase Auth and database writes
+4. Apply the SQL under `supabase/migrations/`
+
+## Notes
+
+- `src/proxy.ts` follows the Next.js 16 `proxy` convention, not deprecated `middleware.ts`
+- authenticated routes are intentionally dynamic-first
+- the scaffold is structured so tenant and role checks stay close to the data layer
