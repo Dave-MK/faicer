@@ -1,13 +1,14 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { isSupabaseConfigured } from "@/lib/config/env";
+import { isSupabaseAuthEnabled } from "@/lib/config/env";
 import {
   requireSignedInUser,
   requireWorkspaceContext,
 } from "@/lib/auth/workspace";
 import { createOrganisationSchema } from "@/lib/validation/organisation";
 import { createMockOrganisationForUser } from "@/lib/data/mock-store";
+import { persistMockRegistryBundle } from "@/lib/data/mock-registry";
 import { createSession } from "@/lib/auth/session";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -24,7 +25,7 @@ export async function createOrganisationAction(formData: FormData) {
     redirect("/setup/organisation");
   }
 
-  if (isSupabaseConfigured()) {
+  if (isSupabaseAuthEnabled()) {
     const supabase = await createSupabaseServerClient();
     const {
       data: { user },
@@ -85,11 +86,12 @@ export async function createOrganisationAction(formData: FormData) {
   }
 
   const context = await requireWorkspaceContext(["owner", "admin"]);
-  const organisation = createMockOrganisationForUser(context.user.id, parsed.data);
+  const created = createMockOrganisationForUser(context.user.id, parsed.data);
+  await persistMockRegistryBundle(created);
 
   await createSession({
     userId: context.user.id,
-    activeOrganisationId: organisation.id,
+    activeOrganisationId: created.organisation.id,
     email: user.email,
   });
 

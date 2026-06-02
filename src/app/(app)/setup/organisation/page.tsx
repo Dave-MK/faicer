@@ -1,28 +1,32 @@
+import { AppShell } from "@/app/(app)/_components/app-shell";
 import { createOrganisationAction } from "@/app/actions/organisation";
-import { isSupabaseConfigured } from "@/lib/config/env";
-import { requireSignedInUser } from "@/lib/auth/workspace";
+import { isSupabaseAuthEnabled } from "@/lib/config/env";
+import { requireWorkspaceContext } from "@/lib/auth/workspace";
 
 export default async function OrganisationSetupPage() {
-  const user = await requireSignedInUser();
-  const supabaseEnabled = isSupabaseConfigured();
+  const context = await requireWorkspaceContext(["owner", "admin"]);
+  const supabaseEnabled = isSupabaseAuthEnabled();
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-4xl px-6 py-10 lg:px-10">
-      <section className="rounded-[2rem] border border-line bg-panel p-8 shadow-[var(--shadow)]">
-        <div className="space-y-3">
-          <p className="font-mono text-sm uppercase tracking-[0.28em] text-accent-strong">
-            Organisation setup
+    <AppShell
+      current="setup"
+      organisationName={context.organisation.name}
+      userDisplayName={context.user.displayName}
+      role={context.membership.role}
+      eyebrow="Organisation setup"
+      title="Create another organisation"
+      description={
+        supabaseEnabled
+          ? "This now writes into your real Supabase project and creates the initial owner membership."
+          : "This form is intentionally lightweight. It proves the Milestone 1 path for owner-level organisation creation without pushing ahead into later governance records."
+      }
+    >
+      <section className="brand-panel rounded-[2rem] p-8">
+        <div className="brand-panel-soft rounded-2xl px-4 py-4 text-sm text-muted">
+          <span className="brand-eyebrow">Active user</span>
+          <p className="mt-3 text-base font-semibold text-ink">
+            {context.user.displayName}
           </p>
-          <h1 className="text-3xl font-semibold">Create another organisation</h1>
-          <p className="max-w-2xl text-muted">
-            {supabaseEnabled
-              ? "This now writes into your real Supabase project and creates the initial owner membership."
-              : "This form is intentionally lightweight. It proves the Milestone 1 path for owner-level organisation creation without pushing ahead into later governance records."}
-          </p>
-        </div>
-
-        <div className="mt-5 rounded-2xl border border-accent-soft bg-accent-soft px-4 py-4 text-sm text-accent-strong">
-          Active user: {user.displayName}
         </div>
 
         <form action={createOrganisationAction} className="mt-8 grid gap-4 md:grid-cols-2">
@@ -32,7 +36,7 @@ export default async function OrganisationSetupPage() {
               type="text"
               name="name"
               required
-              className="w-full rounded-2xl border border-line bg-white px-4 py-3 outline-none transition focus:border-accent"
+              className="brand-input w-full rounded-2xl px-4 py-3 outline-none transition"
             />
           </label>
           <label className="space-y-2">
@@ -41,7 +45,7 @@ export default async function OrganisationSetupPage() {
               type="text"
               name="sector"
               defaultValue="Marketing agency"
-              className="w-full rounded-2xl border border-line bg-white px-4 py-3 outline-none transition focus:border-accent"
+              className="brand-input w-full rounded-2xl px-4 py-3 outline-none transition"
             />
           </label>
           <label className="space-y-2">
@@ -50,7 +54,7 @@ export default async function OrganisationSetupPage() {
               type="text"
               name="country"
               defaultValue="United Kingdom"
-              className="w-full rounded-2xl border border-line bg-white px-4 py-3 outline-none transition focus:border-accent"
+              className="brand-input w-full rounded-2xl px-4 py-3 outline-none transition"
             />
           </label>
           <label className="space-y-2 md:col-span-2">
@@ -58,7 +62,7 @@ export default async function OrganisationSetupPage() {
             <select
               name="employeeBand"
               defaultValue="3-10"
-              className="w-full rounded-2xl border border-line bg-white px-4 py-3 outline-none transition focus:border-accent"
+              className="brand-input w-full rounded-2xl px-4 py-3 outline-none transition"
             >
               <option value="1-2">1-2</option>
               <option value="3-10">3-10</option>
@@ -68,12 +72,12 @@ export default async function OrganisationSetupPage() {
           </label>
           <button
             type="submit"
-            className="inline-flex items-center justify-center rounded-full bg-accent px-5 py-3 font-medium text-white transition hover:bg-accent-strong md:col-span-2"
+            className="brand-button-primary inline-flex items-center justify-center rounded-full px-5 py-3 font-medium transition md:col-span-2"
           >
             Create organisation
           </button>
         </form>
       </section>
-    </main>
+    </AppShell>
   );
 }

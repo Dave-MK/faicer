@@ -1,0 +1,18 @@
+/*
+Recommended installation:
+npm install @fontsource/plus-jakarta-sans
+
+Import this file once from app/layout.tsx or globals.css.
+*/
+@import "@fontsource/plus-jakarta-sans/400.css";
+@import "@fontsource/plus-jakarta-sans/500.css";
+@import "@fontsource/plus-jakarta-sans/600.css";
+@import "@fontsource/plus-jakarta-sans/700.css";
+
+:root {
+  --font-brand: "Plus Jakarta Sans", Inter, Arial, sans-serif;
+}
+
+html, body, button, input, select, textarea {
+  font-family: var(--font-brand);
+}

@@ -4,6 +4,7 @@ const envSchema = z.object({
   NODE_ENV: z
     .enum(["development", "test", "production"])
     .default("development"),
+  AI_LEDGER_AUTH_MODE: z.enum(["mock", "supabase"]).optional(),
   APP_SESSION_SECRET: z.string().min(16).optional(),
   NEXT_PUBLIC_SUPABASE_URL: z.url().optional(),
   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: z.string().min(1).optional(),
@@ -11,6 +12,7 @@ const envSchema = z.object({
 
 const parsed = envSchema.safeParse({
   NODE_ENV: process.env.NODE_ENV,
+  AI_LEDGER_AUTH_MODE: process.env.AI_LEDGER_AUTH_MODE,
   APP_SESSION_SECRET: process.env.APP_SESSION_SECRET,
   NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:
@@ -22,6 +24,14 @@ if (!parsed.success) {
 }
 
 const env = parsed.data;
+
+export function getAuthMode() {
+  if (env.AI_LEDGER_AUTH_MODE) {
+    return env.AI_LEDGER_AUTH_MODE;
+  }
+
+  return env.NODE_ENV === "production" ? "supabase" : "mock";
+}
 
 export function getSessionSecret() {
   if (env.APP_SESSION_SECRET) {
@@ -51,4 +61,8 @@ export function getSupabaseConfig() {
 
 export function isSupabaseConfigured() {
   return getSupabaseConfig() !== null;
+}
+
+export function isSupabaseAuthEnabled() {
+  return getAuthMode() === "supabase" && isSupabaseConfigured();
 }

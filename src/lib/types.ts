@@ -1,5 +1,19 @@
 export type MembershipRole = "owner" | "admin" | "reviewer" | "staff";
 export type MembershipStatus = "active" | "invited" | "suspended";
+export type ToolApprovalStatus = "approved" | "restricted" | "prohibited";
+export type ToolCategory =
+  | "general_chatbot"
+  | "image_generation"
+  | "audio_generation"
+  | "video_generation"
+  | "transcription"
+  | "meeting_assistant"
+  | "coding_assistant"
+  | "marketing_automation"
+  | "crm_feature"
+  | "recruitment_feature"
+  | "analytics_feature"
+  | "other";
 
 export type MockUser = {
   id: string;
@@ -41,6 +55,33 @@ export type MockAuditEvent = {
   createdAt: string;
 };
 
+export type MockAITool = {
+  id: string;
+  organisationId: string;
+  name: string;
+  vendor: string;
+  websiteUrl: string | null;
+  category: ToolCategory;
+  approvalStatus: ToolApprovalStatus;
+  accountOwnerUserId: string;
+  businessOwnerUserId: string;
+  privacyPolicyUrl: string | null;
+  dataProcessingNotes: string;
+  notes: string;
+  lastReviewedAt: string | null;
+  nextReviewAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type MockRegistry = {
+  users: MockUser[];
+  organisations: MockOrganisation[];
+  memberships: MockMembership[];
+  tools: MockAITool[];
+  auditEvents: MockAuditEvent[];
+};
+
 export type SessionPayload = {
   userId: string;
   email: string;
@@ -74,3 +115,4 @@ export type WorkspaceMembership = {
 };
 
 export type WorkspaceAuditEvent = MockAuditEvent;
+export type WorkspaceAITool = MockAITool;

@@ -1,6 +1,6 @@
 # AI Ledger
 
-Mock-first scaffold for the `AI Ledger` Milestone 0 foundation and Milestone 1-ready auth and tenancy shell.
+Mock-first scaffold for the `AI Ledger` Milestones 0 to 2 foundation: auth, tenancy, and the first tool-register workflow.
 
 ## What is in this repo
 
@@ -17,7 +17,7 @@ Mock-first scaffold for the `AI Ledger` Milestone 0 foundation and Milestone 1-r
 
 ## Scope guard
 
-This repo intentionally stops before Milestone 2.
+This repo now covers the Milestone 2 tool register, but still stops before the later governance flows.
 
 Included now:
 
@@ -26,13 +26,13 @@ Included now:
 - mock auth shell
 - organisation creation flow
 - role-aware dashboard shell
+- AI tool inventory, add flow, detail page, and edit flow
 - permission helpers
 - migration and seed placeholders
 - test harness setup
 
 Not started yet:
 
-- AI tool register
 - use-case register
 - policy builder
 - training
@@ -71,6 +71,8 @@ Use these seeded emails on the sign-in page:
 
 No password is required in mock mode.
 
+The demo org also ships with seeded AI tool records so the register is not empty on first run.
+
 ## Scripts
 
 ```bash
@@ -85,13 +87,21 @@ npm run typecheck
 
 ## Supabase path
 
-The runnable app uses mock mode when Supabase env vars are absent, and switches to real Supabase Auth plus Postgres tables when they are present.
+The runnable app supports an explicit auth mode switch:
+
+- `AI_LEDGER_AUTH_MODE=mock` for local development
+- `AI_LEDGER_AUTH_MODE=supabase` for hosted-auth testing
+
+If the variable is omitted, the default is:
+
+- `mock` in development
+- `supabase` in production
 
 When you are ready to connect a real project:
 
-1. Set `NEXT_PUBLIC_SUPABASE_URL`
-2. Set `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
-3. Replace the mock store flows with real Supabase Auth and database writes
+1. Set `AI_LEDGER_AUTH_MODE=supabase`
+2. Set `NEXT_PUBLIC_SUPABASE_URL`
+3. Set `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 4. Apply the SQL under `supabase/migrations/`
 
 ## Notes
@@ -99,3 +109,4 @@ When you are ready to connect a real project:
 - `src/proxy.ts` follows the Next.js 16 `proxy` convention, not deprecated `middleware.ts`
 - authenticated routes are intentionally dynamic-first
 - the scaffold is structured so tenant and role checks stay close to the data layer
+- Playwright uses port `3001` so its test server does not collide with a manually running dev server on `3000`

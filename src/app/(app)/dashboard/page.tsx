@@ -1,48 +1,53 @@
 import Link from "next/link";
-import { signOutAction } from "@/app/actions/auth";
+import { AppShell } from "@/app/(app)/_components/app-shell";
+import { requireWorkspaceContext, summarizeWorkspace } from "@/lib/auth/workspace";
+import { isSupabaseAuthEnabled } from "@/lib/config/env";
+import { listMockToolsForOrganisation } from "@/lib/data/mock-registry";
 import {
-  requireWorkspaceContext,
-  summarizeWorkspace,
-} from "@/lib/auth/workspace";
+  formatToolReviewDate,
+  getToolApprovalMeta,
+} from "@/lib/tools/catalog";
+import { listSupabaseTools } from "@/lib/supabase/tools";
 
 export default async function DashboardPage() {
   const context = await requireWorkspaceContext();
   const summary = summarizeWorkspace(context);
+  const tools = isSupabaseAuthEnabled()
+    ? await listSupabaseTools(context.organisation.id)
+    : await listMockToolsForOrganisation(context.organisation.id);
+
+  const counts = {
+    total: tools.length,
+    approved: tools.filter((tool) => tool.approvalStatus === "approved").length,
+    restricted: tools.filter((tool) => tool.approvalStatus === "restricted").length,
+    prohibited: tools.filter((tool) => tool.approvalStatus === "prohibited").length,
+  };
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-6xl px-6 py-10 lg:px-10">
-      <section className="rounded-[2rem] border border-line bg-panel p-8 shadow-[var(--shadow)]">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-          <div className="space-y-3">
-            <p className="font-mono text-sm uppercase tracking-[0.28em] text-accent-strong">
-              Workspace dashboard
-            </p>
-            <h1 className="text-3xl font-semibold">
-              {context.organisation.name}
-            </h1>
-            <p className="max-w-2xl text-muted">
-              Signed in as {context.user.displayName} with the{" "}
-              <span className="font-medium text-ink">{context.membership.role}</span>{" "}
-              role. This dashboard is driven by the same membership checks that
-              future tool, use-case, and policy features will depend on.
-            </p>
-          </div>
-          <form action={signOutAction}>
-            <button
-              type="submit"
-              className="rounded-full border border-line px-5 py-3 font-medium text-ink transition hover:bg-panel-strong"
-            >
-              Sign out
-            </button>
-          </form>
-        </div>
-      </section>
-
-      <section className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+    <AppShell
+      current="dashboard"
+      organisationName={context.organisation.name}
+      userDisplayName={context.user.displayName}
+      role={context.membership.role}
+      eyebrow="Workspace dashboard"
+      title={context.organisation.name}
+      description={`Signed in as ${context.user.displayName}. The Milestone 2 tool register now sits on top of the same membership checks and audit trail foundation we already verified.`}
+      actions={
+        context.permissions.canManageOrganisation ? (
+          <Link
+            href="/tools/new"
+            className="brand-button-primary rounded-full px-5 py-3 text-center font-medium transition"
+          >
+            Add AI tool
+          </Link>
+        ) : null
+      }
+    >
+      <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         {summary.map((item) => (
           <article
             key={item.label}
-            className="rounded-[1.6rem] border border-line bg-panel px-6 py-5 shadow-[var(--shadow)]"
+            className="brand-panel rounded-[1.6rem] px-6 py-5"
           >
             <p className="text-sm text-muted">{item.label}</p>
             <p className="mt-3 text-3xl font-semibold text-ink">{item.value}</p>
@@ -51,63 +56,99 @@ export default async function DashboardPage() {
         ))}
       </section>
 
-      <section className="mt-8 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-        <article className="rounded-[2rem] border border-line bg-panel p-8 shadow-[var(--shadow)]">
+      <section className="mt-8 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+        <article className="brand-panel rounded-[2rem] p-8">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-semibold">Milestone 1 scope</h2>
-              <p className="mt-2 text-muted">
-                We are stopping at auth, tenancy, and permission scaffolding
-                before moving into the tool register.
+              <p className="brand-eyebrow">Delivery focus</p>
+              <h2 className="text-2xl font-semibold">Tool register snapshot</h2>
+              <p className="mt-2 max-w-2xl text-muted">
+                The first live product record is now the AI tool register:
+                vendor, approval status, review date, and audit history.
               </p>
             </div>
             <Link
-              href="/setup/organisation"
-              className="rounded-full bg-accent px-5 py-3 font-medium text-white transition hover:bg-accent-strong"
+              href="/tools"
+              className="brand-button-secondary rounded-full px-5 py-3 font-medium transition"
             >
-              Create organisation
+              Open register
             </Link>
           </div>
-          <ul className="mt-6 grid gap-4 text-muted">
-            <li className="rounded-2xl border border-line bg-panel-strong px-4 py-4">
-              Supabase SSR utilities and `proxy.ts` are in place for the real
-              backend path.
-            </li>
-            <li className="rounded-2xl border border-line bg-panel-strong px-4 py-4">
-              The session layer and workspace checks are already centralized in
-              `src/lib/auth`.
-            </li>
-            <li className="rounded-2xl border border-line bg-panel-strong px-4 py-4">
-              SQL migrations and unit tests are ready to grow with the first real
-              database integration.
-            </li>
-          </ul>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            <article className="brand-panel-soft rounded-2xl px-4 py-4">
+              <p className="text-sm text-muted">Total tools</p>
+              <p className="mt-2 text-3xl font-semibold">{counts.total}</p>
+            </article>
+            <article className="brand-panel-soft rounded-2xl px-4 py-4">
+              <p className="text-sm text-muted">Approved / restricted / prohibited</p>
+              <p className="mt-2 text-2xl font-semibold">
+                {counts.approved} / {counts.restricted} / {counts.prohibited}
+              </p>
+            </article>
+          </div>
+
+          <div className="mt-6 grid gap-4">
+            {tools.length > 0 ? (
+              tools.slice(0, 3).map((tool) => {
+                const approval = getToolApprovalMeta(tool.approvalStatus);
+                return (
+                  <Link
+                    key={tool.id}
+                    href={`/tools/${tool.id}`}
+                    className="brand-panel-soft rounded-2xl px-4 py-4 transition hover:border-[var(--ai-border-strong)]"
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <p className="font-semibold text-ink">{tool.name}</p>
+                        <p className="mt-1 text-sm text-muted">{tool.vendor}</p>
+                      </div>
+                      <span
+                        className={`rounded-full px-3 py-1 text-xs font-semibold ${approval.tone}`}
+                      >
+                        {approval.label}
+                      </span>
+                    </div>
+                    <p className="mt-3 text-sm text-muted">
+                      Next review: {formatToolReviewDate(tool.nextReviewAt)}
+                    </p>
+                  </Link>
+                );
+              })
+            ) : (
+              <div className="brand-panel-soft rounded-2xl border-dashed px-4 py-5 text-sm text-muted">
+                No tools have been recorded yet.
+              </div>
+            )}
+          </div>
         </article>
 
-        <article className="rounded-[2rem] border border-line bg-[#173228] p-8 text-white shadow-[var(--shadow)]">
-          <h2 className="text-2xl font-semibold">Permission snapshot</h2>
+        <article className="brand-panel-highlight rounded-[2rem] p-8 text-white">
+          <p className="brand-eyebrow">Permissions</p>
+          <h2 className="text-2xl font-semibold">Current permissions</h2>
           <dl className="mt-6 grid gap-4">
             <div className="rounded-2xl border border-white/12 bg-white/5 px-4 py-4">
               <dt className="text-sm uppercase tracking-[0.22em] text-white/62">
-                Current role
+                Manage register
               </dt>
-              <dd className="mt-2 text-xl font-semibold">
-                {context.membership.role}
+              <dd className="mt-2 text-sm leading-7 text-[var(--ai-text-secondary)]">
+                {context.permissions.canManageOrganisation
+                  ? "Can add new AI tools and update approval statuses or review dates."
+                  : "Can view the register but cannot create or edit organisation-level records."}
               </dd>
             </div>
             <div className="rounded-2xl border border-white/12 bg-white/5 px-4 py-4">
               <dt className="text-sm uppercase tracking-[0.22em] text-white/62">
-                Allowed actions
+                Audit trail
               </dt>
-              <dd className="mt-2 text-sm leading-7 text-white/78">
-                {context.permissions.canManageOrganisation
-                  ? "Can manage organisation settings, create organisations, and review milestone foundations."
-                  : "Can view the workspace shell but cannot manage organisation-level records."}
+              <dd className="mt-2 text-sm leading-7 text-[var(--ai-text-secondary)]">
+                Every tool create or update action is designed to land in the same
+                audit stream as the earlier tenancy work.
               </dd>
             </div>
           </dl>
         </article>
       </section>
-    </main>
+    </AppShell>
   );
 }

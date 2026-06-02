@@ -1,9 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import "@/styles/fonts.css";
+import "@/styles/theme.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "AI Ledger",
-  description: "Mock-first scaffold for AI governance, policy, and evidence workflows.",
+  description: "AI governance, evidence, and trust workspace.",
+  applicationName: "AI Ledger",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#071120",
 };
 
 export default function RootLayout({
@@ -13,7 +20,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="min-h-full bg-canvas text-ink">{children}</body>
+      <body
+        data-theme="dark-app"
+        className="min-h-full bg-canvas text-ink selection:bg-[color:rgba(0,212,255,0.24)]"
+      >
+        {children}
+      </body>
     </html>
   );
 }

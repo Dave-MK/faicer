@@ -1,12 +1,15 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { isSupabaseConfigured } from "@/lib/config/env";
+import { isSupabaseAuthEnabled } from "@/lib/config/env";
 import {
   createMockUserWithOrganisation,
-  getDefaultOrganisationId,
-  getUserByEmail,
 } from "@/lib/data/mock-store";
+import {
+  findMockUserByEmail,
+  getMockDefaultOrganisationId,
+  persistMockRegistryBundle,
+} from "@/lib/data/mock-registry";
 import { signInSchema, signUpSchema } from "@/lib/validation/auth";
 import {
   createSession,
@@ -15,17 +18,22 @@ import {
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getFirstSupabaseOrganisationId } from "@/lib/supabase/workspace";
 
+function getOptionalString(formData: FormData, key: string) {
+  const value = formData.get(key);
+  return typeof value === "string" ? value : undefined;
+}
+
 export async function signInAction(formData: FormData) {
   const parsed = signInSchema.safeParse({
     email: formData.get("email"),
-    password: formData.get("password"),
+    password: getOptionalString(formData, "password"),
   });
 
   if (!parsed.success) {
-    redirect("/sign-in");
+    redirect("/sign-in?error=invalid-form");
   }
 
-  if (isSupabaseConfigured()) {
+  if (isSupabaseAuthEnabled()) {
     const supabase = await createSupabaseServerClient();
     const { data, error } = await supabase.auth.signInWithPassword({
       email: parsed.data.email,
@@ -33,7 +41,7 @@ export async function signInAction(formData: FormData) {
     });
 
     if (error || !data.user) {
-      redirect("/sign-in");
+      redirect("/sign-in?error=invalid-credentials");
     }
 
     const activeOrganisationId = await getFirstSupabaseOrganisationId(data.user.id);
@@ -47,15 +55,15 @@ export async function signInAction(formData: FormData) {
     redirect(activeOrganisationId ? "/dashboard" : "/setup/organisation");
   }
 
-  const user = getUserByEmail(parsed.data.email);
+  const user = await findMockUserByEmail(parsed.data.email);
 
   if (!user) {
-    redirect("/sign-in");
+    redirect("/sign-in?error=invalid-credentials");
   }
 
   await createSession({
     userId: user.id,
-    activeOrganisationId: getDefaultOrganisationId(user.id),
+    activeOrganisationId: await getMockDefaultOrganisationId(user.id),
     email: user.email,
   });
 
@@ -66,15 +74,15 @@ export async function signUpAction(formData: FormData) {
   const parsed = signUpSchema.safeParse({
     displayName: formData.get("displayName"),
     email: formData.get("email"),
-    password: formData.get("password"),
-    organisationName: formData.get("organisationName"),
+    password: getOptionalString(formData, "password"),
+    organisationName: getOptionalString(formData, "organisationName"),
   });
 
   if (!parsed.success) {
-    redirect("/sign-up");
+    redirect("/sign-up?error=invalid-form");
   }
 
-  if (isSupabaseConfigured()) {
+  if (isSupabaseAuthEnabled()) {
     const supabase = await createSupabaseServerClient();
     const { data, error } = await supabase.auth.signUp({
       email: parsed.data.email,
@@ -87,7 +95,13 @@ export async function signUpAction(formData: FormData) {
     });
 
     if (error || !data.user) {
-      redirect("/sign-up");
+      const code =
+        error?.code === "email_address_invalid"
+          ? "invalid-email"
+          : error?.code === "over_email_send_rate_limit" || error?.status === 429
+            ? "email-rate-limit"
+            : "sign-up-failed";
+      redirect(`/sign-up?error=${code}`);
     }
 
     if (data.session) {
@@ -100,7 +114,7 @@ export async function signUpAction(formData: FormData) {
     }
 
     await destroySession();
-    redirect("/sign-in");
+    redirect("/sign-in?message=check-email");
   }
 
   const created = createMockUserWithOrganisation({
@@ -108,6 +122,7 @@ export async function signUpAction(formData: FormData) {
     email: parsed.data.email,
     organisationName: parsed.data.organisationName ?? "New organisation",
   });
+  await persistMockRegistryBundle(created);
 
   await createSession({
     userId: created.user.id,
@@ -119,7 +134,7 @@ export async function signUpAction(formData: FormData) {
 }
 
 export async function signOutAction() {
-  if (isSupabaseConfigured()) {
+  if (isSupabaseAuthEnabled()) {
     const supabase = await createSupabaseServerClient();
     await supabase.auth.signOut();
   }

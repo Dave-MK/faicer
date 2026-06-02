@@ -1,7 +1,7 @@
 import "server-only";
 
 import { redirect } from "next/navigation";
-import { isSupabaseConfigured } from "@/lib/config/env";
+import { isSupabaseAuthEnabled } from "@/lib/config/env";
 import { getSessionSnapshot } from "@/lib/auth/session";
 import {
   canManageOrganisation,
@@ -9,11 +9,11 @@ import {
   hasRequiredRole,
 } from "@/lib/auth/permissions";
 import {
-  getMembershipForUserInOrganisation,
-  getOrganisationById,
-  getUserById,
-  listAuditEventsForOrganisation,
-} from "@/lib/data/mock-store";
+  findMockMembershipForUserInOrganisation,
+  findMockOrganisationById,
+  findMockUserById,
+  listMockAuditEvents,
+} from "@/lib/data/mock-registry";
 import type {
   MembershipRole,
   WorkspaceAuditEvent,
@@ -39,7 +39,7 @@ type WorkspaceContext = {
 };
 
 export async function requireSignedInUser() {
-  if (isSupabaseConfigured()) {
+  if (isSupabaseAuthEnabled()) {
     const sessionUser = await getSupabaseSessionUser();
 
     if (!sessionUser) {
@@ -55,7 +55,7 @@ export async function requireSignedInUser() {
     redirect("/sign-in");
   }
 
-  const user = getUserById(session.userId);
+  const user = await findMockUserById(session.userId);
 
   if (!user) {
     redirect("/sign-in");
@@ -125,9 +125,9 @@ async function getMockWorkspaceContext(
     redirect("/sign-in");
   }
 
-  const user = getUserById(session.userId);
-  const organisation = getOrganisationById(session.activeOrganisationId);
-  const membership = getMembershipForUserInOrganisation(
+  const user = await findMockUserById(session.userId);
+  const organisation = await findMockOrganisationById(session.activeOrganisationId);
+  const membership = await findMockMembershipForUserInOrganisation(
     session.userId,
     session.activeOrganisationId,
   );
@@ -168,12 +168,12 @@ async function getMockWorkspaceContext(
       canManageOrganisation: canManageOrganisation(membership.role),
       canReviewRecords: canReviewRecords(membership.role),
     },
-    auditEvents: listAuditEventsForOrganisation(organisation.id),
+    auditEvents: await listMockAuditEvents(organisation.id),
   };
 }
 
 export async function requireWorkspaceContext(allowedRoles?: MembershipRole[]) {
-  if (isSupabaseConfigured()) {
+  if (isSupabaseAuthEnabled()) {
     return getSupabaseWorkspaceContext(allowedRoles);
   }
 

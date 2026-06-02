@@ -1,17 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --canvas: #f5f0e7;
-  --panel: #fffaf1;
-  --panel-strong: #fff7ea;
-  --ink: #1a1f1c;
-  --muted: #5d6a62;
-  --line: rgba(28, 44, 35, 0.12);
-  --accent: #0c7a5a;
-  --accent-strong: #075c44;
-  --accent-soft: rgba(12, 122, 90, 0.14);
-  --warning: #a84b1d;
-  --shadow: 0 18px 48px rgba(23, 32, 28, 0.08);
+  --canvas: var(--page-bg, #071120);
+  --panel: var(--panel-bg, #0b172a);
+  --panel-strong: var(--panel-raised, #101f36);
+  --ink: var(--copy, #ffffff);
+  --muted: var(--copy-secondary, #a7b6cd);
+  --line: var(--panel-border, #203552);
+  --accent: var(--ai-blue, #0099ff);
+  --accent-strong: var(--ai-indigo, #4c68ff);
+  --accent-soft: color-mix(in srgb, var(--ai-cyan) 18%, transparent);
+  --warning: var(--ai-warning, #ffb020);
+  --danger: var(--ai-danger, #ff5a63);
+  --success: var(--ai-success, #24d17e);
+  --shadow: var(--ai-shadow-panel, 0 12px 36px rgba(0, 0, 0, 0.24));
 }
 
 @theme inline {
@@ -25,7 +27,9 @@
   --color-accent-strong: var(--accent-strong);
   --color-accent-soft: var(--accent-soft);
   --color-warning: var(--warning);
-  --font-sans: "Aptos", "Segoe UI", "Helvetica Neue", sans-serif;
+  --color-danger: var(--danger);
+  --color-success: var(--success);
+  --font-sans: var(--font-brand);
   --font-mono: "Cascadia Mono", "SFMono-Regular", ui-monospace, monospace;
 }
 
@@ -36,14 +40,18 @@
 html {
   min-height: 100%;
   background:
-    radial-gradient(circle at top, rgba(12, 122, 90, 0.12), transparent 42%),
-    linear-gradient(180deg, #f8f4ec 0%, #f5f0e7 42%, #efe6d5 100%);
+    radial-gradient(circle at top left, rgba(0, 212, 255, 0.16), transparent 28%),
+    radial-gradient(circle at top right, rgba(122, 56, 255, 0.18), transparent 24%),
+    linear-gradient(180deg, #040b16 0%, #071120 42%, #091629 100%);
 }
 
 body {
   min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(0, 153, 255, 0.08), transparent 36%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
   color: var(--ink);
-  font-family: var(--font-sans);
+  font-family: var(--font-brand);
 }
 
 a {
@@ -58,6 +66,107 @@ textarea {
   font: inherit;
 }
 
-::selection {
-  background: rgba(12, 122, 90, 0.22);
+.brand-panel {
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0)),
+    var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.brand-panel-soft {
+  border: 1px solid var(--line);
+  background: var(--panel-strong);
+  box-shadow: var(--shadow);
+}
+
+.brand-panel-highlight {
+  border: 1px solid color-mix(in srgb, var(--ai-border-strong) 85%, transparent);
+  background:
+    radial-gradient(circle at top left, rgba(0, 212, 255, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
+    var(--ai-surface-soft);
+  box-shadow: var(--shadow);
+}
+
+.brand-button-primary {
+  border: 1px solid transparent;
+  background: var(--ai-gradient-button);
+  color: var(--ai-text);
+  box-shadow: var(--ai-shadow-glow);
+}
+
+.brand-button-primary:hover {
+  filter: brightness(1.08);
+}
+
+.brand-button-secondary {
+  border: 1px solid var(--line);
+  background: var(--panel-strong);
+  color: var(--ink);
+}
+
+.brand-button-secondary:hover {
+  border-color: var(--ai-border-strong);
+  background: var(--ai-surface-hover);
+}
+
+.brand-input {
+  border: 1px solid var(--line);
+  background: var(--panel-strong);
+  color: var(--ink);
+}
+
+.brand-input::placeholder {
+  color: var(--ai-text-muted);
+}
+
+.brand-eyebrow {
+  color: var(--ai-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.brand-link {
+  color: var(--ai-cyan);
+}
+
+.brand-link:hover {
+  color: var(--ai-text);
+}
+
+.brand-status-success {
+  border: 1px solid color-mix(in srgb, var(--ai-success) 32%, transparent);
+  background: color-mix(in srgb, var(--ai-success) 14%, transparent);
+  color: var(--ai-success);
+}
+
+.brand-status-warning {
+  border: 1px solid color-mix(in srgb, var(--ai-warning) 34%, transparent);
+  background: color-mix(in srgb, var(--ai-warning) 14%, transparent);
+  color: var(--ai-warning);
+}
+
+.brand-status-danger {
+  border: 1px solid color-mix(in srgb, var(--ai-danger) 34%, transparent);
+  background: color-mix(in srgb, var(--ai-danger) 12%, transparent);
+  color: var(--ai-danger);
+}
+
+.brand-status-muted {
+  border: 1px solid color-mix(in srgb, var(--ai-text-muted) 28%, transparent);
+  background: color-mix(in srgb, var(--ai-text-muted) 10%, transparent);
+  color: var(--ai-text-secondary);
+}
+
+.brand-button-primary:focus-visible,
+.brand-button-secondary:focus-visible,
+.brand-input:focus-visible,
+a:focus-visible,
+button:focus-visible {
+  outline: 0;
+  box-shadow: var(--ai-shadow-focus, 0 0 0 3px rgba(76, 104, 255, 0.32));
 }
