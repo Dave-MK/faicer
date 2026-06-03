@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build --turbopack",
-    "start": "next start --turbopack",
+    "start": "next start",
     "lint": "eslint .",
     "test": "vitest run",
     "test:e2e": "node scripts/run-playwright.mjs",

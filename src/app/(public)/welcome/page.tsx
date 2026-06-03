@@ -1,99 +1,193 @@
 import Link from "next/link";
-import { AILedgerLogo } from "@/components/AILedgerLogo";
+import { AppIcon } from "@/components/AppIcons";
+import { PublicChrome } from "@/components/PublicChrome";
 import { getSessionSnapshot } from "@/lib/auth/session";
-import { getAuthMode, isSupabaseAuthEnabled } from "@/lib/config/env";
+
+const featureCards = [
+  {
+    title: "Capture AI Activity",
+    copy: "Automatically collect and centralize AI use across tools and teams.",
+  },
+  {
+    title: "Enforce Policy",
+    copy: "Apply guardrails and controls that reflect your risk posture.",
+  },
+  {
+    title: "Prove Compliance",
+    copy: "Generate audit-ready evidence and maintain continuous compliance.",
+  },
+  {
+    title: "Build Trust",
+    copy: "Demonstrate responsible AI use to stakeholders, auditors, and customers.",
+  },
+];
+
+const trustLogos = [
+  "Acme Global",
+  "TrustBank",
+  "Nexus Cloud",
+  "DataCore",
+  "Vertex Systems",
+];
 
 export default async function WelcomePage() {
   const session = await getSessionSnapshot();
-  const supabaseEnabled = isSupabaseAuthEnabled();
-  const authMode = getAuthMode();
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-12 px-6 py-10 lg:px-10">
-      <section className="brand-panel overflow-hidden rounded-[2rem] p-8 sm:p-10">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-3xl space-y-6">
-            <AILedgerLogo
-              variant="lockup"
-              tone="gradient"
-              className="h-auto w-full max-w-[20rem] sm:max-w-[24rem]"
-              priority
-            />
-            <p className="brand-eyebrow">
-              AI Ledger Milestones 0 to 2
-            </p>
-            <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
-              Mock-first governance scaffold for smaller teams using AI.
+    <PublicChrome current="/welcome">
+      <section className="grid gap-8 px-5 py-8 lg:grid-cols-[1.08fr_0.92fr] lg:px-7 lg:py-8">
+        <div className="space-y-8">
+          <div className="space-y-5">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(76,104,255,0.34)] bg-[rgba(19,36,61,0.9)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--ai-cyan)]">
+              <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-[rgba(0,212,255,0.14)] text-[var(--ai-cyan)]">
+                <AppIcon name="shield" className="h-3 w-3" />
+              </span>
+              AI governance platform
+            </span>
+            <h1 className="max-w-[620px] text-[3.55rem] font-semibold leading-[1.04] tracking-[-0.04em] text-white">
+              Governance. Evidence. Trust.
             </h1>
-            <p className="max-w-2xl text-lg leading-8 text-muted">
-              This foundation now covers the auth, tenancy, and first tool-register
-              workflow. It still runs comfortably on mock data in local development,
-              with Supabase SSR utilities and SQL migrations ready for the hosted path.
+            <p className="max-w-[560px] text-xl leading-8 text-[var(--ai-text-secondary)]">
+              Record and govern AI use across your organization. AI Ledger helps
+              security, risk, and compliance teams capture activity, manage
+              policy, and prove accountability.
             </p>
           </div>
-          <div className="brand-panel-soft max-w-sm rounded-3xl px-5 py-5 text-sm text-muted">
-            <p className="brand-eyebrow">Current mode</p>
-            <p className="mt-3 leading-7 text-ink">
-              {session
-                ? `Signed in as ${session.email}`
-                : supabaseEnabled
-                  ? "Live Supabase project connected"
-                  : authMode === "mock"
-                    ? "Mock auth enabled for local development"
-                    : "Mock mode with no external services required"}
+
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href={session ? "/dashboard" : "/sign-up"}
+              className="brand-button-primary inline-flex items-center rounded-xl px-5 py-3.5 text-sm font-semibold transition"
+            >
+              {session ? "Open dashboard" : "Get Started"}
+            </Link>
+            <Link
+              href="/pricing"
+              className="brand-button-secondary inline-flex items-center rounded-xl px-5 py-3.5 text-sm font-semibold transition"
+            >
+              Request a Demo
+            </Link>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            {featureCards.map((card) => (
+              <article
+                key={card.title}
+                className="brand-panel-soft rounded-[22px] px-5 py-5"
+              >
+                <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-[rgba(76,104,255,0.16)] text-[var(--ai-cyan)]">
+                  <AppIcon name="controls" className="h-5 w-5" />
+                </div>
+                <h2 className="text-lg font-semibold text-white">{card.title}</h2>
+                <p className="mt-2 text-sm leading-7 text-[var(--ai-text-secondary)]">
+                  {card.copy}
+                </p>
+              </article>
+            ))}
+          </div>
+
+          <div className="brand-panel-soft rounded-[22px] px-5 py-5">
+            <p className="text-sm text-[var(--ai-text-secondary)]">
+              Trusted by security, risk, and compliance teams
             </p>
+            <div className="mt-4 flex flex-wrap gap-x-8 gap-y-3 text-sm font-medium text-white/86">
+              {trustLogos.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
           </div>
         </div>
-      </section>
 
-      <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-        <div className="brand-panel rounded-[2rem] p-8">
-          <div className="space-y-5">
-            <h2 className="text-2xl font-semibold">What is included</h2>
-            <ul className="grid gap-4 text-muted">
-              <li className="brand-panel-soft rounded-2xl px-4 py-4">
-                {supabaseEnabled
-                  ? "Supabase Auth-backed sign-in and sign-up with the same role-aware workspace shell."
-                  : "Role-aware mock authentication with owner, admin, and staff demo users."}
-              </li>
-              <li className="brand-panel-soft rounded-2xl px-4 py-4">
-                Organisation workspace shell, permission helpers, and audit event
-                plumbing, now extended into the tool register.
-              </li>
-              <li className="brand-panel-soft rounded-2xl px-4 py-4">
-                Supabase SSR client utilities, `src/proxy.ts`, migrations,
-                seed placeholders, and test harness setup.
-              </li>
-            </ul>
-          </div>
-        </div>
+        <div className="brand-panel-highlight rounded-[28px] p-5 lg:p-6">
+          <div className="overflow-hidden rounded-[24px] border border-[rgba(42,75,115,0.64)] bg-[linear-gradient(180deg,#071120_0%,#091527_100%)]">
+            <div className="flex items-center justify-between border-b border-[var(--ai-border)] px-4 py-3">
+              <div className="flex items-center gap-3">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[rgba(17,31,54,0.88)]">
+                  <AppIcon name="overview" className="h-4 w-4 text-[var(--ai-cyan)]" />
+                </span>
+                <div>
+                  <p className="text-sm font-semibold text-white">AI Ledger</p>
+                  <p className="text-xs text-[var(--ai-text-muted)]">Acme Global</p>
+                </div>
+              </div>
+              <AppIcon name="chevron" className="h-4 w-4 text-[var(--ai-text-muted)]" />
+            </div>
 
-        <div className="brand-panel-highlight rounded-[2rem] p-8 text-white">
-          <div className="space-y-5">
-            <p className="brand-eyebrow">Trusted start</p>
-            <h2 className="text-2xl font-semibold">Get moving</h2>
-            <p className="leading-7 text-[var(--ai-text-secondary)]">
-              Explore the app shell, use one of the seeded demo users, and start
-              recording AI tools with review dates and approval states before we
-              move on to use cases and policy generation.
-            </p>
-            <div className="flex flex-col gap-3">
-              <Link
-                href={session ? "/dashboard" : "/sign-in"}
-                className="brand-button-primary inline-flex items-center justify-center rounded-full px-5 py-3 font-medium transition"
-              >
-                {session ? "Open dashboard" : "Sign in with demo users"}
-              </Link>
-              <Link
-                href="/docs"
-                className="brand-button-secondary inline-flex items-center justify-center rounded-full px-5 py-3 font-medium transition"
-              >
-                Review implementation notes
-              </Link>
+            <div className="grid gap-4 p-4">
+              <div className="grid gap-4 md:grid-cols-[1.1fr_0.9fr]">
+                <div className="brand-panel-soft rounded-[22px] px-5 py-5">
+                  <p className="text-sm text-[var(--ai-text-secondary)]">Governance Health</p>
+                  <div className="mt-5 flex items-center gap-5">
+                    <div className="dashboard-ring h-32 w-32">
+                      <div className="text-center">
+                        <p className="text-4xl font-semibold text-white">91</p>
+                        <p className="text-sm text-[var(--ai-text-secondary)]">/100</p>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <p className="text-base font-semibold text-[var(--ai-success)]">
+                        Excellent
+                      </p>
+                      <p className="text-sm text-[var(--ai-success)]">+16 vs last 30 days</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid gap-4">
+                  {[
+                    ["Policies", "156"],
+                    ["Controls", "412"],
+                    ["Evidence Items", "3,677"],
+                  ].map(([label, value]) => (
+                    <article
+                      key={label}
+                      className="brand-panel-soft rounded-[22px] px-5 py-4"
+                    >
+                      <p className="text-sm text-[var(--ai-text-secondary)]">{label}</p>
+                      <p className="mt-2 text-3xl font-semibold text-white">{value}</p>
+                      <p className="mt-1 text-sm text-[var(--ai-success)]">+ 18%</p>
+                    </article>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-[1fr_1fr]">
+                <article className="brand-panel-soft rounded-[22px] px-5 py-5">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-lg font-semibold text-white">Evidence Status</p>
+                      <p className="mt-1 text-sm text-[var(--ai-text-secondary)]">
+                        Total evidence items
+                      </p>
+                    </div>
+                    <p className="text-xl font-semibold text-white">3,677</p>
+                  </div>
+                  <div className="mt-4 h-3 rounded-full bg-[rgba(20,33,57,0.92)]">
+                    <div className="h-3 w-[72%] rounded-full bg-[linear-gradient(90deg,#00d4ff_0%,#1c65ff_100%)]" />
+                  </div>
+                </article>
+
+                <article className="brand-panel-soft rounded-[22px] px-5 py-5">
+                  <div className="flex items-center gap-5">
+                    <div className="dashboard-ring h-28 w-28">
+                      <div className="text-center">
+                        <p className="text-3xl font-semibold text-white">83%</p>
+                        <p className="text-sm text-[var(--ai-text-secondary)]">Overall</p>
+                      </div>
+                    </div>
+                    <div className="space-y-2 text-sm text-[var(--ai-text-secondary)]">
+                      <p>Data Privacy 91%</p>
+                      <p>Access Control 86%</p>
+                      <p>Vendor Management 80%</p>
+                      <p>Change Management 76%</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
             </div>
           </div>
         </div>
       </section>
-    </main>
+    </PublicChrome>
   );
 }

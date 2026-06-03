@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { AppIcon } from "@/components/AppIcons";
 import { AILedgerLogo } from "@/components/AILedgerLogo";
+import { AuthShell } from "@/components/PublicChrome";
 import { signUpAction } from "@/app/actions/auth";
 import { getAuthMode, isSupabaseAuthEnabled } from "@/lib/config/env";
 
@@ -34,56 +36,61 @@ export default async function SignUpPage({
   const errorMessage = getErrorMessage(params.error);
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-4xl items-center px-6 py-10 lg:px-10">
-      <section className="brand-panel w-full rounded-[2rem] p-8">
-        <div className="space-y-5">
-          <AILedgerLogo
-            variant="lockup"
-            tone="gradient"
-            className="h-auto w-full max-w-[17rem]"
-            priority
-          />
-          <p className="brand-eyebrow">
-            {supabaseEnabled ? "Supabase onboarding" : "Mock onboarding"}
-          </p>
-          <h1 className="text-3xl font-semibold">Create a mock account</h1>
-          <p className="max-w-2xl text-muted">
-            {supabaseEnabled
-              ? "Create a real auth user in Supabase. Use a real email you can access, because this project sends a confirmation email before the account can sign in."
-              : authMode === "mock"
-                ? "Local development is currently using mock auth. This creates an in-memory user and workspace so you can keep building."
-                : "This flow creates an in-memory user and a starter organisation so we can exercise Milestone 1 paths without a live Supabase project."}
-          </p>
-        </div>
+    <AuthShell
+      title="Get started with AI Ledger"
+      subtitle="Sign up"
+      lead="Create your account and start governing AI use across your organization."
+      points={[
+        "Quick setup",
+        "No credit card required",
+        "Start in minutes",
+      ]}
+    >
+      <div className="mx-auto max-w-[460px] rounded-[26px] border border-[var(--ai-border)] bg-[linear-gradient(180deg,rgba(11,23,42,0.98),rgba(8,17,31,0.98))] p-7 shadow-[0_16px_46px_rgba(1,8,20,0.38)]">
+        <AILedgerLogo
+          variant="lockup"
+          tone="on-dark"
+          className="h-auto w-[150px]"
+          priority
+        />
+        <h1 className="mt-8 text-[2rem] font-semibold text-white">Create your account</h1>
+        <p className="mt-2 text-sm leading-7 text-[var(--ai-text-secondary)]">
+          Already have an account?{" "}
+          <Link href="/sign-in" className="font-medium text-[var(--ai-blue)]">
+            Log in
+          </Link>
+        </p>
 
         {errorMessage ? (
-          <div className="brand-status-danger mt-6 rounded-2xl px-4 py-4 text-sm">
+          <div className="brand-status-danger mt-5 rounded-2xl px-4 py-4 text-sm">
             {errorMessage}
           </div>
         ) : null}
 
-        <form action={signUpAction} className="mt-8 grid gap-4 md:grid-cols-2">
-          <label className="block space-y-2 md:col-span-1">
-            <span className="text-sm font-medium text-ink">Your name</span>
+        <form action={signUpAction} className="mt-6 space-y-4">
+          <label className="block space-y-2">
+            <span className="text-sm font-medium text-white">Full name</span>
             <input
               type="text"
               name="displayName"
               required
+              placeholder="Jane Cooper"
               className="brand-input w-full rounded-2xl px-4 py-3 outline-none transition"
             />
           </label>
-          <label className="block space-y-2 md:col-span-1">
-            <span className="text-sm font-medium text-ink">Email</span>
+          <label className="block space-y-2">
+            <span className="text-sm font-medium text-white">Work email</span>
             <input
               type="email"
               name="email"
               required
+              placeholder="you@company.com"
               className="brand-input w-full rounded-2xl px-4 py-3 outline-none transition"
             />
           </label>
           {supabaseEnabled ? (
-            <label className="block space-y-2 md:col-span-2">
-              <span className="text-sm font-medium text-ink">Password</span>
+            <label className="block space-y-2">
+              <span className="text-sm font-medium text-white">Password</span>
               <input
                 type="password"
                 name="password"
@@ -93,31 +100,54 @@ export default async function SignUpPage({
               />
             </label>
           ) : (
-            <label className="block space-y-2 md:col-span-2">
-              <span className="text-sm font-medium text-ink">Organisation name</span>
+            <label className="block space-y-2">
+              <span className="text-sm font-medium text-white">Company name</span>
               <input
                 type="text"
                 name="organisationName"
                 required
+                placeholder="Acme Global"
                 className="brand-input w-full rounded-2xl px-4 py-3 outline-none transition"
               />
             </label>
           )}
+
+          <label className="flex items-start gap-3 rounded-2xl border border-[var(--ai-border)] bg-[rgba(7,17,32,0.62)] px-4 py-3 text-sm text-[var(--ai-text-secondary)]">
+            <input type="checkbox" required className="mt-1 h-4 w-4 rounded border-[var(--ai-border)] bg-transparent" />
+            <span>
+              I agree to the Terms of Service and Privacy Policy.
+            </span>
+          </label>
+
           <button
             type="submit"
-            className="brand-button-primary inline-flex items-center justify-center rounded-full px-5 py-3 font-medium transition md:col-span-2"
+            className="brand-button-primary inline-flex w-full items-center justify-center rounded-xl px-5 py-3.5 text-sm font-semibold transition"
           >
-            {supabaseEnabled ? "Create account" : "Create account and workspace"}
+            {supabaseEnabled ? "Sign up" : "Create account and workspace"}
           </button>
         </form>
 
-        <p className="mt-5 text-sm text-muted">
-          Already have access?{" "}
-          <Link className="brand-link font-medium" href="/sign-in">
-            Go to sign in
-          </Link>
+        <div className="my-5 flex items-center gap-4">
+          <span className="h-px flex-1 bg-[var(--ai-border)]" />
+          <span className="text-xs uppercase tracking-[0.22em] text-[var(--ai-text-muted)]">
+            or
+          </span>
+          <span className="h-px flex-1 bg-[var(--ai-border)]" />
+        </div>
+
+        <button className="brand-button-secondary inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition">
+          <AppIcon name="shield" className="h-4 w-4" />
+          Sign up with SSO
+        </button>
+
+        <p className="mt-6 text-sm text-[var(--ai-text-secondary)]">
+          {supabaseEnabled
+            ? "Create a real auth user in Supabase. Use a real email you can access because confirmation email may be required before sign-in."
+            : authMode === "mock"
+              ? "Local development is using mock auth, so this will create a local account and starter workspace immediately."
+              : "This flow uses mock data so we can validate onboarding before rolling into hosted auth."}
         </p>
-      </section>
-    </main>
+      </div>
+    </AuthShell>
   );
 }

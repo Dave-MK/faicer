@@ -2,34 +2,42 @@ import Image from "next/image";
 
 type LogoProps = {
   variant?: "lockup" | "mark";
-  tone?: "gradient" | "white" | "dark";
+  tone?: "gradient" | "white" | "dark" | "on-dark" | "app-dark" | "app-light";
   className?: string;
   priority?: boolean;
 };
 
-/**
- * Locked AI Ledger logo component.
- *
- * The wordmark text is intentionally hardcoded in the supplied SVG asset.
- * Do not add a productName prop and do not replace the asset with dynamic text.
- */
+const logoSources = {
+  lockup: {
+    gradient: "/brand/ai-ledger-lockup-gradient.svg",
+    white: "/brand/ai-ledger-lockup-white.svg",
+    dark: "/brand/ai-ledger-lockup-dark.svg",
+    "on-dark": "/brand/ai-ledger-lockup-on-dark.svg",
+    "app-dark": "/brand/ai-ledger-lockup-on-dark.svg",
+    "app-light": "/brand/ai-ledger-lockup-dark.svg",
+  },
+  mark: {
+    gradient: "/brand/ai-ledger-mark-gradient.svg",
+    white: "/brand/ai-ledger-mark-white.svg",
+    dark: "/brand/ai-ledger-mark-dark.svg",
+    "on-dark": "/brand/ai-ledger-mark-white.svg",
+    "app-dark": "/brand/ai-ledger-mark-app-dark.svg",
+    "app-light": "/brand/ai-ledger-mark-app-light.svg",
+  },
+} as const;
+
 export function AILedgerLogo({
   variant = "lockup",
   tone = "gradient",
   className = "",
   priority = false,
 }: LogoProps) {
-  const file =
-    variant === "mark"
-      ? `/brand/ai-ledger-mark-${tone}.svg`
-      : `/brand/ai-ledger-lockup-${tone}.svg`;
-
   return (
     <Image
-      src={file}
+      src={logoSources[variant][tone]}
       alt="AI Ledger"
-      width={variant === "mark" ? 240 : 1120}
-      height={variant === "mark" ? 230 : 260}
+      width={variant === "lockup" ? 288 : 64}
+      height={variant === "lockup" ? 64 : 64}
       className={className}
       priority={priority}
     />

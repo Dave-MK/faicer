@@ -1,36 +1,87 @@
-import { promises as fs } from "node:fs";
-import path from "node:path";
-import { AILedgerLogo } from "@/components/AILedgerLogo";
+import { PublicChrome } from "@/components/PublicChrome";
 
-export default async function DocsPage() {
-  const docPath = path.join(process.cwd(), "docs", "implementation-research.md");
-  const content = await fs.readFile(docPath, "utf8");
+const publicCards = [
+  { title: "Landing page", href: "/welcome" },
+  { title: "Pricing page", href: "/pricing" },
+  { title: "Log in page", href: "/sign-in" },
+  { title: "Sign up page", href: "/sign-up" },
+  { title: "Password reset page", href: "/reset-password" },
+];
 
+const appCards = [
+  { title: "Organisation setup / onboarding", href: "/setup/organisation" },
+  { title: "AI tool register list", href: "/tools" },
+  { title: "Tool detail page", href: "/tools/tool-chatgpt-brightforge" },
+  { title: "AI use cases list", href: "/use-cases" },
+  { title: "Governance workflows", href: "/governance" },
+  { title: "Evidence & operations suite", href: "/evidence" },
+];
+
+function PreviewFrame({ title, href }: { title: string; href: string }) {
   return (
-    <main className="mx-auto min-h-screen w-full max-w-5xl px-6 py-10 lg:px-10">
-      <section className="brand-panel rounded-[2rem] p-8">
-        <div className="mb-8 space-y-4">
-          <AILedgerLogo
-            variant="lockup"
-            tone="gradient"
-            className="h-auto w-full max-w-[18rem]"
-            priority
+    <article className="space-y-4">
+      <div className="flex items-center gap-3">
+        <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[linear-gradient(135deg,#1243d6_0%,#1c65ff_100%)] text-base font-semibold text-white">
+          {title[0]}
+        </span>
+        <div>
+          <p className="text-lg font-semibold text-white">{title}</p>
+          <p className="text-sm text-[var(--ai-text-secondary)]">{href}</p>
+        </div>
+      </div>
+      <div className="overflow-hidden rounded-[24px] border border-[var(--ai-border)] bg-[rgba(7,17,32,0.9)] p-3">
+        <div className="overflow-hidden rounded-[18px] border border-[rgba(42,75,115,0.56)] bg-[#071120]">
+          <iframe
+            src={href}
+            title={title}
+            className="h-[430px] w-full bg-[#071120]"
           />
-          <p className="brand-eyebrow">
-            Documentation
+        </div>
+      </div>
+    </article>
+  );
+}
+
+export default function DocsPage() {
+  return (
+    <PublicChrome current="/docs">
+      <section className="space-y-12 px-5 py-8 lg:px-7 lg:py-8">
+        <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr] lg:items-start">
+          <div className="space-y-3">
+            <p className="brand-eyebrow">Public & app pages</p>
+            <h1 className="text-5xl font-semibold tracking-[-0.04em] text-white">
+              Design system overview
+            </h1>
+          </div>
+          <p className="max-w-[520px] text-lg leading-8 text-[var(--ai-text-secondary)] lg:justify-self-end">
+            A cohesive set of public, authentication, and product pages built with
+            the AI Ledger design system and aligned to the current application
+            functionality.
           </p>
-          <h1 className="text-3xl font-semibold">Implementation research</h1>
         </div>
 
-        <section
-          data-theme="light-surface"
-          className="rounded-[1.75rem] border border-[var(--panel-border)] bg-[var(--panel-bg)] p-6 shadow-[var(--ai-shadow-panel)]"
-        >
-          <pre className="overflow-x-auto whitespace-pre-wrap text-sm leading-7 text-[var(--copy-secondary)]">
-            {content}
-          </pre>
+        <section className="space-y-6">
+          <p className="text-sm font-semibold uppercase tracking-[0.26em] text-[var(--ai-cyan)]">
+            1. Public & auth pages
+          </p>
+          <div className="grid gap-8 xl:grid-cols-2">
+            {publicCards.map((card) => (
+              <PreviewFrame key={card.href} title={card.title} href={card.href} />
+            ))}
+          </div>
+        </section>
+
+        <section className="space-y-6">
+          <p className="text-sm font-semibold uppercase tracking-[0.26em] text-[var(--ai-cyan)]">
+            2. Core app workflow
+          </p>
+          <div className="grid gap-8 xl:grid-cols-2">
+            {appCards.map((card) => (
+              <PreviewFrame key={card.href} title={card.title} href={card.href} />
+            ))}
+          </div>
         </section>
       </section>
-    </main>
+    </PublicChrome>
   );
 }

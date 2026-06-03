@@ -2,11 +2,11 @@ import { expect, test } from "@playwright/test";
 
 test("owner can create a tool record in mock mode", async ({ page }) => {
   await page.goto("/sign-in");
-  await page.getByLabel("Email").fill("owner@brightforge.test");
+  await page.getByLabel("Email address").fill("owner@brightforge.test");
   await page.getByRole("button", { name: "Sign in with mock access" }).click();
 
   await page.waitForURL("**/dashboard");
-  await page.getByRole("link", { name: "Add AI tool" }).click();
+  await page.getByRole("link", { name: "Add tool" }).click();
 
   await page.waitForURL("**/tools/new");
   await page.getByLabel("Tool name").fill("Perplexity Pro");

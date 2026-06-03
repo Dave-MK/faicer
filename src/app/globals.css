@@ -4,15 +4,12 @@
   --canvas: var(--page-bg, #071120);
   --panel: var(--panel-bg, #0b172a);
   --panel-strong: var(--panel-raised, #101f36);
+  --panel-soft: var(--ai-surface-soft, #13243d);
   --ink: var(--copy, #ffffff);
   --muted: var(--copy-secondary, #a7b6cd);
   --line: var(--panel-border, #203552);
   --accent: var(--ai-blue, #0099ff);
   --accent-strong: var(--ai-indigo, #4c68ff);
-  --accent-soft: color-mix(in srgb, var(--ai-cyan) 18%, transparent);
-  --warning: var(--ai-warning, #ffb020);
-  --danger: var(--ai-danger, #ff5a63);
-  --success: var(--ai-success, #24d17e);
   --shadow: var(--ai-shadow-panel, 0 12px 36px rgba(0, 0, 0, 0.24));
 }
 
@@ -25,10 +22,6 @@
   --color-line: var(--line);
   --color-accent: var(--accent);
   --color-accent-strong: var(--accent-strong);
-  --color-accent-soft: var(--accent-soft);
-  --color-warning: var(--warning);
-  --color-danger: var(--danger);
-  --color-success: var(--success);
   --font-sans: var(--font-brand);
   --font-mono: "Cascadia Mono", "SFMono-Regular", ui-monospace, monospace;
 }
@@ -40,16 +33,16 @@
 html {
   min-height: 100%;
   background:
-    radial-gradient(circle at top left, rgba(0, 212, 255, 0.16), transparent 28%),
-    radial-gradient(circle at top right, rgba(122, 56, 255, 0.18), transparent 24%),
-    linear-gradient(180deg, #040b16 0%, #071120 42%, #091629 100%);
+    radial-gradient(circle at top left, rgba(0, 212, 255, 0.12), transparent 24%),
+    radial-gradient(circle at top right, rgba(122, 56, 255, 0.12), transparent 24%),
+    linear-gradient(180deg, #030814 0%, #06101d 34%, #071120 100%);
 }
 
 body {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top, rgba(0, 153, 255, 0.08), transparent 36%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+    radial-gradient(circle at top, rgba(0, 153, 255, 0.08), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0));
   color: var(--ink);
   font-family: var(--font-brand);
 }
@@ -69,31 +62,31 @@ textarea {
 .brand-panel {
   border: 1px solid var(--line);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
     var(--panel);
   box-shadow: var(--shadow);
 }
 
 .brand-panel-soft {
-  border: 1px solid var(--line);
-  background: var(--panel-strong);
-  box-shadow: var(--shadow);
+  border: 1px solid color-mix(in srgb, var(--line) 92%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
+    var(--panel-strong);
 }
 
 .brand-panel-highlight {
-  border: 1px solid color-mix(in srgb, var(--ai-border-strong) 85%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ai-border-strong) 84%, transparent);
   background:
-    radial-gradient(circle at top left, rgba(0, 212, 255, 0.12), transparent 34%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
+    radial-gradient(circle at top left, rgba(0, 212, 255, 0.08), transparent 32%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0)),
     var(--ai-surface-soft);
-  box-shadow: var(--shadow);
 }
 
 .brand-button-primary {
   border: 1px solid transparent;
-  background: var(--ai-gradient-button);
-  color: var(--ai-text);
-  box-shadow: var(--ai-shadow-glow);
+  background: linear-gradient(135deg, #1243d6 0%, #1c65ff 100%);
+  color: #fff;
+  box-shadow: 0 18px 40px rgba(28, 101, 255, 0.25);
 }
 
 .brand-button-primary:hover {
@@ -101,19 +94,19 @@ textarea {
 }
 
 .brand-button-secondary {
-  border: 1px solid var(--line);
-  background: var(--panel-strong);
+  border: 1px solid color-mix(in srgb, var(--ai-border-strong) 72%, transparent);
+  background: rgba(7, 17, 32, 0.72);
   color: var(--ink);
 }
 
 .brand-button-secondary:hover {
   border-color: var(--ai-border-strong);
-  background: var(--ai-surface-hover);
+  background: rgba(19, 36, 61, 0.82);
 }
 
 .brand-input {
-  border: 1px solid var(--line);
-  background: var(--panel-strong);
+  border: 1px solid color-mix(in srgb, var(--ai-border-strong) 72%, transparent);
+  background: rgba(7, 17, 32, 0.74);
   color: var(--ink);
 }
 
@@ -123,43 +116,120 @@ textarea {
 
 .brand-eyebrow {
   color: var(--ai-cyan);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.74rem;
   font-weight: 600;
   letter-spacing: 0.28em;
   text-transform: uppercase;
 }
 
 .brand-link {
-  color: var(--ai-cyan);
+  color: var(--ai-blue);
 }
 
 .brand-link:hover {
-  color: var(--ai-text);
+  color: #fff;
 }
 
 .brand-status-success {
-  border: 1px solid color-mix(in srgb, var(--ai-success) 32%, transparent);
-  background: color-mix(in srgb, var(--ai-success) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ai-success) 30%, transparent);
+  background: color-mix(in srgb, var(--ai-success) 13%, transparent);
   color: var(--ai-success);
 }
 
 .brand-status-warning {
-  border: 1px solid color-mix(in srgb, var(--ai-warning) 34%, transparent);
-  background: color-mix(in srgb, var(--ai-warning) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ai-warning) 32%, transparent);
+  background: color-mix(in srgb, var(--ai-warning) 12%, transparent);
   color: var(--ai-warning);
 }
 
 .brand-status-danger {
-  border: 1px solid color-mix(in srgb, var(--ai-danger) 34%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ai-danger) 32%, transparent);
   background: color-mix(in srgb, var(--ai-danger) 12%, transparent);
   color: var(--ai-danger);
 }
 
+.brand-status-info {
+  border: 1px solid color-mix(in srgb, var(--ai-info) 32%, transparent);
+  background: color-mix(in srgb, var(--ai-info) 12%, transparent);
+  color: var(--ai-info);
+}
+
 .brand-status-muted {
-  border: 1px solid color-mix(in srgb, var(--ai-text-muted) 28%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ai-text-muted) 26%, transparent);
   background: color-mix(in srgb, var(--ai-text-muted) 10%, transparent);
   color: var(--ai-text-secondary);
+}
+
+.ui-divider {
+  border-color: color-mix(in srgb, var(--ai-border) 88%, transparent);
+}
+
+.dashboard-ring {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at center, rgba(7, 17, 32, 1) 56%, transparent 56%),
+    conic-gradient(
+      from -90deg,
+      var(--ai-cyan) 0deg,
+      var(--ai-blue) 145deg,
+      var(--ai-violet) 255deg,
+      rgba(17, 30, 52, 0.95) 255deg,
+      rgba(17, 30, 52, 0.95) 360deg
+    );
+}
+
+.dashboard-ring::after {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, #071120, #081326);
+  box-shadow: inset 0 0 0 1px rgba(42, 75, 115, 0.55);
+}
+
+.dashboard-ring > * {
+  position: relative;
+  z-index: 1;
+}
+
+.table-shell {
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid color-mix(in srgb, var(--ai-border) 88%, transparent);
+  background: rgba(8, 17, 31, 0.75);
+}
+
+.table-shell table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-shell th,
+.table-shell td {
+  border-bottom: 1px solid rgba(32, 53, 82, 0.72);
+  padding: 14px 18px;
+  text-align: left;
+}
+
+.table-shell th {
+  color: var(--ai-text-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.table-shell td {
+  color: var(--ai-text-secondary);
+  font-size: 0.94rem;
+}
+
+.table-shell tr:last-child td {
+  border-bottom: 0;
 }
 
 .brand-button-primary:focus-visible,
@@ -168,5 +238,5 @@ textarea {
 a:focus-visible,
 button:focus-visible {
   outline: 0;
-  box-shadow: var(--ai-shadow-focus, 0 0 0 3px rgba(76, 104, 255, 0.32));
+  box-shadow: 0 0 0 3px rgba(76, 104, 255, 0.3);
 }

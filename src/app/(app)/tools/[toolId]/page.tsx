@@ -1,6 +1,12 @@
 import { redirect } from "next/navigation";
 import { AppShell } from "@/app/(app)/_components/app-shell";
+import {
+  RingScore,
+  StatusPill,
+  WorkspacePanel,
+} from "@/app/(app)/_components/workspace-primitives";
 import { updateToolAction } from "@/app/actions/tools";
+import { AppIcon } from "@/components/AppIcons";
 import { requireWorkspaceContext } from "@/lib/auth/workspace";
 import { isSupabaseAuthEnabled } from "@/lib/config/env";
 import { findMockToolById, listMockAuditEvents } from "@/lib/data/mock-registry";
@@ -78,20 +84,29 @@ export default async function ToolDetailPage({
   }
 
   const approval = getToolApprovalMeta(detail.tool.approvalStatus);
+  const riskScore =
+    detail.tool.approvalStatus === "approved"
+      ? 34
+      : detail.tool.approvalStatus === "restricted"
+        ? 62
+        : 86;
+  const riskLabel =
+    detail.tool.approvalStatus === "approved"
+      ? "Low"
+      : detail.tool.approvalStatus === "restricted"
+        ? "Moderate"
+        : "High";
 
   return (
     <AppShell
-      current="tools"
+      current="register"
       organisationName={context.organisation.name}
       userDisplayName={context.user.displayName}
       role={context.membership.role}
-      eyebrow="AI tool detail"
-      title={detail.tool.name}
-      description={`${detail.tool.vendor} - ${getToolCategoryLabel(detail.tool.category)}. This record now holds approval state, review timing, and audit history for the organisation.`}
     >
       {feedback ? (
         <div
-          className={`rounded-2xl px-4 py-4 text-sm ${
+          className={`mb-5 rounded-2xl px-4 py-4 text-sm ${
             feedback.tone === "error"
               ? "brand-status-danger"
               : "brand-status-success"
@@ -101,115 +116,229 @@ export default async function ToolDetailPage({
         </div>
       ) : null}
 
-      <section className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-        <article className="brand-panel rounded-[2rem] p-8">
+      <section className="mb-6 flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+        <div>
           <div className="flex flex-wrap items-center gap-3">
-            <span
-              className={`rounded-full px-3 py-1 text-xs font-semibold ${approval.tone}`}
+            <h1 className="text-[2.7rem] font-semibold tracking-[-0.04em] text-white">
+              {detail.tool.name}
+            </h1>
+            <StatusPill
+              label={approval.label}
+              tone={
+                detail.tool.approvalStatus === "approved"
+                  ? "success"
+                  : detail.tool.approvalStatus === "restricted"
+                    ? "warning"
+                    : "danger"
+              }
+            />
+          </div>
+          <p className="mt-2 text-lg text-[var(--ai-text-secondary)]">
+            {detail.tool.vendor} · {getToolCategoryLabel(detail.tool.category)}
+          </p>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-3">
+          {context.permissions.canManageOrganisation ? (
+            <a
+              href="#edit-record"
+              className="brand-button-secondary inline-flex items-center rounded-xl px-4 py-2.5 text-sm font-semibold"
             >
-              {approval.label}
-            </span>
-            <span className="brand-panel-soft rounded-full px-3 py-1 text-xs font-semibold text-ink">
-              {getToolCategoryLabel(detail.tool.category)}
+              Edit
+            </a>
+          ) : null}
+          <button
+            type="button"
+            className="brand-button-secondary inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold"
+          >
+            Actions
+            <AppIcon name="chevron" className="h-4 w-4" />
+          </button>
+        </div>
+      </section>
+
+      <div className="mb-5 flex flex-wrap gap-6 border-b border-[var(--ai-border)] pb-4 text-sm">
+        {[
+          "Overview",
+          "Use cases (6)",
+          "Assessments (2)",
+          "Controls",
+          "Evidence",
+          "Activity",
+        ].map((item, index) => (
+          <span
+            key={item}
+            className={
+              index === 0
+                ? "border-b-2 border-[var(--ai-blue)] pb-4 font-medium text-[var(--ai-blue)]"
+                : "pb-4 text-[var(--ai-text-secondary)]"
+            }
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+
+      <section className="grid gap-5 xl:grid-cols-[1.1fr_0.95fr_0.95fr]">
+        <WorkspacePanel className="xl:col-span-1">
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-white">Tool summary</h2>
+            <span className="text-xs uppercase tracking-[0.18em] text-[var(--ai-text-muted)]">
+              {formatToolReviewDate(detail.tool.lastReviewedAt)}
             </span>
           </div>
-
-          <dl className="mt-6 grid gap-4 md:grid-cols-2">
-            <div className="brand-panel-soft rounded-2xl px-4 py-4">
-              <dt className="text-sm text-muted">Vendor</dt>
-              <dd className="mt-2 text-lg font-semibold text-ink">
-                {detail.tool.vendor}
-              </dd>
-            </div>
-            <div className="brand-panel-soft rounded-2xl px-4 py-4">
-              <dt className="text-sm text-muted">Next review</dt>
-              <dd className="mt-2 text-lg font-semibold text-ink">
-                {formatToolReviewDate(detail.tool.nextReviewAt)}
-              </dd>
-            </div>
-            <div className="brand-panel-soft rounded-2xl px-4 py-4 md:col-span-2">
-              <dt className="text-sm text-muted">Website</dt>
-              <dd className="mt-2 text-sm text-ink">
+          <dl className="grid gap-4 text-sm">
+            {[
+              ["Provider", detail.tool.vendor],
+              ["Category", getToolCategoryLabel(detail.tool.category)],
+              ["Status", approval.label],
+              ["Next review", formatToolReviewDate(detail.tool.nextReviewAt)],
+            ].map(([label, value]) => (
+              <div
+                key={label}
+                className="grid grid-cols-[110px_minmax(0,1fr)] gap-4 rounded-2xl bg-[rgba(255,255,255,0.03)] px-4 py-4"
+              >
+                <dt className="text-[var(--ai-text-muted)]">{label}</dt>
+                <dd className="font-medium text-white">{value}</dd>
+              </div>
+            ))}
+            <div className="rounded-2xl bg-[rgba(255,255,255,0.03)] px-4 py-4">
+              <dt className="text-[var(--ai-text-muted)]">Website</dt>
+              <dd className="mt-2">
                 {detail.tool.websiteUrl ? (
                   <a
                     href={detail.tool.websiteUrl}
-                    className="brand-link font-medium underline-offset-4 hover:underline"
+                    className="text-[var(--ai-cyan)] transition hover:text-white"
                     target="_blank"
                     rel="noreferrer"
                   >
                     {detail.tool.websiteUrl}
                   </a>
                 ) : (
-                  "Not recorded"
+                  <span className="text-white">Not recorded</span>
                 )}
-              </dd>
-            </div>
-            <div className="brand-panel-soft rounded-2xl px-4 py-4 md:col-span-2">
-              <dt className="text-sm text-muted">Privacy policy</dt>
-              <dd className="mt-2 text-sm text-ink">
-                {detail.tool.privacyPolicyUrl ? (
-                  <a
-                    href={detail.tool.privacyPolicyUrl}
-                    className="brand-link font-medium underline-offset-4 hover:underline"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {detail.tool.privacyPolicyUrl}
-                  </a>
-                ) : (
-                  "Not recorded"
-                )}
-              </dd>
-            </div>
-            <div className="brand-panel-soft rounded-2xl px-4 py-4 md:col-span-2">
-              <dt className="text-sm text-muted">Data-processing notes</dt>
-              <dd className="mt-2 whitespace-pre-wrap text-sm leading-7 text-ink">
-                {detail.tool.dataProcessingNotes || "No data notes recorded yet."}
-              </dd>
-            </div>
-            <div className="brand-panel-soft rounded-2xl px-4 py-4 md:col-span-2">
-              <dt className="text-sm text-muted">Internal notes</dt>
-              <dd className="mt-2 whitespace-pre-wrap text-sm leading-7 text-ink">
-                {detail.tool.notes || "No internal notes recorded yet."}
               </dd>
             </div>
           </dl>
-        </article>
+        </WorkspacePanel>
 
-        <article className="brand-panel-highlight rounded-[2rem] p-8 text-white">
-          <p className="brand-eyebrow">Audit trail</p>
-          <h2 className="text-2xl font-semibold">Audit trail</h2>
-          <p className="mt-2 text-sm leading-7 text-[var(--ai-text-secondary)]">
-            Tool-level actions are recorded here so the later evidence pack has a
-            clear history of changes.
-          </p>
-          <div className="mt-6 grid gap-4">
-            {detail.auditEvents.length > 0 ? (
-              detail.auditEvents.map((event) => (
-                <article
-                  key={event.id}
-                  className="rounded-2xl border border-white/12 bg-white/5 px-4 py-4"
-                >
-                  <p className="font-semibold">{event.action}</p>
-                  <p className="mt-2 text-sm text-[var(--ai-text-secondary)]">
-                    {new Intl.DateTimeFormat("en-GB", {
-                      dateStyle: "medium",
-                      timeStyle: "short",
-                    }).format(new Date(event.createdAt))}
-                  </p>
-                </article>
-              ))
-            ) : (
-              <div className="rounded-2xl border border-white/12 bg-white/5 px-4 py-4 text-sm text-[var(--ai-text-secondary)]">
-                No tool-level audit events recorded yet.
-              </div>
-            )}
+        <WorkspacePanel>
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h2 className="text-lg font-semibold text-white">Risk overview</h2>
+              <p className="mt-2 text-sm text-[var(--ai-text-secondary)]">
+                Top risk indicators based on approval status and review hygiene.
+              </p>
+            </div>
+            <div className="shrink-0">
+              <RingScore score={String(riskScore)} label="/100" size="medium" />
+            </div>
           </div>
-        </article>
+          <div className="mt-5 space-y-3">
+            {[
+              ["Data privacy", detail.tool.privacyPolicyUrl ? "Medium" : "High"],
+              [
+                "Prompt leakage",
+                detail.tool.dataProcessingNotes ? "Medium" : "High",
+              ],
+              ["Access review", detail.tool.nextReviewAt ? riskLabel : "High"],
+              ["Accuracy", detail.tool.approvalStatus === "approved" ? "Low" : "Medium"],
+            ].map(([label, value]) => (
+              <div key={label} className="flex items-center justify-between text-sm">
+                <span className="text-[var(--ai-text-secondary)]">{label}</span>
+                <span className="text-white">{value}</span>
+              </div>
+            ))}
+          </div>
+        </WorkspacePanel>
+
+        <WorkspacePanel>
+          <h2 className="text-lg font-semibold text-white">Review & ownership</h2>
+          <div className="mt-5 space-y-4 text-sm">
+            <div className="rounded-2xl bg-[rgba(255,255,255,0.03)] px-4 py-4">
+              <p className="text-[var(--ai-text-muted)]">Owner</p>
+              <p className="mt-2 font-medium text-white">{context.user.displayName}</p>
+            </div>
+            <div className="rounded-2xl bg-[rgba(255,255,255,0.03)] px-4 py-4">
+              <p className="text-[var(--ai-text-muted)]">Review cadence</p>
+              <p className="mt-2 font-medium text-white">
+                Next review: {formatToolReviewDate(detail.tool.nextReviewAt)}
+              </p>
+            </div>
+            <div className="rounded-2xl bg-[rgba(255,255,255,0.03)] px-4 py-4">
+              <p className="text-[var(--ai-text-muted)]">Policy source</p>
+              <p className="mt-2 font-medium text-white">
+                {detail.tool.privacyPolicyUrl ? "Privacy policy recorded" : "Awaiting link"}
+              </p>
+            </div>
+          </div>
+        </WorkspacePanel>
+
+        <WorkspacePanel className="xl:col-span-2">
+          <h2 className="text-lg font-semibold text-white">Description</h2>
+          <p className="mt-4 text-sm leading-7 text-[var(--ai-text-secondary)]">
+            {detail.tool.notes ||
+              "No internal description has been recorded for this tool yet."}
+          </p>
+          <div className="mt-6 rounded-2xl bg-[rgba(255,255,255,0.03)] px-4 py-4">
+            <p className="text-sm text-[var(--ai-text-muted)]">Data processing notes</p>
+            <p className="mt-3 whitespace-pre-wrap text-sm leading-7 text-white">
+              {detail.tool.dataProcessingNotes || "No data handling notes recorded yet."}
+            </p>
+          </div>
+        </WorkspacePanel>
+
+        <WorkspacePanel>
+          <h2 className="text-lg font-semibold text-white">Key controls</h2>
+          <div className="mt-5 space-y-3">
+            {[
+              "Human review before publication",
+              "No passwords or secrets in prompts",
+              "Quarterly review and approval check",
+              "Only approved business use cases",
+            ].map((item) => (
+              <div key={item} className="flex items-start gap-3 rounded-2xl bg-[rgba(255,255,255,0.03)] px-4 py-4">
+                <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[rgba(19,231,132,0.16)] text-[var(--ai-success)]">
+                  <AppIcon name="check" className="h-3 w-3" />
+                </span>
+                <p className="text-sm text-white">{item}</p>
+              </div>
+            ))}
+          </div>
+        </WorkspacePanel>
       </section>
 
+      <WorkspacePanel className="mt-5">
+        <div className="mb-5 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-white">Activity</h2>
+          <span className="text-sm text-[var(--ai-text-secondary)]">Recent audit entries</span>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {detail.auditEvents.length > 0 ? (
+            detail.auditEvents.map((event) => (
+              <article
+                key={event.id}
+                className="rounded-2xl border border-[var(--ai-border)] bg-[rgba(255,255,255,0.03)] px-4 py-4"
+              >
+                <p className="font-medium text-white">{event.action}</p>
+                <p className="mt-2 text-sm text-[var(--ai-text-secondary)]">
+                  {new Intl.DateTimeFormat("en-GB", {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                  }).format(new Date(event.createdAt))}
+                </p>
+              </article>
+            ))
+          ) : (
+            <div className="rounded-2xl border border-[var(--ai-border)] bg-[rgba(255,255,255,0.03)] px-4 py-4 text-sm text-[var(--ai-text-secondary)]">
+              No tool-level audit events recorded yet.
+            </div>
+          )}
+        </div>
+      </WorkspacePanel>
+
       {context.permissions.canManageOrganisation ? (
-        <section className="brand-panel mt-8 rounded-[2rem] p-8">
+        <section id="edit-record" className="brand-panel mt-5 rounded-[2rem] p-8">
           <p className="brand-eyebrow">Update record</p>
           <h2 className="text-2xl font-semibold">Edit tool record</h2>
           <p className="mt-2 max-w-2xl text-muted">
@@ -325,7 +454,7 @@ export default async function ToolDetailPage({
 
             <button
               type="submit"
-              className="brand-button-primary inline-flex items-center justify-center rounded-full px-5 py-3 font-medium transition md:col-span-2"
+              className="brand-button-primary inline-flex items-center justify-center rounded-xl px-5 py-3 font-medium transition md:col-span-2"
             >
               Save changes
             </button>

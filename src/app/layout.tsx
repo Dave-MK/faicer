@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "AI Ledger",
   description: "AI governance, evidence, and trust workspace.",
   applicationName: "AI Ledger",
+  manifest: "/site.webmanifest",
 };
 
 export const viewport: Viewport = {
@@ -22,7 +23,7 @@ export default function RootLayout({
     <html lang="en" className="h-full antialiased">
       <body
         data-theme="dark-app"
-        className="min-h-full bg-canvas text-ink selection:bg-[color:rgba(0,212,255,0.24)]"
+        className="min-h-full bg-canvas text-ink selection:bg-[rgba(0,212,255,0.24)]"
       >
         {children}
       </body>
