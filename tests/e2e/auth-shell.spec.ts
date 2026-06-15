@@ -2,13 +2,13 @@ import { expect, test } from "@playwright/test";
 
 test("welcome page links to the sign-in flow", async ({ page }) => {
   await page.goto("/welcome");
-  await expect(page.getByRole("link", { name: "Get Started" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Get Started" }).first()).toBeVisible();
 });
 
 test("local sign-in page shows mock auth mode", async ({ page }) => {
   await page.goto("/sign-in");
   await expect(page.getByRole("heading", { name: "Welcome back" })).toBeVisible();
-  await expect(page.getByText("Mock authentication")).toBeVisible();
+  await expect(page.getByText("Mock authentication", { exact: true })).toBeVisible();
   await expect(
     page.getByText("Mock authentication is enabled for local development."),
   ).toBeVisible();

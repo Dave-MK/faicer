@@ -21,6 +21,8 @@ export const appNavigation = [
     icon: "assessments",
   },
   { key: "controls", label: "Controls", href: "/controls", icon: "controls" },
+  { key: "incidents", label: "Incidents", href: "/incidents", icon: "incidents" },
+  { key: "training", label: "Training", href: "/training", icon: "training" },
   { key: "reports", label: "Reports", href: "/reports", icon: "reports" },
   {
     key: "integrations",

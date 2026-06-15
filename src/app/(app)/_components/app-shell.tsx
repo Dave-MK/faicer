@@ -16,6 +16,7 @@ type AppShellProps = {
     | "risks"
     | "assessments"
     | "controls"
+    | "incidents"
     | "reports"
     | "integrations"
     | "approved-tools"

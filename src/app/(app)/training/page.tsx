@@ -1,9 +1,31 @@
+import Link from "next/link";
 import { AppShell } from "@/app/(app)/_components/app-shell";
-import { WorkspaceHeader, WorkspacePanel } from "@/app/(app)/_components/workspace-primitives";
+import {
+  StatusPill,
+  WorkspaceHeader,
+  WorkspacePanel,
+} from "@/app/(app)/_components/workspace-primitives";
+import { AppIcon } from "@/components/AppIcons";
 import { requireWorkspaceContext } from "@/lib/auth/workspace";
+import { isSupabaseAuthEnabled } from "@/lib/config/env";
+import { listMockCoursesForOrganisation, listMockCompletionsForUser } from "@/lib/data/mock-registry";
+import { listSupabaseCourses, listSupabaseCompletionsForUser } from "@/lib/supabase/training";
 
 export default async function TrainingPage() {
   const context = await requireWorkspaceContext();
+  const [courses, completions] = await Promise.all([
+    isSupabaseAuthEnabled()
+      ? listSupabaseCourses(context.organisation.id)
+      : listMockCoursesForOrganisation(context.organisation.id),
+    isSupabaseAuthEnabled()
+      ? listSupabaseCompletionsForUser(context.user.id, context.organisation.id)
+      : listMockCompletionsForUser(context.user.id, context.organisation.id),
+  ]);
+
+  const completedIds = new Set(completions.map((c) => c.courseId));
+  const myRequired = courses.filter((c) => c.requiredForRoles.includes(context.membership.role));
+  const completedCount = myRequired.filter((c) => completedIds.has(c.id)).length;
+  const progress = myRequired.length > 0 ? Math.round((completedCount / myRequired.length) * 100) : 100;
 
   return (
     <AppShell
@@ -13,43 +35,70 @@ export default async function TrainingPage() {
       role={context.membership.role}
     >
       <WorkspaceHeader
-        title="AI Literacy 101"
-        description="Great AI use starts with good judgement."
+        title="Training"
+        description="Complete required AI governance training to maintain your certification status."
+        actions={
+          context.permissions.canManageOrganisation ? (
+            <Link
+              href="/training/new"
+              className="brand-button-primary inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold"
+            >
+              <AppIcon name="plus" className="h-4 w-4" />
+              Add course
+            </Link>
+          ) : null
+        }
       />
-      <WorkspacePanel>
-        <div className="mb-5 flex items-center justify-between text-sm">
-          <span className="text-[var(--ai-text-secondary)]">Lesson 3 of 5</span>
-          <span className="text-white">60%</span>
+
+      <div className="mb-5 brand-panel rounded-[2rem] p-6">
+        <div className="flex items-center justify-between text-sm">
+          <span className="font-medium text-white">Your progress</span>
+          <span className="text-[var(--ai-cyan)]">{completedCount} / {myRequired.length} required courses complete</span>
         </div>
-        <div className="mb-6 h-2 rounded-full bg-[rgba(18,31,53,0.95)]">
-          <div className="h-2 w-[60%] rounded-full bg-[linear-gradient(90deg,#00d4ff_0%,#1c65ff_100%)]" />
+        <div className="mt-3 h-2 rounded-full bg-[rgba(18,31,53,0.95)]">
+          <div
+            className="h-2 rounded-full bg-[linear-gradient(90deg,#00d4ff_0%,#1c65ff_100%)] transition-all"
+            style={{ width: `${progress}%` }}
+          />
         </div>
-        <div className="grid gap-5 xl:grid-cols-[1.05fr_0.95fr]">
-          <div>
-            <h2 className="text-2xl font-semibold text-white">Using AI Responsibly</h2>
-            <div className="mt-5 space-y-3 text-sm">
-              {[
-                "Understand what data you can and cannot share.",
-                "Be transparent about AI use in your work.",
-                "Review AI output for accuracy and bias.",
-                "Report misuse or unexpected results.",
-              ].map((item) => (
-                <div
-                  key={item}
-                  className="rounded-2xl bg-[rgba(255,255,255,0.03)] px-4 py-4 text-white"
-                >
-                  {item}
+        <p className="mt-2 text-right text-sm font-semibold text-white">{progress}%</p>
+      </div>
+
+      <div className="grid gap-5 xl:grid-cols-2">
+        {courses.map((course) => {
+          const done = completedIds.has(course.id);
+          const required = course.requiredForRoles.includes(context.membership.role);
+          return (
+            <Link key={course.id} href={`/training/${course.id}`}
+              className="block rounded-[2rem] border border-[var(--ai-border)] bg-[rgba(255,255,255,0.025)] p-6 hover:border-[var(--ai-cyan)] transition-colors">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="font-semibold text-white">{course.title}</p>
+                  <p className="mt-1 text-sm text-[var(--ai-text-secondary)]">{course.description}</p>
                 </div>
-              ))}
-            </div>
+                {done
+                  ? <StatusPill label="Complete" tone="success" />
+                  : required
+                    ? <StatusPill label="Required" tone="warning" />
+                    : <StatusPill label="Optional" tone="muted" />}
+              </div>
+              <div className="mt-4 flex items-center gap-4 text-xs text-[var(--ai-text-muted)]">
+                <span>{course.durationMinutes} min</span>
+                <span>·</span>
+                <span>Required for: {course.requiredForRoles.join(", ")}</span>
+              </div>
+            </Link>
+          );
+        })}
+        {courses.length === 0 && (
+          <div className="col-span-2 rounded-[2rem] border border-[var(--ai-border)] px-6 py-10 text-center text-sm text-[var(--ai-text-secondary)]">
+            No training courses available yet.{" "}
+            {context.permissions.canManageOrganisation && (
+              <Link href="/training/new" className="text-[var(--ai-cyan)]">Create the first course.</Link>
+            )}
           </div>
-          <div className="rounded-[22px] border border-[var(--ai-border)] bg-[radial-gradient(circle_at_center,rgba(28,101,255,0.18),transparent_55%),rgba(255,255,255,0.03)] p-5">
-            <div className="mx-auto flex h-52 w-52 items-center justify-center rounded-[28px] border border-[rgba(42,75,115,0.64)] bg-[rgba(7,17,32,0.72)] text-7xl text-[var(--ai-cyan)]">
-              AI
-            </div>
-          </div>
-        </div>
-      </WorkspacePanel>
+        )}
+      </div>
     </AppShell>
   );
 }

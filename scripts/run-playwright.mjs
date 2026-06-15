@@ -1,7 +1,7 @@
 import { spawn } from "node:child_process";
+import { createServer } from "node:net";
 
-const SERVER_URL = "http://127.0.0.1:3001/sign-in";
-const SERVER_PORT = "3001";
+const PLAYWRIGHT_TIMEOUT_MS = 120_000;
 
 function spawnCommand(command, args, options = {}) {
   return spawn(command, args, {
@@ -13,7 +13,7 @@ function spawnCommand(command, args, options = {}) {
 
 function terminateProcess(child) {
   if (!child || child.killed) {
-    return;
+    return Promise.resolve();
   }
 
   if (process.platform === "win32") {
@@ -29,6 +29,31 @@ function terminateProcess(child) {
 
   child.kill("SIGTERM");
   return Promise.resolve();
+}
+
+async function runChildProcess(command, args, env) {
+  return await new Promise((resolve, reject) => {
+    const child = spawnCommand(command, args, { env });
+    const timer = setTimeout(async () => {
+      await terminateProcess(child);
+      reject(
+        new Error(
+          `Command timed out after ${PLAYWRIGHT_TIMEOUT_MS / 1000} seconds: ${command} ${args.join(" ")}`,
+        ),
+      );
+    }, PLAYWRIGHT_TIMEOUT_MS);
+
+    child.on("exit", (code) => {
+      clearTimeout(timer);
+      resolve(code ?? 1);
+    });
+
+    child.on("error", async (error) => {
+      clearTimeout(timer);
+      await terminateProcess(child);
+      reject(error);
+    });
+  });
 }
 
 async function waitForServer(url, attempts = 30) {
@@ -49,13 +74,48 @@ async function waitForServer(url, attempts = 30) {
   throw new Error(`Server did not become ready at ${url}`);
 }
 
+async function getAvailablePort() {
+  return await new Promise((resolve, reject) => {
+    const server = createServer();
+
+    server.listen(0, "127.0.0.1", () => {
+      const address = server.address();
+
+      if (!address || typeof address === "string") {
+        server.close(() => reject(new Error("Could not determine an open port.")));
+        return;
+      }
+
+      const { port } = address;
+      server.close((error) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+
+        resolve(port);
+      });
+    });
+
+    server.on("error", reject);
+  });
+}
+
+const SERVER_PORT = String(await getAvailablePort());
+const SERVER_URL = `http://127.0.0.1:${SERVER_PORT}/sign-in`;
+const PLAYWRIGHT_OUTPUT_DIR = `.playwright-results/run-${Date.now()}`;
+
 const startCommand =
   process.platform === "win32"
     ? ["cmd.exe", ["/c", `npm run start -- --hostname 127.0.0.1 --port ${SERVER_PORT}`]]
     : ["npm", ["run", "start", "--", "--hostname", "127.0.0.1", "--port", SERVER_PORT]];
 
 const server = spawnCommand(startCommand[0], startCommand[1], {
-  env: process.env,
+  env: {
+    ...process.env,
+    PLAYWRIGHT_BASE_URL: `http://127.0.0.1:${SERVER_PORT}`,
+    PLAYWRIGHT_OUTPUT_DIR,
+  },
 });
 
 const cleanup = async () => {
@@ -80,13 +140,10 @@ try {
       ? ["cmd.exe", ["/c", "npx playwright test --config playwright.config.ts"]]
       : ["npx", ["playwright", "test", "--config", "playwright.config.ts"]];
 
-  const result = await new Promise((resolve, reject) => {
-    const child = spawnCommand(playwrightCommand[0], playwrightCommand[1], {
-      env: process.env,
-    });
-
-    child.on("exit", (code) => resolve(code ?? 1));
-    child.on("error", reject);
+  const result = await runChildProcess(playwrightCommand[0], playwrightCommand[1], {
+    ...process.env,
+    PLAYWRIGHT_BASE_URL: `http://127.0.0.1:${SERVER_PORT}`,
+    PLAYWRIGHT_OUTPUT_DIR,
   });
 
   await cleanup();

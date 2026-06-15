@@ -26,6 +26,7 @@ type IconName =
   | "training"
   | "calendar"
   | "activity"
+  | "incidents"
   | "help";
 
 type AppIconProps = {
@@ -193,6 +194,13 @@ export function AppIcon({ name, className = "h-5 w-5" }: AppIconProps) {
     activity: stroke(
       <>
         <path d="M4 12h3l2-5 4 10 2-5h5" />
+      </>,
+    ),
+    incidents: stroke(
+      <>
+        <circle cx="12" cy="12" r="8.5" />
+        <path d="M12 8v5" />
+        <circle cx="12" cy="15.5" r=".8" fill="currentColor" stroke="none" />
       </>,
     ),
     help: stroke(
