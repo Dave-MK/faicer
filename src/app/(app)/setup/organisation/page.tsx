@@ -17,7 +17,7 @@ export default async function OrganisationSetupPage() {
       <section className="mb-6">
         <p className="brand-eyebrow">Organisation setup / onboarding</p>
         <h1 className="mt-2 text-[2.7rem] font-semibold tracking-[-0.04em] text-white">
-          Welcome to AI Ledger
+          Welcome to FAICER
         </h1>
         <p className="mt-3 max-w-[760px] text-lg leading-8 text-[var(--ai-text-secondary)]">
           Set up your organisation to get started.
@@ -35,7 +35,7 @@ export default async function OrganisationSetupPage() {
                 <span
                   className={`inline-flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
                     index === 0
-                      ? "bg-[linear-gradient(135deg,#1c65ff_0%,#7a38ff_100%)] text-white"
+                      ? "bg-[linear-gradient(90deg,#FF4DB8_0%,#B24DFF_100%)] text-white"
                       : "bg-[rgba(255,255,255,0.06)] text-[var(--ai-text-secondary)]"
                   }`}
                 >

@@ -68,7 +68,7 @@ export default async function RiskDetailPage({
 
       {sp.message === "created" && (
         <div className="mb-5 brand-status-success rounded-2xl px-4 py-4 text-sm">
-          Risk added successfully.
+          Risk created successfully.
         </div>
       )}
       {sp.message === "updated" && (

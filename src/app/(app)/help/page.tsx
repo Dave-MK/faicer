@@ -2,14 +2,24 @@ import Link from "next/link";
 import { AppShell } from "@/app/(app)/_components/app-shell";
 import { WorkspaceHeader, WorkspacePanel } from "@/app/(app)/_components/workspace-primitives";
 import { requireWorkspaceContext } from "@/lib/auth/workspace";
+import { isSupabaseAuthEnabled } from "@/lib/config/env";
 import { listMockPoliciesForOrganisation, listMockCoursesForOrganisation, listMockCompletionsForUser } from "@/lib/data/mock-registry";
+import { listSupabasePolicies } from "@/lib/supabase/policies";
+import { listSupabaseCourses, listSupabaseCompletionsForUser } from "@/lib/supabase/training";
 
 export default async function HelpPage() {
   const context = await requireWorkspaceContext();
+  const supabaseEnabled = isSupabaseAuthEnabled();
   const [policies, courses, completions] = await Promise.all([
-    listMockPoliciesForOrganisation(context.organisation.id),
-    listMockCoursesForOrganisation(context.organisation.id),
-    listMockCompletionsForUser(context.user.id, context.organisation.id),
+    supabaseEnabled
+      ? listSupabasePolicies(context.organisation.id)
+      : listMockPoliciesForOrganisation(context.organisation.id),
+    supabaseEnabled
+      ? listSupabaseCourses(context.organisation.id)
+      : listMockCoursesForOrganisation(context.organisation.id),
+    supabaseEnabled
+      ? listSupabaseCompletionsForUser(context.user.id, context.organisation.id)
+      : listMockCompletionsForUser(context.user.id, context.organisation.id),
   ]);
 
   const activePolicies = policies.filter((p) => p.status === "active");
@@ -42,7 +52,7 @@ export default async function HelpPage() {
           <p className="text-sm font-semibold text-[var(--ai-blue)]">Getting started</p>
           <h2 className="mt-2 text-xl font-semibold text-white">Using AI at work</h2>
           <p className="mt-3 text-sm leading-7 text-[var(--ai-text-secondary)]">
-            Learn the basics of approved AI use. Only use tools listed in the Approved Tools register, and follow your organisation's policies at all times.
+            Learn the basics of approved AI use. Only use tools listed in the Approved Tools register, and follow your organisation&apos;s policies at all times.
           </p>
           <Link href="/approved-tools" className="mt-4 block text-sm text-[var(--ai-cyan)] hover:text-white">
             View approved tools →
@@ -69,9 +79,9 @@ export default async function HelpPage() {
 
         <WorkspacePanel>
           <p className="text-sm font-semibold text-[var(--ai-blue)]">Report a concern</p>
-          <h2 className="mt-2 text-xl font-semibold text-white">Something doesn't look right?</h2>
+          <h2 className="mt-2 text-xl font-semibold text-white">Something doesn&apos;t look right?</h2>
           <p className="mt-3 text-sm leading-7 text-[var(--ai-text-secondary)]">
-            If you've seen an AI tool behave unexpectedly, produce biased output, or used in a way that feels wrong — report it. You will not be penalised for raising concerns.
+            If you&apos;ve seen an AI tool behave unexpectedly, produce biased output, or used in a way that feels wrong — report it. You will not be penalised for raising concerns.
           </p>
           <Link href="/incidents/new" className="mt-4 block text-sm text-[var(--ai-cyan)] hover:text-white">
             Report an incident →
@@ -90,7 +100,7 @@ export default async function HelpPage() {
           <p className="text-sm font-semibold text-[var(--ai-blue)]">Request a tool</p>
           <h2 className="mt-2 text-xl font-semibold text-white">Need a new AI tool?</h2>
           <p className="mt-3 text-sm leading-7 text-[var(--ai-text-secondary)]">
-            If you need access to an AI tool that isn't in the approved list, submit a request to your governance team. Do not use unapproved tools — even free or personal ones — for work purposes.
+            If you need access to an AI tool that isn&apos;t in the approved list, submit a request to your governance team. Do not use unapproved tools — even free or personal ones — for work purposes.
           </p>
         </WorkspacePanel>
 

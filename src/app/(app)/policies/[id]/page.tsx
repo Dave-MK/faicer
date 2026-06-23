@@ -169,7 +169,7 @@ export default async function PolicyDetailPage({
                   type="submit"
                   className="brand-button-primary inline-flex w-full items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold"
                 >
-                  I acknowledge this policy
+                  Acknowledge this policy
                 </button>
               </form>
             </WorkspacePanel>

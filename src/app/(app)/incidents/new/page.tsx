@@ -44,7 +44,7 @@ export default async function NewIncidentPage({
 
         <form action={createIncidentAction} className="grid gap-4 md:grid-cols-2">
           <label className="space-y-2 md:col-span-2">
-            <span className="text-sm font-medium text-ink">Incident title</span>
+            <span className="text-sm font-medium text-ink">Title</span>
             <input type="text" name="title" required placeholder="e.g. AI tool returned biased output in candidate screening"
               className="brand-input w-full rounded-2xl px-4 py-3 outline-none transition" />
           </label>

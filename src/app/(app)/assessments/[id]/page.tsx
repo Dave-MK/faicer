@@ -54,7 +54,7 @@ export default async function AssessmentDetailPage({
       />
 
       {sp.message === "created" && (
-        <div className="mb-5 brand-status-success rounded-2xl px-4 py-4 text-sm">Assessment saved.</div>
+        <div className="mb-5 brand-status-success rounded-2xl px-4 py-4 text-sm">Assessment recorded successfully.</div>
       )}
 
       <div className="grid gap-5 xl:grid-cols-[1.3fr_0.7fr]">

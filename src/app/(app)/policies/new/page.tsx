@@ -37,7 +37,7 @@ export default async function NewPolicyPage({
 
         <form action={createPolicyAction} className="grid gap-4 md:grid-cols-2">
           <label className="space-y-2 md:col-span-2">
-            <span className="text-sm font-medium text-ink">Policy title</span>
+            <span className="text-sm font-medium text-ink">Title</span>
             <input
               type="text"
               name="title"
@@ -87,7 +87,7 @@ export default async function NewPolicyPage({
             type="submit"
             className="brand-button-primary inline-flex items-center justify-center rounded-xl px-5 py-3 font-medium transition md:col-span-2"
           >
-            Save policy
+            Create policy
           </button>
         </form>
       </div>

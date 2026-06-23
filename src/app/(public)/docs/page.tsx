@@ -21,7 +21,7 @@ function PreviewFrame({ title, href }: { title: string; href: string }) {
   return (
     <article className="space-y-4">
       <div className="flex items-center gap-3">
-        <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[linear-gradient(135deg,#1243d6_0%,#1c65ff_100%)] text-base font-semibold text-white">
+        <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[linear-gradient(90deg,#FF4DB8_0%,#B24DFF_100%)] text-base font-semibold text-white">
           {title[0]}
         </span>
         <div>
@@ -30,11 +30,11 @@ function PreviewFrame({ title, href }: { title: string; href: string }) {
         </div>
       </div>
       <div className="overflow-hidden rounded-[24px] border border-[var(--ai-border)] bg-[rgba(7,17,32,0.9)] p-3">
-        <div className="overflow-hidden rounded-[18px] border border-[rgba(42,75,115,0.56)] bg-[#071120]">
+        <div className="overflow-hidden rounded-[18px] border border-[rgba(42,45,80,0.56)] bg-[#07091A]">
           <iframe
             src={href}
             title={title}
-            className="h-[430px] w-full bg-[#071120]"
+            className="h-[430px] w-full bg-[#07091A]"
           />
         </div>
       </div>
@@ -55,7 +55,7 @@ export default function DocsPage() {
           </div>
           <p className="max-w-[520px] text-lg leading-8 text-[var(--ai-text-secondary)] lg:justify-self-end">
             A cohesive set of public, authentication, and product pages built with
-            the AI Ledger design system and aligned to the current application
+            the FAICER design system and aligned to the current application
             functionality.
           </p>
         </div>

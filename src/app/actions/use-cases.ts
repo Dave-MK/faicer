@@ -5,7 +5,7 @@ import { requireWorkspaceContext } from "@/lib/auth/workspace";
 import { isSupabaseAuthEnabled } from "@/lib/config/env";
 import { persistMockRegistryBundle, findMockUseCaseById } from "@/lib/data/mock-registry";
 import { createMockUseCase, updateMockUseCase } from "@/lib/data/mock-store";
-import { createSupabaseUseCase, updateSupabaseUseCase, getSupabaseUseCase } from "@/lib/supabase/use-cases";
+import { createSupabaseUseCase, updateSupabaseUseCase } from "@/lib/supabase/use-cases";
 import { useCaseSchema } from "@/lib/validation/use-case";
 
 function parseInput(formData: FormData) {

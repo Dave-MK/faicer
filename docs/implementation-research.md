@@ -1,12 +1,12 @@
-# AI Ledger Implementation Research
+# FAICER Implementation Research
 
 Date: June 1, 2026
 
 ## Executive recommendation
 
-Build `AI Ledger` now and keep `PassportKit` out of this repository until its first product category is chosen.
+Build `FAICER` now and keep `PassportKit` out of this repository until its first product category is chosen.
 
-For `AI Ledger`, the best implementation path is:
+For `FAICER`, the best implementation path is:
 
 1. Use the existing `Next.js 16.2.7` + `React 19.2.4` App Router stack already in this repo.
 2. Use `Supabase Auth` with `@supabase/ssr` cookie-based SSR auth and `proxy.ts` token refresh.
@@ -28,7 +28,7 @@ This matches the handover, fits the current framework version, and lines up with
 
 The handover pack contains two different workstreams:
 
-- `AI Ledger` is ready for implementation now, starting with Milestones 0 and 1.
+- `FAICER` is ready for implementation now, starting with Milestones 0 and 1.
 - `PassportKit` is explicitly not ready for implementation yet.
 
 That distinction is important. The `PassportKit` checklist says product-specific Digital Product Passport requirements vary by category, access rights, identifier model, and delegated acts. The right move is to treat it as a separate research and validation project, not as an early feature branch of this Next app.

@@ -1,35 +1,19 @@
 export const publicNavigation = [
-  { label: "Product", href: "/dashboard" },
-  { label: "Solutions", href: "/governance" },
-  { label: "Resources", href: "/docs" },
-  { label: "Company", href: "/welcome" },
+  { label: "Features", href: "/welcome#features" },
+  { label: "How it works", href: "/welcome#process" },
   { label: "Pricing", href: "/pricing" },
+  { label: "Docs", href: "/docs" },
 ];
 
 export const appNavigation = [
-  { key: "overview", label: "Overview", href: "/dashboard", icon: "overview" },
-  { key: "register", label: "AI Register", href: "/tools", icon: "register" },
-  { key: "use-cases", label: "Use Cases", href: "/use-cases", icon: "use-cases" },
-  { key: "governance", label: "Governance", href: "/governance", icon: "governance" },
+  { key: "overview", label: "Dashboard", href: "/dashboard", icon: "overview" },
+  { key: "register", label: "AI Inventory", href: "/tools", icon: "register" },
+  { key: "assessments", label: "Assessments", href: "/assessments", icon: "assessments" },
   { key: "policies", label: "Policies", href: "/policies", icon: "policies" },
-  { key: "evidence", label: "Evidence", href: "/evidence", icon: "evidence" },
-  { key: "risks", label: "Risks", href: "/risks", icon: "risks" },
-  {
-    key: "assessments",
-    label: "Assessments",
-    href: "/assessments",
-    icon: "assessments",
-  },
-  { key: "controls", label: "Controls", href: "/controls", icon: "controls" },
-  { key: "incidents", label: "Incidents", href: "/incidents", icon: "incidents" },
   { key: "training", label: "Training", href: "/training", icon: "training" },
+  { key: "evidence", label: "Records", href: "/evidence", icon: "evidence" },
+  { key: "governance", label: "Audits", href: "/governance", icon: "governance" },
   { key: "reports", label: "Reports", href: "/reports", icon: "reports" },
-  {
-    key: "integrations",
-    label: "Integrations",
-    href: "/integrations",
-    icon: "integrations",
-  },
   { key: "settings", label: "Settings", href: "/settings", icon: "settings" },
 ] as const;
 

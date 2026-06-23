@@ -54,7 +54,7 @@ export default async function TrainingCourseDetailPage({
       )}
       {sp.message === "complete" && (
         <div className="mb-5 brand-status-success rounded-2xl px-4 py-4 text-sm">
-          Course marked as complete. Well done!
+          Course completed.
         </div>
       )}
       {sp.message === "already-complete" && (

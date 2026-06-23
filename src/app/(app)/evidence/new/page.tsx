@@ -58,7 +58,7 @@ export default async function NewEvidencePage({
           </label>
 
           <label className="space-y-2">
-            <span className="text-sm font-medium text-ink">Evidence type</span>
+            <span className="text-sm font-medium text-ink">Type</span>
             <select name="type" defaultValue="document" className="brand-input w-full rounded-2xl px-4 py-3 outline-none transition">
               <option value="document">Document</option>
               <option value="screenshot">Screenshot</option>

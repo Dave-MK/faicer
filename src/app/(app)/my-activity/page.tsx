@@ -1,20 +1,31 @@
 import { AppShell } from "@/app/(app)/_components/app-shell";
 import { WorkspaceHeader, WorkspacePanel } from "@/app/(app)/_components/workspace-primitives";
 import { requireWorkspaceContext } from "@/lib/auth/workspace";
+import { isSupabaseAuthEnabled } from "@/lib/config/env";
 import { listMockAuditEvents, listMockCompletionsForUser, listMockAcknowledgementsForUser } from "@/lib/data/mock-registry";
+import { listSupabaseAuditEventsForUser } from "@/lib/supabase/audit-events";
+import { listSupabaseCompletionsForUser } from "@/lib/supabase/training";
+import { listSupabasePolicyAcknowledgementsForUser } from "@/lib/supabase/policies";
 
 export default async function MyActivityPage() {
   const context = await requireWorkspaceContext();
-  const [allEvents, completions, acks] = await Promise.all([
-    listMockAuditEvents(context.organisation.id),
-    listMockCompletionsForUser(context.user.id, context.organisation.id),
-    listMockAcknowledgementsForUser(context.user.id, context.organisation.id),
+  const supabaseEnabled = isSupabaseAuthEnabled();
+  const [myEvents, completions, acks] = await Promise.all([
+    supabaseEnabled
+      ? listSupabaseAuditEventsForUser(context.user.id, context.organisation.id)
+      : listMockAuditEvents(context.organisation.id).then((events) =>
+          events
+            .filter((e) => e.actorUserId === context.user.id)
+            .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+            .slice(0, 20),
+        ),
+    supabaseEnabled
+      ? listSupabaseCompletionsForUser(context.user.id, context.organisation.id)
+      : listMockCompletionsForUser(context.user.id, context.organisation.id),
+    supabaseEnabled
+      ? listSupabasePolicyAcknowledgementsForUser(context.user.id, context.organisation.id)
+      : listMockAcknowledgementsForUser(context.user.id, context.organisation.id),
   ]);
-
-  const myEvents = allEvents
-    .filter((e) => e.actorUserId === context.user.id)
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-    .slice(0, 20);
 
   const actionLabel = (action: string) =>
     action

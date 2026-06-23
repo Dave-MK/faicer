@@ -3,7 +3,6 @@ import { AppShell } from "@/app/(app)/_components/app-shell";
 import {
   StatusPill,
   WorkspaceHeader,
-  WorkspacePanel,
 } from "@/app/(app)/_components/workspace-primitives";
 import { AppIcon } from "@/components/AppIcons";
 import { requireWorkspaceContext } from "@/lib/auth/workspace";
@@ -57,7 +56,7 @@ export default async function TrainingPage() {
         </div>
         <div className="mt-3 h-2 rounded-full bg-[rgba(18,31,53,0.95)]">
           <div
-            className="h-2 rounded-full bg-[linear-gradient(90deg,#00d4ff_0%,#1c65ff_100%)] transition-all"
+            className="h-2 rounded-full bg-[linear-gradient(90deg,#FF4DB8_0%,#B24DFF_100%)] transition-all"
             style={{ width: `${progress}%` }}
           />
         </div>

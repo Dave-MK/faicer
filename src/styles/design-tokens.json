@@ -1,9 +1,9 @@
 {
   "brand": {
-    "name": "AI Ledger",
-    "tagline": "Governance. Evidence. Trust.",
-    "descriptor": "AI governance, evidence and trust workspace",
-    "logoPolicy": "The wordmark text is hardcoded as 'AI Ledger' in the SVG and React assets. Do not expose a prop to alter it."
+    "name": "FAICER",
+    "tagline": "Comply. Educate. Record. Prove.",
+    "descriptor": "Fundamental AI Compliance & Education Register",
+    "logoPolicy": "The wordmark text is hardcoded as 'FAICER' in the React logo component. Do not expose a prop to alter it."
   },
   "colors": {
     "background": "#071120",

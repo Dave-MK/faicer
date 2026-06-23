@@ -84,7 +84,7 @@ export default async function GovernancePage() {
               <div className="flex-1">
                 <div className="h-3 rounded-full bg-[rgba(18,31,53,0.95)]">
                   <div
-                    className="h-3 rounded-full bg-[linear-gradient(90deg,#00d4ff_0%,#1c65ff_100%)] transition-all"
+                    className="h-3 rounded-full bg-[linear-gradient(90deg,#FF4DB8_0%,#B24DFF_100%)] transition-all"
                     style={{ width: `${controlEffectiveness}%` }}
                   />
                 </div>

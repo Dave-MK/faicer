@@ -60,7 +60,7 @@ const integrations: {
   {
     name: "Webhook (inbound)",
     vendor: "Generic",
-    description: "POST governance events from any system to AI Ledger. Supports incidents, evidence, and audit log entries.",
+    description: "POST governance events from any system to FAICER. Supports incidents, evidence, and audit log entries.",
     category: "API & webhooks",
     status: "planned",
   },
@@ -73,7 +73,7 @@ const integrations: {
   },
   {
     name: "Email notifications",
-    vendor: "AI Ledger",
+    vendor: "FAICER",
     description: "Built-in email delivery for incident alerts, policy reminders, and overdue assessment notifications.",
     category: "Notifications",
     status: "planned",

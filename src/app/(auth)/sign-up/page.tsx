@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { AppIcon } from "@/components/AppIcons";
-import { AILedgerLogo } from "@/components/AILedgerLogo";
+import { FaicerLogo } from "@/components/FaicerLogo";
 import { AuthShell } from "@/components/PublicChrome";
 import { signUpAction } from "@/app/actions/auth";
 import { getAuthMode, isSupabaseAuthEnabled } from "@/lib/config/env";
@@ -37,7 +37,7 @@ export default async function SignUpPage({
 
   return (
     <AuthShell
-      title="Get started with AI Ledger"
+      title="Get started with FAICER"
       subtitle="Sign up"
       lead="Create your account and start governing AI use across your organization."
       points={[
@@ -47,7 +47,7 @@ export default async function SignUpPage({
       ]}
     >
       <div className="mx-auto max-w-[460px] rounded-[26px] border border-[var(--ai-border)] bg-[linear-gradient(180deg,rgba(11,23,42,0.98),rgba(8,17,31,0.98))] p-7 shadow-[0_16px_46px_rgba(1,8,20,0.38)]">
-        <AILedgerLogo
+        <FaicerLogo
           variant="lockup"
           tone="on-dark"
           className="h-auto w-[150px]"

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { AppIcon } from "@/components/AppIcons";
-import { AILedgerLogo } from "@/components/AILedgerLogo";
+import { FaicerLogo } from "@/components/FaicerLogo";
 import { AuthShell } from "@/components/PublicChrome";
 import { signInAction } from "@/app/actions/auth";
 import { getAuthMode, isSupabaseAuthEnabled } from "@/lib/config/env";
@@ -14,6 +14,20 @@ function getFeedback(
     return {
       tone: "success" as const,
       text: "Your account was created. Check your email and confirm it before trying to sign in.",
+    };
+  }
+
+  if (params.message === "reset-sent") {
+    return {
+      tone: "success" as const,
+      text: "If that email is registered, you'll receive a reset link shortly. Check your inbox.",
+    };
+  }
+
+  if (params.message === "password-updated") {
+    return {
+      tone: "success" as const,
+      text: "Your password has been updated. Sign in with your new password.",
     };
   }
 
@@ -51,7 +65,7 @@ export default async function SignInPage({
     <AuthShell
       title="Secure access to AI governance"
       subtitle="Log in"
-      lead="Sign in to access your AI Ledger governance platform."
+      lead="Sign in to access your FAICER governance platform."
       points={[
         "Enterprise-grade security",
         "SSO and MFA support",
@@ -59,7 +73,7 @@ export default async function SignInPage({
       ]}
     >
       <div className="mx-auto max-w-[430px] rounded-[26px] border border-[var(--ai-border)] bg-[linear-gradient(180deg,rgba(11,23,42,0.98),rgba(8,17,31,0.98))] p-7 shadow-[0_16px_46px_rgba(1,8,20,0.38)]">
-        <AILedgerLogo
+        <FaicerLogo
           variant="lockup"
           tone="on-dark"
           className="h-auto w-[150px]"

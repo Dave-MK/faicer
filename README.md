@@ -1,6 +1,6 @@
-# AI Ledger
+# FAICER
 
-Mock-first scaffold for the `AI Ledger` Milestones 0 to 2 foundation: auth, tenancy, and the first tool-register workflow.
+Mock-first scaffold for the `FAICER` (Fundamental AI Compliance & Education Register) Milestones 0 to 2 foundation: auth, tenancy, and the first tool-register workflow.
 
 ## What is in this repo
 

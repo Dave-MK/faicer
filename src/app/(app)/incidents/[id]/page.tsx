@@ -56,14 +56,14 @@ export default async function IncidentDetailPage({
           canEdit && !isEditing ? (
             <Link href={`/incidents/${id}?edit=1`}
               className="brand-button-secondary inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold">
-              Update
+              Edit
             </Link>
           ) : null
         }
       />
 
       {sp.message === "created" && (
-        <div className="mb-5 brand-status-success rounded-2xl px-4 py-4 text-sm">Incident reported. The team has been notified.</div>
+        <div className="mb-5 brand-status-success rounded-2xl px-4 py-4 text-sm">Incident reported successfully.</div>
       )}
       {sp.message === "updated" && (
         <div className="mb-5 brand-status-success rounded-2xl px-4 py-4 text-sm">Incident updated.</div>

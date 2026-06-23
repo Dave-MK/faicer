@@ -51,7 +51,7 @@ export default async function NewRiskPage({
 
         <form action={createRiskAction} className="grid gap-4 md:grid-cols-2">
           <label className="space-y-2 md:col-span-2">
-            <span className="text-sm font-medium text-ink">Risk title</span>
+            <span className="text-sm font-medium text-ink">Title</span>
             <input
               type="text"
               name="title"
@@ -68,7 +68,7 @@ export default async function NewRiskPage({
               defaultValue="ai_tool"
               className="brand-input w-full rounded-2xl px-4 py-3 outline-none transition"
             >
-              <option value="ai_tool">AI Tool</option>
+              <option value="tool">Tool</option>
               <option value="use_case">Use Case</option>
               <option value="organisation">Organisation</option>
             </select>
@@ -99,7 +99,7 @@ export default async function NewRiskPage({
           </label>
 
           <label className="space-y-2">
-            <span className="text-sm font-medium text-ink">Severity (1–5)</span>
+            <span className="text-sm font-medium text-ink">Severity</span>
             <select
               name="severity"
               defaultValue="3"
@@ -114,7 +114,7 @@ export default async function NewRiskPage({
           </label>
 
           <label className="space-y-2">
-            <span className="text-sm font-medium text-ink">Likelihood (1–5)</span>
+            <span className="text-sm font-medium text-ink">Likelihood</span>
             <select
               name="likelihood"
               defaultValue="3"

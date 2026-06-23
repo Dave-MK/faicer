@@ -53,7 +53,6 @@ export default async function NewUseCasePage({
             <span className="text-sm font-medium text-ink">AI Tool</span>
             <select
               name="toolId"
-              required
               className="brand-input w-full rounded-2xl px-4 py-3 outline-none transition"
             >
               <option value="">Select a tool</option>

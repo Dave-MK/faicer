@@ -59,7 +59,7 @@ export default async function SettingsPage({
                 href={`/settings?tab=${key}`}
                 className={`block rounded-2xl px-4 py-3 text-sm transition-colors ${
                   tab === key
-                    ? "bg-[linear-gradient(135deg,#1243d6_0%,#1c65ff_100%)] text-white"
+                    ? "bg-[linear-gradient(90deg,#FF4DB8_0%,#B24DFF_100%)] text-white"
                     : "text-[var(--ai-text-secondary)] hover:text-white"
                 }`}
               >
@@ -223,7 +223,7 @@ export default async function SettingsPage({
                         <p className="text-sm text-white">{label}</p>
                         <p className="mt-1 text-xs text-[var(--ai-text-muted)]">{description}</p>
                       </div>
-                      <span className="h-6 w-11 flex-shrink-0 rounded-full bg-[linear-gradient(135deg,#1c65ff_0%,#7a38ff_100%)]" />
+                      <span className="h-6 w-11 flex-shrink-0 rounded-full bg-[linear-gradient(90deg,#FF4DB8_0%,#B24DFF_100%)]" />
                     </div>
                   ))}
                 </div>

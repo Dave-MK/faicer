@@ -1,5 +1,6 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { isSupabaseAuthEnabled } from "@/lib/config/env";
 import {
@@ -141,4 +142,43 @@ export async function signOutAction() {
 
   await destroySession();
   redirect("/sign-in");
+}
+
+export async function resetPasswordAction(formData: FormData) {
+  const email = formData.get("email");
+  if (!email || typeof email !== "string" || !email.includes("@")) {
+    redirect("/reset-password?error=invalid-email");
+  }
+
+  if (isSupabaseAuthEnabled()) {
+    const headersList = await headers();
+    const proto = headersList.get("x-forwarded-proto") ?? "http";
+    const host = headersList.get("host") ?? "localhost:3000";
+    const origin = `${proto}://${host}`;
+
+    const supabase = await createSupabaseServerClient();
+    await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${origin}/auth/callback?next=/update-password`,
+    });
+  }
+
+  redirect("/sign-in?message=reset-sent");
+}
+
+export async function updatePasswordAction(formData: FormData) {
+  const password = formData.get("password");
+  if (!password || typeof password !== "string" || password.length < 8) {
+    redirect("/update-password?error=invalid-password");
+  }
+
+  if (isSupabaseAuthEnabled()) {
+    const supabase = await createSupabaseServerClient();
+    const { error } = await supabase.auth.updateUser({ password });
+    if (error) {
+      redirect("/update-password?error=update-failed");
+    }
+    await supabase.auth.signOut();
+  }
+
+  redirect("/sign-in?message=password-updated");
 }

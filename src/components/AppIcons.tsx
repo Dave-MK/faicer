@@ -27,7 +27,9 @@ type IconName =
   | "calendar"
   | "activity"
   | "incidents"
-  | "help";
+  | "help"
+  | "records"
+  | "audits";
 
 type AppIconProps = {
   name: IconName;
@@ -54,14 +56,18 @@ export function AppIcon({ name, className = "h-5 w-5" }: AppIconProps) {
   const icon = {
     overview: stroke(
       <>
-        <path d="M3 11.5 12 4l9 7.5" />
-        <path d="M5.5 10.5V20h13V10.5" />
+        <rect x="3" y="3" width="8" height="8" rx="1.5" />
+        <rect x="13" y="3" width="8" height="8" rx="1.5" />
+        <rect x="3" y="13" width="8" height="8" rx="1.5" />
+        <rect x="13" y="13" width="8" height="8" rx="1.5" />
       </>,
     ),
     register: stroke(
       <>
-        <rect x="4" y="3.5" width="16" height="17" rx="2.5" />
-        <path d="M8 7.5h8M8 12h8M8 16.5h6" />
+        <rect x="4" y="7" width="16" height="10" rx="2" />
+        <path d="M8 7V5M12 7V5M16 7V5" />
+        <path d="M8 17v2M12 17v2M16 17v2" />
+        <path d="M4 10H2M4 14H2M20 10h2M20 14h2" />
       </>,
     ),
     "use-cases": stroke(
@@ -208,6 +214,20 @@ export function AppIcon({ name, className = "h-5 w-5" }: AppIconProps) {
         <circle cx="12" cy="12" r="8" />
         <path d="M9.8 9.5a2.5 2.5 0 1 1 4.3 1.7c-.6.6-1.3 1-1.8 1.4-.5.4-.8.8-.8 1.4v.5" />
         <circle cx="12" cy="17.2" r=".7" fill="currentColor" stroke="none" />
+      </>,
+    ),
+    records: stroke(
+      <>
+        <path d="M4 6.5h16v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19.5V6.5Z" />
+        <path d="M2 4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v2.5H2V4Z" />
+        <path d="M9 12h6M9 15.5h4" />
+      </>,
+    ),
+    audits: stroke(
+      <>
+        <path d="M9 11l2.5 2.5L15.5 9" />
+        <rect x="4" y="4" width="16" height="16" rx="2.5" />
+        <path d="M8 4V2M16 4V2" />
       </>,
     ),
   }[name];

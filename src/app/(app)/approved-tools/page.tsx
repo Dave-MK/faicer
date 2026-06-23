@@ -6,7 +6,9 @@ import {
 } from "@/app/(app)/_components/workspace-primitives";
 import { AppIcon } from "@/components/AppIcons";
 import { requireWorkspaceContext } from "@/lib/auth/workspace";
+import { isSupabaseAuthEnabled } from "@/lib/config/env";
 import { listMockToolsForOrganisation } from "@/lib/data/mock-registry";
+import { listSupabaseTools } from "@/lib/supabase/tools";
 
 export default async function ApprovedToolsPage({
   searchParams,
@@ -15,7 +17,9 @@ export default async function ApprovedToolsPage({
 }) {
   const context = await requireWorkspaceContext();
   const params = await searchParams;
-  const allTools = await listMockToolsForOrganisation(context.organisation.id);
+  const allTools = isSupabaseAuthEnabled()
+    ? await listSupabaseTools(context.organisation.id)
+    : await listMockToolsForOrganisation(context.organisation.id);
 
   const query = params.q?.trim().toLowerCase() ?? "";
   const approvedTools = allTools.filter((t) => t.approvalStatus === "approved");
