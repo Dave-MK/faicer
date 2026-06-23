@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import type { SessionPayload } from "@/lib/types";
 import { getSessionSecret } from "@/lib/config/env";
 
-const SESSION_COOKIE = "ai_ledger_session";
+const SESSION_COOKIE = "faicer_session";
 
 function encode(value: string) {
   return Buffer.from(value, "utf8").toString("base64url");

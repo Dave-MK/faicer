@@ -55,7 +55,7 @@ import type {
   MockUser,
 } from "@/lib/types";
 
-const MOCK_REGISTRY_COOKIE = "ai_ledger_mock_registry";
+const MOCK_REGISTRY_COOKIE = "faicer_mock_registry";
 
 // ─── Zod schemas ──────────────────────────────────────────────────────────────
 

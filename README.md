@@ -89,8 +89,8 @@ npm run typecheck
 
 The runnable app supports an explicit auth mode switch:
 
-- `AI_LEDGER_AUTH_MODE=mock` for local development
-- `AI_LEDGER_AUTH_MODE=supabase` for hosted-auth testing
+- `FAICER_AUTH_MODE=mock` for local development
+- `FAICER_AUTH_MODE=supabase` for hosted-auth testing
 
 If the variable is omitted, the default is:
 
@@ -99,7 +99,7 @@ If the variable is omitted, the default is:
 
 When you are ready to connect a real project:
 
-1. Set `AI_LEDGER_AUTH_MODE=supabase`
+1. Set `FAICER_AUTH_MODE=supabase`
 2. Set `NEXT_PUBLIC_SUPABASE_URL`
 3. Set `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 4. Apply the SQL under `supabase/migrations/`
