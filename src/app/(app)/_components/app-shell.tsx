@@ -48,27 +48,44 @@ export function AppShell({
   const navigation = role === "staff" ? staffNavigation : appNavigation;
 
   return (
-    <div className="min-h-screen" style={{ background: "#080A18" }}>
-      <div
-        className="mx-auto flex min-h-screen max-w-[1680px]"
-        style={{
-          border: "1px solid rgba(42,45,80,0.55)",
-          borderRadius: 0,
-        }}
-      >
+    <div className="min-h-screen" style={{ background: "#0A0E18" }}>
+      <div className="mx-auto flex min-h-screen max-w-[1680px] border border-[rgba(40,49,67,0.55)]">
+        {/* Mobile nav toggle (CSS-only drawer) */}
+        <input
+          type="checkbox"
+          id="faicer-nav"
+          className="peer sr-only"
+          aria-label="Toggle navigation menu"
+        />
+        {/* Mobile overlay */}
+        <label
+          htmlFor="faicer-nav"
+          aria-hidden="true"
+          className="fixed inset-0 z-30 hidden bg-black/55 backdrop-blur-sm peer-checked:block lg:!hidden"
+        />
+
         {/* ── Sidebar ── */}
         <aside
-          className="flex w-[270px] shrink-0 flex-col"
+          className="fixed inset-y-0 left-0 z-40 flex w-[270px] max-w-[82vw] shrink-0 -translate-x-full flex-col overflow-y-auto transition-transform duration-200 ease-out peer-checked:translate-x-0 lg:static lg:max-w-none lg:translate-x-0"
           style={{
             background:
               "radial-gradient(circle at 30% 10%, rgba(99,102,241,0.07) 0%, transparent 45%)," +
-              "linear-gradient(180deg, #0A0C1C 0%, #080A18 100%)",
-            borderRight: "1px solid rgba(42,45,80,0.55)",
+              "linear-gradient(180deg, #0B0F1C 0%, #0A0E18 100%)",
+            borderRight: "1px solid rgba(40,49,67,0.55)",
           }}
         >
           {/* Logo */}
-          <div className="px-5 pt-7 pb-6">
-            <FaicerLogo variant="lockup" tone="on-dark" tagline className="h-auto" />
+          <div className="flex items-start justify-between gap-2 px-5 pt-7 pb-6">
+            <FaicerLogo variant="lockup" tone="on-dark" className="h-auto" />
+            <label
+              htmlFor="faicer-nav"
+              aria-label="Close navigation menu"
+              className="-mr-1 mt-1 inline-flex h-8 w-8 items-center justify-center rounded-[10px] text-[rgba(168,176,204,0.6)] hover:text-white lg:hidden"
+            >
+              <svg viewBox="0 0 16 16" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                <path d="M4 4l8 8M12 4l-8 8" />
+              </svg>
+            </label>
           </div>
 
           {/* Nav */}
@@ -88,12 +105,11 @@ export function AppShell({
                     isActive
                       ? {
                           background:
-                            "linear-gradient(90deg, #C849AA 0%, #6172E6 100%)",
-                          boxShadow: "0 6px 24px rgba(200,73,170,0.30)",
+                            "linear-gradient(90deg, #5B6CF0 0%, #4F7CF5 100%)",
+                          boxShadow: "0 6px 24px rgba(79,124,245,0.28)",
                         }
                       : undefined
                   }
-                  onMouseEnter={undefined}
                 >
                   <span
                     className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[9px] transition-colors ${
@@ -191,20 +207,36 @@ export function AppShell({
         <div
           className="flex min-w-0 flex-1 flex-col"
           style={{
-            background: "linear-gradient(180deg, #0B0E1F 0%, #0D1126 100%)",
+            background: "linear-gradient(180deg, #0E1320 0%, #11182A 100%)",
           }}
         >
           {/* Top header bar */}
           <header
-            className="flex items-center justify-end gap-2.5 border-b px-6 py-3.5"
-            style={{ borderColor: "rgba(42,45,80,0.55)" }}
+            className="flex items-center gap-2.5 border-b px-4 py-3 sm:px-6 sm:py-3.5"
+            style={{ borderColor: "rgba(40,49,67,0.55)" }}
           >
+            {/* Mobile: hamburger + compact logo */}
+            <label
+              htmlFor="faicer-nav"
+              aria-label="Open navigation menu"
+              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[11px] border text-[rgba(168,176,204,0.7)] transition hover:text-white lg:hidden"
+              style={{ borderColor: "rgba(40,49,67,0.65)", background: "rgba(21,27,43,0.6)" }}
+            >
+              <svg viewBox="0 0 16 16" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round">
+                <path d="M2 4h12M2 8h12M2 12h12" />
+              </svg>
+            </label>
+            <FaicerLogo variant="mark" tone="on-dark" className="h-8 w-8 shrink-0 lg:hidden" />
+
+            {/* Spacer pushes actions to the right */}
+            <div className="flex-1" />
+
             {/* Search */}
             <button
               className="inline-flex h-9 w-9 items-center justify-center rounded-[11px] border text-[rgba(168,176,204,0.6)] transition hover:border-[rgba(99,102,241,0.4)] hover:text-white"
               style={{
-                borderColor: "rgba(42,45,80,0.65)",
-                background: "rgba(11,14,31,0.6)",
+                borderColor: "rgba(40,49,67,0.65)",
+                background: "rgba(21,27,43,0.6)",
               }}
             >
               <AppIcon name="search" className="h-[15px] w-[15px]" />
@@ -214,8 +246,8 @@ export function AppShell({
             <button
               className="relative inline-flex h-9 w-9 items-center justify-center rounded-[11px] border text-[rgba(168,176,204,0.6)] transition hover:border-[rgba(99,102,241,0.4)] hover:text-white"
               style={{
-                borderColor: "rgba(42,45,80,0.65)",
-                background: "rgba(11,14,31,0.6)",
+                borderColor: "rgba(40,49,67,0.65)",
+                background: "rgba(21,27,43,0.6)",
               }}
             >
               <AppIcon name="bell" className="h-[15px] w-[15px]" />
@@ -232,10 +264,10 @@ export function AppShell({
 
             {/* Help */}
             <button
-              className="inline-flex h-9 w-9 items-center justify-center rounded-[11px] border text-[rgba(168,176,204,0.6)] transition hover:border-[rgba(99,102,241,0.4)] hover:text-white"
+              className="hidden h-9 w-9 items-center justify-center rounded-[11px] border text-[rgba(168,176,204,0.6)] transition hover:border-[rgba(99,102,241,0.4)] hover:text-white sm:inline-flex"
               style={{
-                borderColor: "rgba(42,45,80,0.65)",
-                background: "rgba(11,14,31,0.6)",
+                borderColor: "rgba(40,49,67,0.65)",
+                background: "rgba(21,27,43,0.6)",
               }}
             >
               <AppIcon name="help" className="h-[15px] w-[15px]" />
@@ -243,16 +275,16 @@ export function AppShell({
 
             {/* Divider */}
             <span
-              className="mx-1 h-6 w-px"
-              style={{ background: "rgba(42,45,80,0.8)" }}
+              className="mx-1 hidden h-6 w-px sm:block"
+              style={{ background: "rgba(40,49,67,0.8)" }}
             />
 
             {/* Org switcher */}
             <button
-              className="flex items-center gap-2 rounded-[11px] border px-3.5 py-2 text-[13px] font-medium text-white transition hover:border-[rgba(99,102,241,0.4)]"
+              className="hidden items-center gap-2 rounded-[11px] border px-3.5 py-2 text-[13px] font-medium text-white transition hover:border-[rgba(99,102,241,0.4)] sm:flex"
               style={{
-                borderColor: "rgba(42,45,80,0.65)",
-                background: "rgba(11,14,31,0.6)",
+                borderColor: "rgba(40,49,67,0.65)",
+                background: "rgba(21,27,43,0.6)",
               }}
             >
               <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 shrink-0 text-[rgba(168,176,204,0.5)]" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
@@ -265,10 +297,10 @@ export function AppShell({
 
             {/* Date range */}
             <button
-              className="flex items-center gap-2 rounded-[11px] border px-3.5 py-2 text-[13px] font-medium text-white transition hover:border-[rgba(99,102,241,0.4)]"
+              className="hidden items-center gap-2 rounded-[11px] border px-3.5 py-2 text-[13px] font-medium text-white transition hover:border-[rgba(99,102,241,0.4)] xl:flex"
               style={{
-                borderColor: "rgba(42,45,80,0.65)",
-                background: "rgba(11,14,31,0.6)",
+                borderColor: "rgba(40,49,67,0.65)",
+                background: "rgba(21,27,43,0.6)",
               }}
             >
               <AppIcon name="calendar" className="h-3.5 w-3.5 shrink-0 text-[rgba(168,176,204,0.5)]" />
@@ -283,7 +315,7 @@ export function AppShell({
           </header>
 
           {/* Page content */}
-          <div className="flex-1 px-6 py-6 lg:px-8 lg:py-7">{children}</div>
+          <div className="flex-1 px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-7">{children}</div>
         </div>
       </div>
     </div>

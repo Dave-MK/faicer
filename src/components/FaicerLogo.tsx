@@ -100,10 +100,10 @@ export function FaicerLogo({
   variant = "lockup",
   tone = "gradient",
   className = "",
-  tagline = false,
 }: LogoProps) {
   const isDark = tone === "dark" || tone === "app-light";
   const baseColor = isDark ? "#0B0F1F" : "#FFFFFF";
+  const subColor = isDark ? "#6B7280" : "rgba(222,228,240,0.58)";
 
   if (variant === "mark") {
     return (
@@ -118,26 +118,23 @@ export function FaicerLogo({
       <span className="inline-flex h-11 w-[42px] shrink-0">
         <FaicerIcon tone={tone} />
       </span>
-      <span className="flex flex-col justify-center gap-0.5">
+      <span className="flex min-w-0 flex-col justify-center gap-1">
         <span
-          style={{ fontFamily: "var(--font-orbitron, 'Orbitron', sans-serif)" }}
+          style={{ fontFamily: "var(--font-orbitron, 'Orbitron', sans-serif)", color: baseColor }}
           className="text-[19px] font-black leading-none tracking-tight"
           aria-hidden="true"
         >
-          <span style={{ color: baseColor }}>FAIC</span>
-          <span style={{ color: "#6366F1" }}>ER</span>
+          FAICER
         </span>
-        {tagline && (
-          <span
-            className="text-[7px] font-semibold uppercase leading-tight tracking-[0.2em]"
-            style={{ color: "rgba(168,176,204,0.45)" }}
-            aria-hidden="true"
-          >
-            Fundamental AI Compliance
-            <br />
-            &amp; Education Register
-          </span>
-        )}
+        <span
+          className="text-[9px] font-medium leading-snug tracking-[0.04em]"
+          style={{ color: subColor }}
+          aria-hidden="true"
+        >
+          Fundamental AI Compliance
+          <br className="hidden sm:inline" />
+          <span className="sm:hidden"> </span>&amp; Education Register
+        </span>
       </span>
     </span>
   );

@@ -5,9 +5,9 @@ import { PublicChrome } from "@/components/PublicChrome";
 import { getSessionSnapshot } from "@/lib/auth/session";
 
 /* ── Design tokens ── */
-const PINK = "#6366F1";
-const PURPLE = "#5575F2";
-const VIOLET = "#4F7CF5";
+const INDIGO = "#6366F1";
+const BLUE = "#5575F2";
+const SKY = "#4F7CF5";
 
 /* ── Dashboard UI mockup ── */
 function DashboardMockup() {
@@ -21,7 +21,7 @@ function DashboardMockup() {
     { label: "Vendor Models", level: "High", color: "#FF5555" },
     { label: "Incomplete DPIA", level: "Medium", color: "#FFA500" },
     { label: "Training Gaps", level: "Medium", color: "#FFA500" },
-    { label: "Data Governance", level: "Low", color: VIOLET },
+    { label: "Data Governance", level: "Low", color: SKY },
   ];
 
   return (
@@ -73,7 +73,7 @@ function DashboardMockup() {
                 className="flex items-center gap-2 rounded-[7px] px-2.5 py-1.5"
                 style={
                   i === 0
-                    ? { background: "linear-gradient(90deg,#C849AA,#6172E6)" }
+                    ? { background: "linear-gradient(90deg,#5B6CF0,#6172E6)" }
                     : { background: "transparent" }
                 }
               >
@@ -142,7 +142,7 @@ function DashboardMockup() {
                       strokeDasharray="72 87.96" transform="rotate(-90 18 18)"/>
                     <defs><linearGradient id="mg"><stop stopColor="#6366F1"/><stop offset="1" stopColor="#4F7CF5"/></linearGradient></defs>
                     <text x="18" y="19.5" textAnchor="middle" fill="white" fontSize="7" fontWeight="700">92%</text>
-                    <text x="18" y="26" textAnchor="middle" fill={PURPLE} fontSize="4.5">Excellent</text>
+                    <text x="18" y="26" textAnchor="middle" fill={BLUE} fontSize="4.5">Excellent</text>
                   </svg>
                 </div>
                 <div className="h-1.5 w-14 rounded-full mx-auto" style={{ background: "rgba(52,211,153,0.35)" }} />
@@ -159,7 +159,7 @@ function DashboardMockup() {
                   <p className="mt-0.5 text-[8px]" style={{ color: "rgba(52,211,153,0.8)" }}>{c.delta}</p>
                   {/* sparkline */}
                   <svg viewBox="0 0 60 16" className="mt-1.5 w-full" preserveAspectRatio="none">
-                    <path d="M0 12 C10 10, 20 8, 30 5 C40 2, 50 1, 60 0" fill="none" stroke={PINK} strokeWidth="1.2" strokeLinecap="round"/>
+                    <path d="M0 12 C10 10, 20 8, 30 5 C40 2, 50 1, 60 0" fill="none" stroke={INDIGO} strokeWidth="1.2" strokeLinecap="round"/>
                     <path d="M0 12 C10 10, 20 8, 30 5 C40 2, 50 1, 60 0 L60 16 L0 16 Z" fill="rgba(99,102,241,0.08)"/>
                   </svg>
                 </div>
@@ -169,13 +169,13 @@ function DashboardMockup() {
               <div className="rounded-[8px] p-2.5" style={{ background: "rgba(14,17,38,0.98)", border: "1px solid rgba(42,45,80,0.65)" }}>
                 <div className="mb-1 h-1.5 w-10 rounded-full" style={{ background: "rgba(168,176,204,0.2)" }} />
                 <div className="flex items-center justify-center my-1">
-                  <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke={PURPLE} strokeWidth="1.5" strokeLinecap="round">
+                  <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke={BLUE} strokeWidth="1.5" strokeLinecap="round">
                     <path d="M12 2.5L20 6.5v7C20 18 16.5 21 12 22.5C7.5 21 4 18 4 13.5v-7L12 2.5Z"/>
                   </svg>
                 </div>
-                <p className="text-center text-[10px] font-bold" style={{ color: PURPLE }}>Moderate</p>
+                <p className="text-center text-[10px] font-bold" style={{ color: BLUE }}>Moderate</p>
                 <div className="mt-1.5 h-1 w-full rounded-full" style={{ background: "rgba(42,45,80,0.8)" }}>
-                  <div className="h-1 w-[55%] rounded-full" style={{ background: `linear-gradient(90deg,${PINK},${VIOLET})` }} />
+                  <div className="h-1 w-[55%] rounded-full" style={{ background: `linear-gradient(90deg,${INDIGO},${SKY})` }} />
                 </div>
               </div>
             </div>
@@ -192,9 +192,9 @@ function DashboardMockup() {
                   <line x1="10" y1="10" x2="130" y2="10" stroke="rgba(42,45,80,0.5)" strokeWidth="0.5"/>
                   <line x1="10" y1="28" x2="130" y2="28" stroke="rgba(42,45,80,0.5)" strokeWidth="0.5"/>
                   <line x1="10" y1="46" x2="130" y2="46" stroke="rgba(42,45,80,0.5)" strokeWidth="0.5"/>
-                  <path d="M10 58 C30 50, 50 42, 70 32 C90 22, 110 14, 130 10" fill="none" stroke={PINK} strokeWidth="1.8" strokeLinecap="round"/>
+                  <path d="M10 58 C30 50, 50 42, 70 32 C90 22, 110 14, 130 10" fill="none" stroke={INDIGO} strokeWidth="1.8" strokeLinecap="round"/>
                   <path d="M10 58 C30 50, 50 42, 70 32 C90 22, 110 14, 130 10 L130 65 L10 65 Z" fill="rgba(99,102,241,0.10)"/>
-                  <circle cx="130" cy="10" r="3" fill={PINK} stroke="#0B0E1F" strokeWidth="1.2"/>
+                  <circle cx="130" cy="10" r="3" fill={INDIGO} stroke="#0B0E1F" strokeWidth="1.2"/>
                   {["Apr", "May", "Jun"].map((l, i) => (
                     <text key={l} x={20 + i * 55} y="70" fill="rgba(107,114,128,0.9)" fontSize="7" textAnchor="middle">{l}</text>
                   ))}
@@ -235,7 +235,7 @@ function DashboardMockup() {
                   <div className="h-1.5 w-14 rounded-full" style={{ background: "rgba(255,255,255,0.2)" }} />
                   <div className="h-1.5 w-8 rounded-full" style={{ background: "rgba(99,102,241,0.4)" }} />
                 </div>
-                {[["High","#FF5555"],["Medium","#FFA500"],["Low",VIOLET]].map(([l,c]) => (
+                {[["High","#FF5555"],["Medium","#FFA500"],["Low",SKY]].map(([l,c]) => (
                   <div key={l} className="mb-1.5 flex items-start gap-1.5 rounded-[4px] px-1.5 py-1" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(42,45,80,0.5)" }}>
                     <div className="mt-0.5 h-1.5 w-1.5 shrink-0 rounded-[2px]" style={{ background: `${c}30`, border: `1px solid ${c}` }} />
                     <div className="flex-1">
@@ -407,8 +407,8 @@ export default async function WelcomePage() {
       <section className="relative overflow-hidden px-6 pb-12 pt-16 lg:px-10 lg:pb-16 lg:pt-20">
         {/* Background glows */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute left-1/4 top-0 h-96 w-96 -translate-x-1/2 rounded-full opacity-30" style={{ background: `radial-gradient(circle, ${PINK}, transparent 70%)`, filter: "blur(60px)" }} />
-          <div className="absolute right-1/4 top-10 h-96 w-96 translate-x-1/2 rounded-full opacity-20" style={{ background: `radial-gradient(circle, ${VIOLET}, transparent 70%)`, filter: "blur(80px)" }} />
+          <div className="absolute left-1/4 top-0 h-96 w-96 -translate-x-1/2 rounded-full opacity-30" style={{ background: `radial-gradient(circle, ${INDIGO}, transparent 70%)`, filter: "blur(60px)" }} />
+          <div className="absolute right-1/4 top-10 h-96 w-96 translate-x-1/2 rounded-full opacity-20" style={{ background: `radial-gradient(circle, ${SKY}, transparent 70%)`, filter: "blur(80px)" }} />
         </div>
 
         <div className="relative mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
@@ -420,10 +420,10 @@ export default async function WelcomePage() {
               style={{
                 background: "rgba(99,102,241,0.10)",
                 border: "1px solid rgba(99,102,241,0.25)",
-                color: PINK,
+                color: INDIGO,
               }}
             >
-              <span className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ background: PINK }} />
+              <span className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ background: INDIGO }} />
               Built for AI-forward SMEs
             </span>
 
@@ -432,7 +432,7 @@ export default async function WelcomePage() {
               AI Compliance.{" "}
               <span
                 className="block bg-clip-text text-transparent"
-                style={{ backgroundImage: `linear-gradient(90deg, ${PINK} 0%, ${PURPLE} 50%, ${VIOLET} 100%)` }}
+                style={{ backgroundImage: `linear-gradient(90deg, ${INDIGO} 0%, ${BLUE} 50%, ${SKY} 100%)` }}
               >
                 Simplified.
               </span>
@@ -449,8 +449,8 @@ export default async function WelcomePage() {
                 href={session ? "/dashboard" : "/sign-up"}
                 className="inline-flex items-center gap-2 rounded-[12px] px-6 py-3.5 text-[14px] font-bold text-white transition hover:brightness-110"
                 style={{
-                  background: `linear-gradient(90deg, #C849AA 0%, #6172E6 100%)`,
-                  boxShadow: "0 8px 32px rgba(200,73,170,0.35)",
+                  background: `linear-gradient(90deg, #5B6CF0 0%, #6172E6 100%)`,
+                  boxShadow: "0 8px 32px rgba(99, 102, 241,0.35)",
                 }}
               >
                 {session ? "Open Dashboard" : "Start for free"}
@@ -467,18 +467,22 @@ export default async function WelcomePage() {
 
             {/* Framework badges */}
             <div className="flex flex-wrap gap-2">
-              {["EU AI Act", "ISO 42001", "GDPR", "SOC 2", "UK ICO"].map((f) => (
-                <span
-                  key={f}
-                  className="rounded-full px-3 py-1 text-[11.5px] font-medium"
-                  style={{
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(42,45,80,0.7)",
-                    color: "rgba(168,176,204,0.65)",
-                  }}
+              {[
+                { label: "EU AI Act", href: "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" },
+                { label: "ISO 42001", href: "https://www.iso.org/standard/81230.html" },
+                { label: "GDPR", href: "https://gdpr.eu/" },
+                { label: "SOC 2", href: "https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2" },
+                { label: "UK ICO", href: "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/" },
+              ].map((f) => (
+                <a
+                  key={f.label}
+                  href={f.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-[rgba(40,49,67,0.7)] bg-white/[0.04] px-3 py-1 text-[11.5px] font-medium text-[rgba(168,176,204,0.65)] transition hover:border-[rgba(99,102,241,0.55)] hover:text-white"
                 >
-                  {f}
-                </span>
+                  {f.label}
+                </a>
               ))}
             </div>
           </div>
@@ -489,7 +493,7 @@ export default async function WelcomePage() {
             {/* Side glow */}
             <div
               className="pointer-events-none absolute -right-12 top-1/2 h-80 w-40 -translate-y-1/2 rounded-full opacity-20"
-              style={{ background: `radial-gradient(circle, ${PURPLE}, transparent 70%)`, filter: "blur(40px)" }}
+              style={{ background: `radial-gradient(circle, ${BLUE}, transparent 70%)`, filter: "blur(40px)" }}
             />
           </div>
         </div>
@@ -505,7 +509,7 @@ export default async function WelcomePage() {
             <div key={s.label} className="flex flex-col items-center py-6 px-4 text-center">
               <p
                 className="text-[28px] font-black tracking-[-0.04em]"
-                style={{ backgroundImage: `linear-gradient(90deg, ${PINK}, ${PURPLE})`, backgroundClip: "text", WebkitBackgroundClip: "text", color: "transparent" }}
+                style={{ backgroundImage: `linear-gradient(90deg, ${INDIGO}, ${BLUE})`, backgroundClip: "text", WebkitBackgroundClip: "text", color: "transparent" }}
               >
                 {s.value}
               </p>
@@ -519,12 +523,12 @@ export default async function WelcomePage() {
       <section id="features" className="px-6 py-16 lg:px-10 lg:py-20">
         <div className="mx-auto max-w-[1360px]">
           <div className="mb-12 text-center">
-            <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.3em]" style={{ color: PINK }}>
+            <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.3em]" style={{ color: INDIGO }}>
               Platform modules
             </p>
             <h2 className="mb-4 text-[2.2rem] font-black tracking-[-0.03em] text-white">
               Everything you need to govern AI{" "}
-              <span className="bg-clip-text text-transparent" style={{ backgroundImage: `linear-gradient(90deg, ${PINK}, ${PURPLE})` }}>
+              <span className="bg-clip-text text-transparent" style={{ backgroundImage: `linear-gradient(90deg, ${INDIGO}, ${BLUE})` }}>
                 responsibly
               </span>
             </h2>
@@ -555,7 +559,7 @@ export default async function WelcomePage() {
                   </div>
                   <span
                     className="rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.15em]"
-                    style={{ background: "rgba(99,102,241,0.12)", color: PURPLE }}
+                    style={{ background: "rgba(99,102,241,0.12)", color: BLUE }}
                   >
                     {f.badge}
                   </span>
@@ -582,8 +586,8 @@ export default async function WelcomePage() {
               href={session ? "/dashboard" : "/sign-up"}
               className="inline-flex items-center gap-2 rounded-[12px] px-6 py-3.5 text-[14px] font-bold text-white transition hover:brightness-110"
               style={{
-                background: `linear-gradient(90deg, #C849AA 0%, #6172E6 100%)`,
-                boxShadow: "0 8px 32px rgba(200,73,170,0.30)",
+                background: `linear-gradient(90deg, #5B6CF0 0%, #6172E6 100%)`,
+                boxShadow: "0 8px 32px rgba(99, 102, 241,0.30)",
               }}
             >
               {session ? "Open Dashboard" : "Get started free"}
@@ -601,12 +605,12 @@ export default async function WelcomePage() {
       >
         <div className="mx-auto max-w-[1360px]">
           <div className="mb-12 text-center">
-            <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.3em]" style={{ color: PINK }}>
+            <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.3em]" style={{ color: INDIGO }}>
               How it works
             </p>
             <h2 className="mb-4 text-[2.2rem] font-black tracking-[-0.03em] text-white">
               From setup to{" "}
-              <span className="bg-clip-text text-transparent" style={{ backgroundImage: `linear-gradient(90deg, ${PINK}, ${PURPLE})` }}>
+              <span className="bg-clip-text text-transparent" style={{ backgroundImage: `linear-gradient(90deg, ${INDIGO}, ${BLUE})` }}>
                 audit-ready
               </span>{" "}
               in days
@@ -620,21 +624,21 @@ export default async function WelcomePage() {
             {/* Connector line */}
             <div
               className="absolute top-10 left-[12.5%] right-[12.5%] hidden h-px xl:block"
-              style={{ background: `linear-gradient(90deg, transparent, ${PINK}40, ${PURPLE}40, transparent)` }}
+              style={{ background: `linear-gradient(90deg, transparent, ${INDIGO}40, ${BLUE}40, transparent)` }}
             />
             {steps.map((s, i) => (
               <div key={s.num} className="relative flex flex-col items-center text-center">
                 <div
                   className="relative mb-5 flex h-16 w-16 items-center justify-center rounded-[18px]"
                   style={{
-                    background: `linear-gradient(135deg, ${PINK}18, ${VIOLET}18)`,
+                    background: `linear-gradient(135deg, ${INDIGO}18, ${SKY}18)`,
                     border: "1px solid rgba(99,102,241,0.25)",
                   }}
                 >
                   <AppIcon name={s.icon} className="h-7 w-7 text-[#6366F1]" />
                   <span
                     className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full text-[9px] font-bold text-white"
-                    style={{ background: `linear-gradient(135deg, ${PINK}, ${VIOLET})` }}
+                    style={{ background: `linear-gradient(135deg, ${INDIGO}, ${SKY})` }}
                   >
                     {i + 1}
                   </span>
@@ -651,12 +655,12 @@ export default async function WelcomePage() {
       <section className="border-t px-6 py-16 lg:px-10 lg:py-20" style={{ borderColor: "rgba(42,45,80,0.55)" }}>
         <div className="mx-auto max-w-[1360px]">
           <div className="mb-12 text-center">
-            <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.3em]" style={{ color: PINK }}>
+            <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.3em]" style={{ color: INDIGO }}>
               Pricing
             </p>
             <h2 className="mb-4 text-[2.2rem] font-black tracking-[-0.03em] text-white">
               Simple,{" "}
-              <span className="bg-clip-text text-transparent" style={{ backgroundImage: `linear-gradient(90deg, ${PINK}, ${PURPLE})` }}>
+              <span className="bg-clip-text text-transparent" style={{ backgroundImage: `linear-gradient(90deg, ${INDIGO}, ${BLUE})` }}>
                 transparent
               </span>{" "}
               pricing
@@ -684,7 +688,7 @@ export default async function WelcomePage() {
                 {plan.primary && (
                   <div
                     className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-white"
-                    style={{ background: `linear-gradient(90deg, ${PINK}, ${PURPLE})` }}
+                    style={{ background: `linear-gradient(90deg, ${INDIGO}, ${BLUE})` }}
                   >
                     Most popular
                   </div>
@@ -714,9 +718,9 @@ export default async function WelcomePage() {
                   style={
                     plan.primary
                       ? {
-                          background: `linear-gradient(90deg, #C849AA 0%, #6172E6 100%)`,
+                          background: `linear-gradient(90deg, #5B6CF0 0%, #6172E6 100%)`,
                           color: "#fff",
-                          boxShadow: "0 6px 24px rgba(200,73,170,0.30)",
+                          boxShadow: "0 6px 24px rgba(99, 102, 241,0.30)",
                         }
                       : {
                           border: "1px solid rgba(42,45,80,0.8)",
@@ -762,8 +766,8 @@ export default async function WelcomePage() {
               href={session ? "/dashboard" : "/sign-up"}
               className="inline-flex items-center gap-2 rounded-[12px] px-7 py-4 text-[15px] font-bold text-white transition hover:brightness-110"
               style={{
-                background: `linear-gradient(90deg, #C849AA 0%, #6172E6 100%)`,
-                boxShadow: "0 8px 40px rgba(200,73,170,0.35)",
+                background: `linear-gradient(90deg, #5B6CF0 0%, #6172E6 100%)`,
+                boxShadow: "0 8px 40px rgba(99, 102, 241,0.35)",
               }}
             >
               {session ? "Open Dashboard" : "Get started — it's free"}

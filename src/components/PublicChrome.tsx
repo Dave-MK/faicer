@@ -47,8 +47,8 @@ export function PublicChrome({ children, current }: PublicChromeProps) {
               href="/sign-up"
               className="inline-flex items-center gap-2 rounded-[11px] px-4 py-2.5 text-[13.5px] font-semibold text-white transition hover:brightness-110"
               style={{
-                background: "linear-gradient(90deg,#C849AA 0%,#6172E6 100%)",
-                boxShadow: "0 6px 24px rgba(200,73,170,0.30)",
+                background: "linear-gradient(90deg,#5B6CF0 0%,#6172E6 100%)",
+                boxShadow: "0 6px 24px rgba(99, 102, 241,0.30)",
               }}
             >
               Get Started
