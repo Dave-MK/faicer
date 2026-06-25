@@ -1,43 +1,49 @@
 # FAICER
 
-Mock-first scaffold for the `FAICER` (Fundamental AI Compliance & Education Register) Milestones 0 to 2 foundation: auth, tenancy, and the first tool-register workflow.
+Mock-first build of `FAICER` (Fundamental AI Compliance & Education Register): an AI-governance platform for SMEs covering tool inventory, use cases, risk, controls, assessments, evidence, incidents, policies, and training — on a multi-tenant auth and role foundation.
 
 ## What is in this repo
 
 - Next.js 16 App Router app
-- mock-backed sign in, sign up, sign out, and organisation creation flows
+- mock-backed sign in, sign up, sign out, password reset, and organisation creation flows
 - centralized session and workspace permission helpers
 - Supabase SSR utility files and `src/proxy.ts` for the production auth path
-- initial SQL migration and seed placeholders for:
-  - `organisations`
-  - `profiles`
-  - `memberships`
-  - `audit_events`
+- role-aware app shell with a responsive mobile navigation drawer
+- SQL migrations and seed data for the full domain schema:
+  - identity: `organisations`, `profiles`, `memberships`, `audit_events`
+  - tool register: `ai_tools`
+  - governance: `use_cases`, `policies`, `policy_acknowledgements`, `risks`,
+    `controls`, `assessments`, `evidence_items`, `incidents`,
+    `training_courses`, `training_completions`
 - unit and E2E test scaffolding
 
-## Scope guard
+## Scope
 
-This repo now covers the Milestone 2 tool register, but still stops before the later governance flows.
+The app now spans the identity foundation, the tool register, and the governance modules.
 
-Included now:
+Built:
 
-- scaffold and docs
-- env parsing
-- mock auth shell
-- organisation creation flow
-- role-aware dashboard shell
-- AI tool inventory, add flow, detail page, and edit flow
+- scaffold, docs, and env parsing
+- mock auth shell with password reset
+- organisation creation and settings
+- role-aware dashboard shell (responsive, with mobile drawer)
+- AI tool inventory (list, add, detail, edit)
+- use-case register
+- policy builder, acknowledgements, and per-user "my policies"
+- risk register and controls
+- assessments
+- evidence pack
+- incident register
+- training courses and completions
+- governance overview, reports, and integrations surfaces
 - permission helpers
-- migration and seed placeholders
+- migrations and seed data
 - test harness setup
 
 Not started yet:
 
-- use-case register
-- policy builder
-- training
-- incidents
-- evidence pack
+- production data wiring for the newer governance modules beyond their mock layer
+- notifications and search (header actions are placeholders)
 
 ## Run locally
 
