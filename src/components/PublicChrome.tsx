@@ -47,7 +47,7 @@ export function PublicChrome({ children, current }: PublicChromeProps) {
               href="/sign-up"
               className="inline-flex items-center gap-2 rounded-[11px] px-4 py-2.5 text-[13.5px] font-semibold text-white transition hover:brightness-110"
               style={{
-                background: "linear-gradient(90deg,#C849AA 0%,#9B4DFF 100%)",
+                background: "linear-gradient(90deg,#C849AA 0%,#6172E6 100%)",
                 boxShadow: "0 6px 24px rgba(200,73,170,0.30)",
               }}
             >
@@ -80,12 +80,12 @@ export function AuthShell({
   return (
     <main className="mx-auto flex min-h-screen max-w-[1280px] items-center px-4 py-4 lg:px-6 lg:py-6">
       <div className="grid w-full overflow-hidden rounded-[28px] border border-[var(--ai-border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01))] shadow-[0_24px_80px_rgba(1,8,20,0.55)] lg:grid-cols-[1.05fr_0.95fr]">
-        <section className="relative overflow-hidden border-b border-[var(--ai-border)] bg-[radial-gradient(circle_at_20%_20%,rgba(255,77,184,0.12),transparent_28%),radial-gradient(circle_at_80%_0%,rgba(178,77,255,0.14),transparent_30%),linear-gradient(180deg,#07091A_0%,#0A0D1C_100%)] px-8 py-10 lg:border-b-0 lg:border-r lg:px-10 lg:py-12">
+        <section className="relative overflow-hidden border-b border-[var(--ai-border)] bg-[radial-gradient(circle_at_20%_20%,rgba(99,102,241,0.12),transparent_28%),radial-gradient(circle_at_80%_0%,rgba(99,102,241,0.14),transparent_30%),linear-gradient(180deg,#07091A_0%,#0A0D1C_100%)] px-8 py-10 lg:border-b-0 lg:border-r lg:px-10 lg:py-12">
           <div className="pointer-events-none absolute inset-0 opacity-70">
-            <div className="absolute left-[-40px] top-[-30px] h-56 w-56 rounded-full border border-[rgba(255,77,184,0.14)]" />
-            <div className="absolute left-8 top-10 h-72 w-72 rounded-full border border-[rgba(178,77,255,0.12)]" />
-            <div className="absolute left-18 top-18 h-80 w-80 rounded-full border border-[rgba(123,77,255,0.10)]" />
-            <div className="absolute left-22 top-24 h-52 w-52 rounded-[28px] border border-[rgba(255,77,184,0.12)] [clip-path:polygon(25%_6%,75%_6%,100%_50%,75%_94%,25%_94%,0_50%)]" />
+            <div className="absolute left-[-40px] top-[-30px] h-56 w-56 rounded-full border border-[rgba(99,102,241,0.14)]" />
+            <div className="absolute left-8 top-10 h-72 w-72 rounded-full border border-[rgba(99,102,241,0.12)]" />
+            <div className="absolute left-18 top-18 h-80 w-80 rounded-full border border-[rgba(79,124,245,0.10)]" />
+            <div className="absolute left-22 top-24 h-52 w-52 rounded-[28px] border border-[rgba(99,102,241,0.12)] [clip-path:polygon(25%_6%,75%_6%,100%_50%,75%_94%,25%_94%,0_50%)]" />
           </div>
 
           <div className="relative z-10 max-w-[380px] space-y-8">
@@ -112,7 +112,7 @@ export function AuthShell({
                   key={point}
                   className="flex items-start gap-3 text-sm text-[var(--ai-text-secondary)]"
                 >
-                  <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full border border-[rgba(255,77,184,0.35)] bg-[rgba(19,36,61,0.9)] text-[var(--ai-cyan)]">
+                  <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full border border-[rgba(99,102,241,0.35)] bg-[rgba(19,36,61,0.9)] text-[var(--ai-cyan)]">
                     <AppIcon name="check" className="h-3 w-3" />
                   </span>
                   <span>{point}</span>

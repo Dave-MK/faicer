@@ -21,7 +21,7 @@ function PreviewFrame({ title, href }: { title: string; href: string }) {
   return (
     <article className="space-y-4">
       <div className="flex items-center gap-3">
-        <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[linear-gradient(90deg,#FF4DB8_0%,#B24DFF_100%)] text-base font-semibold text-white">
+        <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[linear-gradient(90deg,#6366F1_0%,#5575F2_100%)] text-base font-semibold text-white">
           {title[0]}
         </span>
         <div>

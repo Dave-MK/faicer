@@ -56,7 +56,7 @@ export default async function TrainingPage() {
         </div>
         <div className="mt-3 h-2 rounded-full bg-[rgba(18,31,53,0.95)]">
           <div
-            className="h-2 rounded-full bg-[linear-gradient(90deg,#FF4DB8_0%,#B24DFF_100%)] transition-all"
+            className="h-2 rounded-full bg-[linear-gradient(90deg,#6366F1_0%,#5575F2_100%)] transition-all"
             style={{ width: `${progress}%` }}
           />
         </div>

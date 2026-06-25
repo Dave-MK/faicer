@@ -6,19 +6,19 @@ type LogoProps = {
   tagline?: boolean;
 };
 
-const PINK = "#FF4DB8";
-const VIOLET = "#7B4DFF";
-const PURPLE = "#B24DFF";
+const INDIGO = "#6366F1";
+const BLUE = "#3B82F6";
+const MID = "#5575F2";
 
 function FaicerIcon({ tone }: { tone: string }) {
   const isDark = tone === "dark" || tone === "app-light";
   const gId = tone.replace(/[^a-z]/g, "");
-  const shieldFill = isDark ? "rgba(11,7,26,0.92)" : "rgba(9,8,22,0.94)";
-  const barColor1 = isDark ? "#7B4DFF" : "#9B4DFF";
-  const barColor2 = isDark ? "#5B2FA0" : VIOLET;
-  const dotColor = isDark ? VIOLET : PURPLE;
-  const docStroke = isDark ? "#7B4DFF" : "#9B4DFF";
-  const checkFill = isDark ? "#5B2FA0" : PINK;
+  const shieldFill = isDark ? "rgba(10,14,24,0.92)" : "rgba(9,12,22,0.94)";
+  const barColor1 = isDark ? "#4F7CF5" : "#6172E6";
+  const barColor2 = isDark ? "#27408C" : BLUE;
+  const dotColor = isDark ? BLUE : MID;
+  const docStroke = isDark ? "#4F7CF5" : "#6172E6";
+  const checkFill = isDark ? "#27408C" : INDIGO;
 
   return (
     <svg viewBox="0 0 48 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -28,9 +28,9 @@ function FaicerIcon({ tone }: { tone: string }) {
           <stop offset="100%" stopColor={barColor2} stopOpacity="0.6" />
         </linearGradient>
         <linearGradient id={`shield-${gId}`} x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor={PINK} />
-          <stop offset="50%" stopColor={PURPLE} />
-          <stop offset="100%" stopColor={VIOLET} />
+          <stop offset="0%" stopColor={INDIGO} />
+          <stop offset="50%" stopColor={MID} />
+          <stop offset="100%" stopColor={BLUE} />
         </linearGradient>
         <filter id={`glow-${gId}`} x="-25%" y="-25%" width="150%" height="150%">
           <feGaussianBlur stdDeviation="1.4" result="b" />
@@ -62,14 +62,14 @@ function FaicerIcon({ tone }: { tone: string }) {
       <path
         d="M24 17L37 22.5V32C37 39.5 31 44.5 24 48C17 44.5 11 39.5 11 32V22.5L24 17Z"
         fill="none"
-        stroke={VIOLET}
+        stroke={BLUE}
         strokeWidth="0.5"
         opacity="0.3"
       />
 
       {/* Document inside shield */}
       <rect x="16.5" y="23" width="15" height="18" rx="2.5"
-        fill="rgba(123,77,255,0.10)" stroke={docStroke} strokeWidth="0.9"/>
+        fill="rgba(99,102,241,0.10)" stroke={docStroke} strokeWidth="0.9"/>
       <line x1="19.5" y1="28" x2="28.5" y2="28" stroke={docStroke} strokeWidth="1" strokeLinecap="round"/>
       <line x1="19.5" y1="32" x2="28.5" y2="32" stroke={docStroke} strokeWidth="1" strokeLinecap="round"/>
       <line x1="19.5" y1="36" x2="25.5" y2="36" stroke={docStroke} strokeWidth="1" strokeLinecap="round"/>
@@ -125,7 +125,7 @@ export function FaicerLogo({
           aria-hidden="true"
         >
           <span style={{ color: baseColor }}>FAIC</span>
-          <span style={{ color: "#FF4DB8" }}>ER</span>
+          <span style={{ color: "#6366F1" }}>ER</span>
         </span>
         {tagline && (
           <span

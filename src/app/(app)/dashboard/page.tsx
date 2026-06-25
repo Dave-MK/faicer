@@ -34,12 +34,12 @@ function Sparkline({ id, up = true }: { id: string; up?: boolean }) {
     <svg viewBox="0 0 80 28" className="h-8 w-full" preserveAspectRatio="none" aria-hidden="true">
       <defs>
         <linearGradient id={`spk-${id}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#FF4DB8" stopOpacity="0.22" />
-          <stop offset="100%" stopColor="#FF4DB8" stopOpacity="0" />
+          <stop offset="0%" stopColor="#6366F1" stopOpacity="0.22" />
+          <stop offset="100%" stopColor="#6366F1" stopOpacity="0" />
         </linearGradient>
       </defs>
       <path d={area} fill={`url(#spk-${id})`} />
-      <path d={line} fill="none" stroke="#FF4DB8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d={line} fill="none" stroke="#6366F1" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -80,14 +80,14 @@ function ComplianceRingCard({ score }: { score: number }) {
             />
             <defs>
               <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#FF4DB8" />
-                <stop offset="100%" stopColor="#7B4DFF" />
+                <stop offset="0%" stopColor="#6366F1" />
+                <stop offset="100%" stopColor="#4F7CF5" />
               </linearGradient>
             </defs>
           </svg>
           <div className="relative flex flex-col items-center">
             <span className="text-[22px] font-bold text-white leading-none">{score}%</span>
-            <span className="mt-0.5 text-[11px]" style={{ color: "#B24DFF" }}>{label}</span>
+            <span className="mt-0.5 text-[11px]" style={{ color: "#5575F2" }}>{label}</span>
           </div>
         </div>
         <p className="mt-2 text-[12px]" style={{ color: "rgba(52,211,153,0.9)" }}>
@@ -119,7 +119,7 @@ function StatCard({
       <div className="flex items-center gap-2 mb-3">
         <span
           className="inline-flex h-7 w-7 items-center justify-center rounded-[9px]"
-          style={{ background: "rgba(255,77,184,0.12)", color: "#FF4DB8" }}
+          style={{ background: "rgba(99,102,241,0.12)", color: "#6366F1" }}
         >
           <AppIcon name={icon} className="h-3.5 w-3.5" />
         </span>
@@ -142,7 +142,7 @@ function StatCard({
 /* ── Risk Level card ── */
 function RiskLevelCard({ high, medium }: { high: number; medium: number }) {
   const level = high > 2 ? "High" : high > 0 || medium > 2 ? "Moderate" : medium > 0 ? "Low" : "Minimal";
-  const levelColor = level === "High" ? "#FF4DB8" : level === "Moderate" ? "#B24DFF" : "#7B4DFF";
+  const levelColor = level === "High" ? "#6366F1" : level === "Moderate" ? "#5575F2" : "#4F7CF5";
   const barPct = level === "High" ? 85 : level === "Moderate" ? 55 : level === "Low" ? 30 : 10;
   const actions = high + Math.ceil(medium / 2);
 
@@ -151,7 +151,7 @@ function RiskLevelCard({ high, medium }: { high: number; medium: number }) {
       <p className="mb-2 text-[11px] uppercase tracking-[0.2em] text-[rgba(168,176,204,0.55)] self-start">Risk Level</p>
       <div
         className="my-2 flex h-14 w-14 items-center justify-center rounded-full"
-        style={{ background: "rgba(178,77,255,0.12)", border: "1px solid rgba(178,77,255,0.25)" }}
+        style={{ background: "rgba(99,102,241,0.12)", border: "1px solid rgba(99,102,241,0.25)" }}
       >
         <svg viewBox="0 0 24 24" fill="none" stroke={levelColor} strokeWidth="1.85" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7" aria-hidden="true">
           <path d="M12 3.5 19.5 7v5c0 4-2.7 6.8-7.5 8.5C7.2 18.8 4.5 16 4.5 12V7L12 3.5Z" />
@@ -165,7 +165,7 @@ function RiskLevelCard({ high, medium }: { high: number; medium: number }) {
             className="h-1.5 rounded-full transition-all"
             style={{
               width: `${barPct}%`,
-              background: `linear-gradient(90deg, ${levelColor}, #7B4DFF)`,
+              background: `linear-gradient(90deg, ${levelColor}, #4F7CF5)`,
               boxShadow: `0 0 8px ${levelColor}60`,
             }}
           />
@@ -395,8 +395,8 @@ export default async function DashboardPage() {
           <svg viewBox="0 0 510 140" className="w-full" aria-hidden="true">
             <defs>
               <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#FF4DB8" stopOpacity="0.35" />
-                <stop offset="100%" stopColor="#FF4DB8" stopOpacity="0.02" />
+                <stop offset="0%" stopColor="#6366F1" stopOpacity="0.35" />
+                <stop offset="100%" stopColor="#6366F1" stopOpacity="0.02" />
               </linearGradient>
             </defs>
             {/* Grid */}
@@ -412,11 +412,11 @@ export default async function DashboardPage() {
             {/* Area */}
             <path d={areaPath} fill="url(#areaGrad)" />
             {/* Line */}
-            <path d={linePath} fill="none" stroke="#FF4DB8" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d={linePath} fill="none" stroke="#6366F1" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
             {/* Current point marker */}
-            <circle cx={pts[pts.length - 1].x} cy={pts[pts.length - 1].y} r="5" fill="#FF4DB8" stroke="#0B0E1F" strokeWidth="2" />
+            <circle cx={pts[pts.length - 1].x} cy={pts[pts.length - 1].y} r="5" fill="#6366F1" stroke="#0B0E1F" strokeWidth="2" />
             {/* Tooltip */}
-            <rect x={pts[pts.length - 1].x - 30} y={pts[pts.length - 1].y - 44} width="60" height="38" rx="7" fill="rgba(20,14,40,0.95)" stroke="rgba(178,77,255,0.4)" strokeWidth="1"/>
+            <rect x={pts[pts.length - 1].x - 30} y={pts[pts.length - 1].y - 44} width="60" height="38" rx="7" fill="rgba(20,14,40,0.95)" stroke="rgba(99,102,241,0.4)" strokeWidth="1"/>
             <text x={pts[pts.length - 1].x} y={pts[pts.length - 1].y - 28} textAnchor="middle" fill="rgba(168,176,204,0.7)" fontSize="8">May 18</text>
             <text x={pts[pts.length - 1].x} y={pts[pts.length - 1].y - 15} textAnchor="middle" fill="white" fontSize="13" fontWeight="700">{healthScore}%</text>
             {/* X-axis labels */}
@@ -431,7 +431,7 @@ export default async function DashboardPage() {
               { dot: "#22C55E", label: "Excellent 80-100%", count: 18 },
               { dot: "#4ADE80", label: "Good 60-79%", count: 6 },
               { dot: "#EAB308", label: "Needs Work 30-59%", count: 2 },
-              { dot: "#FF4DB8", label: "Poor 0-29%", count: 1 },
+              { dot: "#6366F1", label: "Poor 0-29%", count: 1 },
             ].map((item) => (
               <div key={item.label} className="flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full shrink-0" style={{ background: item.dot }} />
@@ -443,8 +443,8 @@ export default async function DashboardPage() {
 
           <Link
             href="/reports"
-            className="mt-4 flex items-center justify-center gap-1.5 rounded-[12px] border py-2.5 text-[13px] font-semibold transition hover:bg-[rgba(255,77,184,0.06)]"
-            style={{ borderColor: "rgba(255,77,184,0.3)", color: "#FF4DB8" }}
+            className="mt-4 flex items-center justify-center gap-1.5 rounded-[12px] border py-2.5 text-[13px] font-semibold transition hover:bg-[rgba(99,102,241,0.06)]"
+            style={{ borderColor: "rgba(99,102,241,0.3)", color: "#6366F1" }}
           >
             View full compliance report
             <AppIcon name="arrow-right" className="h-4 w-4" />
@@ -455,7 +455,7 @@ export default async function DashboardPage() {
         <Panel className="flex flex-col">
           <div className="mb-3 flex items-center justify-between">
             <p className="font-semibold text-white">Top Risks</p>
-            <Link href="/risks" className="text-[12px] font-medium transition hover:text-white" style={{ color: "#FF4DB8" }}>View all</Link>
+            <Link href="/risks" className="text-[12px] font-medium transition hover:text-white" style={{ color: "#6366F1" }}>View all</Link>
           </div>
           <div className="flex-1 space-y-2">
             {topRisks.map((risk) => (
@@ -467,8 +467,8 @@ export default async function DashboardPage() {
                 <span
                   className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[8px]"
                   style={{
-                    background: risk.level === "high" ? "rgba(255,77,77,0.12)" : risk.level === "medium" ? "rgba(255,165,0,0.12)" : "rgba(123,77,255,0.12)",
-                    color: risk.level === "high" ? "#FF5555" : risk.level === "medium" ? "#FFA500" : "#7B4DFF",
+                    background: risk.level === "high" ? "rgba(255,77,77,0.12)" : risk.level === "medium" ? "rgba(255,165,0,0.12)" : "rgba(79,124,245,0.12)",
+                    color: risk.level === "high" ? "#FF5555" : risk.level === "medium" ? "#FFA500" : "#4F7CF5",
                   }}
                 >
                   <AppIcon name={risk.icon} className="h-3.5 w-3.5" />
@@ -486,8 +486,8 @@ export default async function DashboardPage() {
           </div>
           <Link
             href="/risks"
-            className="mt-3 flex items-center justify-center gap-1.5 rounded-[12px] border py-2.5 text-[13px] font-semibold transition hover:bg-[rgba(255,77,184,0.06)]"
-            style={{ borderColor: "rgba(255,77,184,0.3)", color: "#FF4DB8" }}
+            className="mt-3 flex items-center justify-center gap-1.5 rounded-[12px] border py-2.5 text-[13px] font-semibold transition hover:bg-[rgba(99,102,241,0.06)]"
+            style={{ borderColor: "rgba(99,102,241,0.3)", color: "#6366F1" }}
           >
             View all risks
             <AppIcon name="arrow-right" className="h-4 w-4" />
@@ -498,7 +498,7 @@ export default async function DashboardPage() {
         <Panel className="flex flex-col">
           <div className="mb-3 flex items-center justify-between">
             <p className="font-semibold text-white">Next Steps</p>
-            <Link href="/governance" className="text-[12px] font-medium transition hover:text-white" style={{ color: "#FF4DB8" }}>View all</Link>
+            <Link href="/governance" className="text-[12px] font-medium transition hover:text-white" style={{ color: "#6366F1" }}>View all</Link>
           </div>
           <div className="flex-1 space-y-2">
             {nextSteps.map((step) => (
@@ -509,7 +509,7 @@ export default async function DashboardPage() {
               >
                 <span
                   className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[8px]"
-                  style={{ background: "rgba(178,77,255,0.12)", color: "#B24DFF" }}
+                  style={{ background: "rgba(99,102,241,0.12)", color: "#5575F2" }}
                 >
                   <AppIcon name={step.icon} className="h-3.5 w-3.5" />
                 </span>
@@ -526,8 +526,8 @@ export default async function DashboardPage() {
           </div>
           <Link
             href="/governance"
-            className="mt-3 flex items-center justify-center gap-1.5 rounded-[12px] border py-2.5 text-[13px] font-semibold transition hover:bg-[rgba(255,77,184,0.06)]"
-            style={{ borderColor: "rgba(255,77,184,0.3)", color: "#FF4DB8" }}
+            className="mt-3 flex items-center justify-center gap-1.5 rounded-[12px] border py-2.5 text-[13px] font-semibold transition hover:bg-[rgba(99,102,241,0.06)]"
+            style={{ borderColor: "rgba(99,102,241,0.3)", color: "#6366F1" }}
           >
             View all actions
             <AppIcon name="arrow-right" className="h-4 w-4" />
@@ -539,7 +539,7 @@ export default async function DashboardPage() {
       <div className="mt-4">
         <div className="mb-3 flex items-center justify-between">
           <p className="font-semibold text-white">Recent Activity</p>
-          <Link href="/governance" className="text-[12px] font-medium transition hover:text-white" style={{ color: "#FF4DB8" }}>
+          <Link href="/governance" className="text-[12px] font-medium transition hover:text-white" style={{ color: "#6366F1" }}>
             View all activity
           </Link>
         </div>
@@ -548,7 +548,7 @@ export default async function DashboardPage() {
             <Panel key={item.type} className="flex items-start gap-3 !p-4">
               <span
                 className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px]"
-                style={{ background: "rgba(178,77,255,0.12)", color: "#B24DFF" }}
+                style={{ background: "rgba(99,102,241,0.12)", color: "#5575F2" }}
               >
                 <AppIcon name={item.icon} className="h-4 w-4" />
               </span>

@@ -1,0 +1,16 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FAICER">
+  <defs>
+    <linearGradient id="faicer-tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6366F1"/>
+      <stop offset="1" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#faicer-tile)"/>
+  <path
+    d="M32 13 L48 19 V33 C48 43 41 49.5 32 53 C23 49.5 16 43 16 33 V19 Z"
+    fill="#FFFFFF" fill-opacity="0.96"/>
+  <path
+    d="M24.5 32.5 L30 38 L40 26.5"
+    fill="none" stroke="#3B82F6" stroke-width="4.2"
+    stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

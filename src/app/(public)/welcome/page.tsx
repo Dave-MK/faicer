@@ -5,9 +5,9 @@ import { PublicChrome } from "@/components/PublicChrome";
 import { getSessionSnapshot } from "@/lib/auth/session";
 
 /* ── Design tokens ── */
-const PINK = "#FF4DB8";
-const PURPLE = "#B24DFF";
-const VIOLET = "#7B4DFF";
+const PINK = "#6366F1";
+const PURPLE = "#5575F2";
+const VIOLET = "#4F7CF5";
 
 /* ── Dashboard UI mockup ── */
 function DashboardMockup() {
@@ -31,7 +31,7 @@ function DashboardMockup() {
         borderRadius: 16,
         border: "1px solid rgba(42,45,80,0.8)",
         background: "#080A18",
-        boxShadow: "0 40px 100px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,77,184,0.08)",
+        boxShadow: "0 40px 100px rgba(0,0,0,0.7), 0 0 0 1px rgba(99,102,241,0.08)",
       }}
     >
       {/* Browser chrome bar */}
@@ -73,7 +73,7 @@ function DashboardMockup() {
                 className="flex items-center gap-2 rounded-[7px] px-2.5 py-1.5"
                 style={
                   i === 0
-                    ? { background: "linear-gradient(90deg,#C849AA,#9B4DFF)" }
+                    ? { background: "linear-gradient(90deg,#C849AA,#6172E6)" }
                     : { background: "transparent" }
                 }
               >
@@ -92,14 +92,14 @@ function DashboardMockup() {
             ))}
           </div>
           {/* Upgrade card */}
-          <div className="m-2 rounded-[8px] p-2" style={{ background: "rgba(178,77,255,0.08)", border: "1px solid rgba(178,77,255,0.2)" }}>
-            <div className="mb-1 h-1.5 w-16 rounded-full" style={{ background: "rgba(255,77,184,0.5)" }} />
+          <div className="m-2 rounded-[8px] p-2" style={{ background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)" }}>
+            <div className="mb-1 h-1.5 w-16 rounded-full" style={{ background: "rgba(99,102,241,0.5)" }} />
             <div className="mb-1.5 h-1.5 w-20 rounded-full" style={{ background: "rgba(168,176,204,0.2)" }} />
-            <div className="h-4 w-full rounded-[5px]" style={{ border: "1px solid rgba(255,77,184,0.4)" }} />
+            <div className="h-4 w-full rounded-[5px]" style={{ border: "1px solid rgba(99,102,241,0.4)" }} />
           </div>
           {/* User */}
           <div className="flex items-center gap-2 border-t px-2.5 py-2.5" style={{ borderColor: "rgba(42,45,80,0.5)" }}>
-            <div className="h-5 w-5 shrink-0 rounded-full" style={{ background: "linear-gradient(135deg,#FF4DB8,#7B4DFF)" }} />
+            <div className="h-5 w-5 shrink-0 rounded-full" style={{ background: "linear-gradient(135deg,#6366F1,#4F7CF5)" }} />
             <div className="flex-1">
               <div className="mb-0.5 h-1.5 w-14 rounded-full" style={{ background: "rgba(255,255,255,0.25)" }} />
               <div className="h-1 w-16 rounded-full" style={{ background: "rgba(168,176,204,0.15)" }} />
@@ -140,7 +140,7 @@ function DashboardMockup() {
                     <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(42,45,80,0.8)" strokeWidth="4"/>
                     <circle cx="18" cy="18" r="14" fill="none" stroke="url(#mg)" strokeWidth="4" strokeLinecap="round"
                       strokeDasharray="72 87.96" transform="rotate(-90 18 18)"/>
-                    <defs><linearGradient id="mg"><stop stopColor="#FF4DB8"/><stop offset="1" stopColor="#7B4DFF"/></linearGradient></defs>
+                    <defs><linearGradient id="mg"><stop stopColor="#6366F1"/><stop offset="1" stopColor="#4F7CF5"/></linearGradient></defs>
                     <text x="18" y="19.5" textAnchor="middle" fill="white" fontSize="7" fontWeight="700">92%</text>
                     <text x="18" y="26" textAnchor="middle" fill={PURPLE} fontSize="4.5">Excellent</text>
                   </svg>
@@ -152,7 +152,7 @@ function DashboardMockup() {
               {cards.map((c) => (
                 <div key={c.label} className="rounded-[8px] p-2.5" style={{ background: "rgba(14,17,38,0.98)", border: "1px solid rgba(42,45,80,0.65)" }}>
                   <div className="mb-1.5 flex items-center gap-1">
-                    <div className="h-2 w-2 rounded-[3px]" style={{ background: "rgba(255,77,184,0.3)" }} />
+                    <div className="h-2 w-2 rounded-[3px]" style={{ background: "rgba(99,102,241,0.3)" }} />
                     <div className="h-1.5 w-10 rounded-full" style={{ background: "rgba(168,176,204,0.2)" }} />
                   </div>
                   <p className="text-[13px] font-bold text-white leading-none">{c.value}</p>
@@ -160,7 +160,7 @@ function DashboardMockup() {
                   {/* sparkline */}
                   <svg viewBox="0 0 60 16" className="mt-1.5 w-full" preserveAspectRatio="none">
                     <path d="M0 12 C10 10, 20 8, 30 5 C40 2, 50 1, 60 0" fill="none" stroke={PINK} strokeWidth="1.2" strokeLinecap="round"/>
-                    <path d="M0 12 C10 10, 20 8, 30 5 C40 2, 50 1, 60 0 L60 16 L0 16 Z" fill="rgba(255,77,184,0.08)"/>
+                    <path d="M0 12 C10 10, 20 8, 30 5 C40 2, 50 1, 60 0 L60 16 L0 16 Z" fill="rgba(99,102,241,0.08)"/>
                   </svg>
                 </div>
               ))}
@@ -193,7 +193,7 @@ function DashboardMockup() {
                   <line x1="10" y1="28" x2="130" y2="28" stroke="rgba(42,45,80,0.5)" strokeWidth="0.5"/>
                   <line x1="10" y1="46" x2="130" y2="46" stroke="rgba(42,45,80,0.5)" strokeWidth="0.5"/>
                   <path d="M10 58 C30 50, 50 42, 70 32 C90 22, 110 14, 130 10" fill="none" stroke={PINK} strokeWidth="1.8" strokeLinecap="round"/>
-                  <path d="M10 58 C30 50, 50 42, 70 32 C90 22, 110 14, 130 10 L130 65 L10 65 Z" fill="rgba(255,77,184,0.10)"/>
+                  <path d="M10 58 C30 50, 50 42, 70 32 C90 22, 110 14, 130 10 L130 65 L10 65 Z" fill="rgba(99,102,241,0.10)"/>
                   <circle cx="130" cy="10" r="3" fill={PINK} stroke="#0B0E1F" strokeWidth="1.2"/>
                   {["Apr", "May", "Jun"].map((l, i) => (
                     <text key={l} x={20 + i * 55} y="70" fill="rgba(107,114,128,0.9)" fontSize="7" textAnchor="middle">{l}</text>
@@ -207,14 +207,14 @@ function DashboardMockup() {
                     </div>
                   ))}
                 </div>
-                <div className="mt-1.5 h-4 w-full rounded-[4px]" style={{ border: "1px solid rgba(255,77,184,0.3)" }} />
+                <div className="mt-1.5 h-4 w-full rounded-[4px]" style={{ border: "1px solid rgba(99,102,241,0.3)" }} />
               </div>
 
               {/* Top Risks */}
               <div className="rounded-[8px] p-2.5" style={{ background: "rgba(14,17,38,0.98)", border: "1px solid rgba(42,45,80,0.65)", height: 140 }}>
                 <div className="mb-2 flex items-center justify-between">
                   <div className="h-1.5 w-12 rounded-full" style={{ background: "rgba(255,255,255,0.2)" }} />
-                  <div className="h-1.5 w-8 rounded-full" style={{ background: "rgba(255,77,184,0.4)" }} />
+                  <div className="h-1.5 w-8 rounded-full" style={{ background: "rgba(99,102,241,0.4)" }} />
                 </div>
                 {risks.map((r) => (
                   <div key={r.label} className="mb-1.5 flex items-center gap-1.5 rounded-[4px] px-1.5 py-1" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(42,45,80,0.5)" }}>
@@ -226,14 +226,14 @@ function DashboardMockup() {
                     >{r.level}</span>
                   </div>
                 ))}
-                <div className="mt-1 h-3.5 w-full rounded-[4px]" style={{ border: "1px solid rgba(255,77,184,0.3)" }} />
+                <div className="mt-1 h-3.5 w-full rounded-[4px]" style={{ border: "1px solid rgba(99,102,241,0.3)" }} />
               </div>
 
               {/* Next Steps */}
               <div className="rounded-[8px] p-2.5" style={{ background: "rgba(14,17,38,0.98)", border: "1px solid rgba(42,45,80,0.65)", height: 140 }}>
                 <div className="mb-2 flex items-center justify-between">
                   <div className="h-1.5 w-14 rounded-full" style={{ background: "rgba(255,255,255,0.2)" }} />
-                  <div className="h-1.5 w-8 rounded-full" style={{ background: "rgba(255,77,184,0.4)" }} />
+                  <div className="h-1.5 w-8 rounded-full" style={{ background: "rgba(99,102,241,0.4)" }} />
                 </div>
                 {[["High","#FF5555"],["Medium","#FFA500"],["Low",VIOLET]].map(([l,c]) => (
                   <div key={l} className="mb-1.5 flex items-start gap-1.5 rounded-[4px] px-1.5 py-1" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(42,45,80,0.5)" }}>
@@ -245,7 +245,7 @@ function DashboardMockup() {
                     <span className="rounded-[3px] px-1 py-0.5 text-[6px] font-medium" style={{ background: `${c}20`, color: c }}>{l}</span>
                   </div>
                 ))}
-                <div className="mt-1 h-3.5 w-full rounded-[4px]" style={{ border: "1px solid rgba(255,77,184,0.3)" }} />
+                <div className="mt-1 h-3.5 w-full rounded-[4px]" style={{ border: "1px solid rgba(99,102,241,0.3)" }} />
               </div>
             </div>
           </div>
@@ -418,8 +418,8 @@ export default async function WelcomePage() {
             <span
               className="inline-flex w-fit items-center gap-2 rounded-full px-3.5 py-1.5 text-[12px] font-semibold uppercase tracking-[0.2em]"
               style={{
-                background: "rgba(255,77,184,0.10)",
-                border: "1px solid rgba(255,77,184,0.25)",
+                background: "rgba(99,102,241,0.10)",
+                border: "1px solid rgba(99,102,241,0.25)",
                 color: PINK,
               }}
             >
@@ -449,7 +449,7 @@ export default async function WelcomePage() {
                 href={session ? "/dashboard" : "/sign-up"}
                 className="inline-flex items-center gap-2 rounded-[12px] px-6 py-3.5 text-[14px] font-bold text-white transition hover:brightness-110"
                 style={{
-                  background: `linear-gradient(90deg, #C849AA 0%, #9B4DFF 100%)`,
+                  background: `linear-gradient(90deg, #C849AA 0%, #6172E6 100%)`,
                   boxShadow: "0 8px 32px rgba(200,73,170,0.35)",
                 }}
               >
@@ -458,7 +458,7 @@ export default async function WelcomePage() {
               </Link>
               <Link
                 href="/pricing"
-                className="inline-flex items-center gap-2 rounded-[12px] border px-6 py-3.5 text-[14px] font-semibold text-white transition hover:border-[rgba(178,77,255,0.5)] hover:bg-[rgba(178,77,255,0.06)]"
+                className="inline-flex items-center gap-2 rounded-[12px] border px-6 py-3.5 text-[14px] font-semibold text-white transition hover:border-[rgba(99,102,241,0.5)] hover:bg-[rgba(99,102,241,0.06)]"
                 style={{ borderColor: "rgba(42,45,80,0.8)", background: "rgba(11,14,31,0.6)" }}
               >
                 View pricing
@@ -547,15 +547,15 @@ export default async function WelcomePage() {
                   <div
                     className="flex h-10 w-10 items-center justify-center rounded-[12px]"
                     style={{
-                      background: "rgba(255,77,184,0.10)",
-                      border: "1px solid rgba(255,77,184,0.2)",
+                      background: "rgba(99,102,241,0.10)",
+                      border: "1px solid rgba(99,102,241,0.2)",
                     }}
                   >
-                    <AppIcon name={f.icon} className="h-5 w-5 text-[#FF4DB8]" />
+                    <AppIcon name={f.icon} className="h-5 w-5 text-[#6366F1]" />
                   </div>
                   <span
                     className="rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.15em]"
-                    style={{ background: "rgba(178,77,255,0.12)", color: PURPLE }}
+                    style={{ background: "rgba(99,102,241,0.12)", color: PURPLE }}
                   >
                     {f.badge}
                   </span>
@@ -582,7 +582,7 @@ export default async function WelcomePage() {
               href={session ? "/dashboard" : "/sign-up"}
               className="inline-flex items-center gap-2 rounded-[12px] px-6 py-3.5 text-[14px] font-bold text-white transition hover:brightness-110"
               style={{
-                background: `linear-gradient(90deg, #C849AA 0%, #9B4DFF 100%)`,
+                background: `linear-gradient(90deg, #C849AA 0%, #6172E6 100%)`,
                 boxShadow: "0 8px 32px rgba(200,73,170,0.30)",
               }}
             >
@@ -628,10 +628,10 @@ export default async function WelcomePage() {
                   className="relative mb-5 flex h-16 w-16 items-center justify-center rounded-[18px]"
                   style={{
                     background: `linear-gradient(135deg, ${PINK}18, ${VIOLET}18)`,
-                    border: "1px solid rgba(255,77,184,0.25)",
+                    border: "1px solid rgba(99,102,241,0.25)",
                   }}
                 >
-                  <AppIcon name={s.icon} className="h-7 w-7 text-[#FF4DB8]" />
+                  <AppIcon name={s.icon} className="h-7 w-7 text-[#6366F1]" />
                   <span
                     className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full text-[9px] font-bold text-white"
                     style={{ background: `linear-gradient(135deg, ${PINK}, ${VIOLET})` }}
@@ -676,9 +676,9 @@ export default async function WelcomePage() {
                     ? `linear-gradient(180deg, rgba(25,15,50,0.98) 0%, rgba(18,10,40,0.98) 100%)`
                     : "linear-gradient(180deg, rgba(14,17,38,0.98) 0%, rgba(10,13,30,0.98) 100%)",
                   border: plan.primary
-                    ? `1px solid rgba(178,77,255,0.45)`
+                    ? `1px solid rgba(99,102,241,0.45)`
                     : "1px solid rgba(42,45,80,0.65)",
-                  boxShadow: plan.primary ? "0 0 40px rgba(178,77,255,0.12)" : "none",
+                  boxShadow: plan.primary ? "0 0 40px rgba(99,102,241,0.12)" : "none",
                 }}
               >
                 {plan.primary && (
@@ -700,9 +700,9 @@ export default async function WelcomePage() {
                     <li key={f} className="flex items-start gap-2.5 text-[13px] text-[rgba(168,176,204,0.75)]">
                       <span
                         className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
-                        style={{ background: "rgba(255,77,184,0.12)", border: "1px solid rgba(255,77,184,0.3)" }}
+                        style={{ background: "rgba(99,102,241,0.12)", border: "1px solid rgba(99,102,241,0.3)" }}
                       >
-                        <AppIcon name="check" className="h-2.5 w-2.5 text-[#FF4DB8]" />
+                        <AppIcon name="check" className="h-2.5 w-2.5 text-[#6366F1]" />
                       </span>
                       {f}
                     </li>
@@ -714,7 +714,7 @@ export default async function WelcomePage() {
                   style={
                     plan.primary
                       ? {
-                          background: `linear-gradient(90deg, #C849AA 0%, #9B4DFF 100%)`,
+                          background: `linear-gradient(90deg, #C849AA 0%, #6172E6 100%)`,
                           color: "#fff",
                           boxShadow: "0 6px 24px rgba(200,73,170,0.30)",
                         }
@@ -747,7 +747,7 @@ export default async function WelcomePage() {
         style={{ borderColor: "rgba(42,45,80,0.55)" }}
       >
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute inset-0" style={{ background: "radial-gradient(circle at 50% 0%, rgba(255,77,184,0.08), transparent 55%)" }} />
+          <div className="absolute inset-0" style={{ background: "radial-gradient(circle at 50% 0%, rgba(99,102,241,0.08), transparent 55%)" }} />
         </div>
         <div className="relative mx-auto max-w-[680px]">
           <FaicerLogo variant="lockup" tone="on-dark" className="mx-auto mb-8 justify-center" />
@@ -762,7 +762,7 @@ export default async function WelcomePage() {
               href={session ? "/dashboard" : "/sign-up"}
               className="inline-flex items-center gap-2 rounded-[12px] px-7 py-4 text-[15px] font-bold text-white transition hover:brightness-110"
               style={{
-                background: `linear-gradient(90deg, #C849AA 0%, #9B4DFF 100%)`,
+                background: `linear-gradient(90deg, #C849AA 0%, #6172E6 100%)`,
                 boxShadow: "0 8px 40px rgba(200,73,170,0.35)",
               }}
             >
@@ -771,7 +771,7 @@ export default async function WelcomePage() {
             </Link>
             <Link
               href="/pricing"
-              className="inline-flex items-center gap-2 rounded-[12px] border px-7 py-4 text-[15px] font-semibold text-white transition hover:border-[rgba(178,77,255,0.4)]"
+              className="inline-flex items-center gap-2 rounded-[12px] border px-7 py-4 text-[15px] font-semibold text-white transition hover:border-[rgba(99,102,241,0.4)]"
               style={{ borderColor: "rgba(42,45,80,0.8)", background: "rgba(11,14,31,0.6)" }}
             >
               View pricing

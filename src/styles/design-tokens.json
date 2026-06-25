@@ -6,32 +6,32 @@
     "logoPolicy": "The wordmark text is hardcoded as 'FAICER' in the React logo component. Do not expose a prop to alter it."
   },
   "colors": {
-    "background": "#071120",
-    "backgroundDeep": "#040B16",
-    "surface": "#0B172A",
-    "surfaceRaised": "#101F36",
-    "surfaceSoft": "#13243D",
-    "surfaceHover": "#172B49",
-    "border": "#203552",
-    "borderStrong": "#2A4B73",
-    "textPrimary": "#FFFFFF",
-    "textSecondary": "#A7B6CD",
-    "textMuted": "#6F829E",
-    "cyan": "#00D4FF",
-    "blue": "#0099FF",
-    "indigo": "#4C68FF",
-    "violet": "#7A38FF",
-    "purple": "#A854FF",
-    "success": "#24D17E",
-    "warning": "#FFB020",
-    "danger": "#FF5A63",
-    "info": "#3B82F6"
+    "background": "#0E1320",
+    "backgroundDeep": "#0A0E18",
+    "surface": "#151B2B",
+    "surfaceRaised": "#1B2233",
+    "surfaceSoft": "#1E2638",
+    "surfaceHover": "#242D42",
+    "border": "#283143",
+    "borderStrong": "#394559",
+    "textPrimary": "#EEF1F8",
+    "textSecondary": "#9BA6BD",
+    "textMuted": "#67718A",
+    "cyan": "#818CF8",
+    "blue": "#60A5FA",
+    "indigo": "#6366F1",
+    "violet": "#6366F1",
+    "purple": "#818CF8",
+    "success": "#34D399",
+    "warning": "#FBBF24",
+    "danger": "#F87171",
+    "info": "#60A5FA"
   },
   "gradients": {
-    "brand": "linear-gradient(135deg, #00D4FF 0%, #0099FF 28%, #4C68FF 56%, #7A38FF 78%, #A854FF 100%)",
-    "brandVertical": "linear-gradient(180deg, #00D4FF 0%, #4C68FF 56%, #A854FF 100%)",
-    "brandSoft": "linear-gradient(135deg, rgba(0,212,255,.22), rgba(76,104,255,.18), rgba(168,84,255,.22))",
-    "button": "linear-gradient(135deg, #0099FF 0%, #4C68FF 55%, #7A38FF 100%)"
+    "brand": "linear-gradient(135deg, #6366F1 0%, #5575F2 50%, #3B82F6 100%)",
+    "brandVertical": "linear-gradient(180deg, #6366F1 0%, #4F7CF5 100%)",
+    "brandSoft": "linear-gradient(135deg, rgba(99,102,241,.18), rgba(79,124,245,.14), rgba(59,130,246,.18))",
+    "button": "linear-gradient(90deg, #5B6CF0 0%, #4F7CF5 100%)"
   },
   "typography": {
     "primary": "Plus Jakarta Sans",
@@ -52,12 +52,12 @@
     "pill": "999px"
   },
   "shadows": {
-    "panel": "0 12px 36px rgba(0, 0, 0, .24)",
-    "glow": "0 0 28px rgba(0, 212, 255, .18)",
-    "focus": "0 0 0 3px rgba(76, 104, 255, .32)"
+    "panel": "0 12px 32px rgba(6, 10, 20, .45)",
+    "glow": "0 0 24px rgba(99, 102, 241, .18)",
+    "focus": "0 0 0 3px rgba(99, 102, 241, .32)"
   },
   "themes": {
-    "darkApp": "Default product interface. Dark navy backgrounds and cyan-to-violet highlights.",
+    "darkApp": "Default product interface. Slate-navy backgrounds with calm indigo-to-blue highlights.",
     "lightSurface": "Secondary light theme for selected marketing sections and documentation.",
     "reportPrint": "White-background theme for PDF evidence packs and printable reports."
   }

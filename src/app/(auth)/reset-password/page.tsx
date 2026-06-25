@@ -36,7 +36,7 @@ export default async function ResetPasswordPage({
         </p>
 
         {errorMessage && (
-          <p className="mt-4 rounded-xl bg-[rgba(255,77,184,0.10)] px-4 py-3 text-sm text-[var(--ai-cyan)]">
+          <p className="mt-4 rounded-xl bg-[rgba(99,102,241,0.10)] px-4 py-3 text-sm text-[var(--ai-cyan)]">
             {errorMessage}
           </p>
         )}

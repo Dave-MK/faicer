@@ -76,7 +76,7 @@ export default function PricingPage() {
             <button className="rounded-full px-4 py-2 text-sm font-medium text-[var(--ai-text-secondary)]">
               Annual
             </button>
-            <span className="rounded-full bg-[rgba(255,77,184,0.12)] px-3 py-2 text-xs font-semibold text-[var(--ai-cyan)]">
+            <span className="rounded-full bg-[rgba(99,102,241,0.12)] px-3 py-2 text-xs font-semibold text-[var(--ai-cyan)]">
               Save 20% with annual billing
             </span>
           </div>
@@ -88,12 +88,12 @@ export default function PricingPage() {
               key={plan.name}
               className={`relative rounded-[24px] border p-6 ${
                 plan.featured
-                  ? "border-[rgba(255,77,184,0.50)] bg-[linear-gradient(180deg,rgba(42,15,60,0.95),rgba(20,8,35,0.98))] shadow-[0_18px_50px_rgba(255,77,184,0.24)]"
+                  ? "border-[rgba(99,102,241,0.50)] bg-[linear-gradient(180deg,rgba(42,15,60,0.95),rgba(20,8,35,0.98))] shadow-[0_18px_50px_rgba(99,102,241,0.24)]"
                   : "border-[var(--ai-border)] bg-[linear-gradient(180deg,rgba(11,23,42,0.98),rgba(8,17,31,0.98))]"
               }`}
             >
               {plan.featured ? (
-                <span className="absolute -top-3 left-6 rounded-full bg-[linear-gradient(90deg,#FF4DB8_0%,#B24DFF_100%)] px-3 py-1 text-xs font-semibold text-white">
+                <span className="absolute -top-3 left-6 rounded-full bg-[linear-gradient(90deg,#6366F1_0%,#5575F2_100%)] px-3 py-1 text-xs font-semibold text-white">
                   Most Popular
                 </span>
               ) : null}
@@ -106,7 +106,7 @@ export default function PricingPage() {
               <ul className="mt-6 space-y-3 text-sm text-[var(--ai-text-secondary)]">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
-                    <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[rgba(255,77,184,0.12)] text-[var(--ai-cyan)]">
+                    <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[rgba(99,102,241,0.12)] text-[var(--ai-cyan)]">
                       <AppIcon name="check" className="h-3 w-3" />
                     </span>
                     <span>{feature}</span>

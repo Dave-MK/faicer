@@ -61,7 +61,7 @@ export function AppShell({
           className="flex w-[270px] shrink-0 flex-col"
           style={{
             background:
-              "radial-gradient(circle at 30% 10%, rgba(178,77,255,0.07) 0%, transparent 45%)," +
+              "radial-gradient(circle at 30% 10%, rgba(99,102,241,0.07) 0%, transparent 45%)," +
               "linear-gradient(180deg, #0A0C1C 0%, #080A18 100%)",
             borderRight: "1px solid rgba(42,45,80,0.55)",
           }}
@@ -88,7 +88,7 @@ export function AppShell({
                     isActive
                       ? {
                           background:
-                            "linear-gradient(90deg, #C849AA 0%, #9B4DFF 100%)",
+                            "linear-gradient(90deg, #C849AA 0%, #6172E6 100%)",
                           boxShadow: "0 6px 24px rgba(200,73,170,0.30)",
                         }
                       : undefined
@@ -116,24 +116,24 @@ export function AppShell({
               className="rounded-[18px] p-4"
               style={{
                 background:
-                  "radial-gradient(circle at top left, rgba(255,77,184,0.10), transparent 60%)," +
+                  "radial-gradient(circle at top left, rgba(99,102,241,0.10), transparent 60%)," +
                   "linear-gradient(135deg, rgba(20,14,40,0.97), rgba(14,10,30,0.97))",
-                border: "1px solid rgba(178,77,255,0.25)",
+                border: "1px solid rgba(99,102,241,0.25)",
               }}
             >
               <div className="mb-2 flex items-center gap-2.5">
                 <span
                   className="inline-flex h-7 w-7 items-center justify-center rounded-[10px] text-base"
                   style={{
-                    background: "rgba(178,77,255,0.18)",
-                    border: "1px solid rgba(178,77,255,0.3)",
+                    background: "rgba(99,102,241,0.18)",
+                    border: "1px solid rgba(99,102,241,0.3)",
                   }}
                 >
                   👑
                 </span>
                 <p
                   className="text-[13.5px] font-semibold"
-                  style={{ color: "#FF4DB8" }}
+                  style={{ color: "#6366F1" }}
                 >
                   Upgrade to Pro
                 </p>
@@ -143,10 +143,10 @@ export function AppShell({
               </p>
               <Link
                 href="/pricing"
-                className="flex items-center justify-center gap-1.5 rounded-[10px] border py-2.5 text-[12.5px] font-semibold transition hover:bg-[rgba(255,77,184,0.08)]"
+                className="flex items-center justify-center gap-1.5 rounded-[10px] border py-2.5 text-[12.5px] font-semibold transition hover:bg-[rgba(99,102,241,0.08)]"
                 style={{
-                  borderColor: "rgba(255,77,184,0.55)",
-                  color: "#FF4DB8",
+                  borderColor: "rgba(99,102,241,0.55)",
+                  color: "#6366F1",
                 }}
               >
                 Upgrade Now
@@ -165,8 +165,8 @@ export function AppShell({
             <div
               className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[13px] font-bold text-white"
               style={{
-                background: "linear-gradient(135deg, #FF4DB8 0%, #7B4DFF 100%)",
-                boxShadow: "0 2px 10px rgba(255,77,184,0.30)",
+                background: "linear-gradient(135deg, #6366F1 0%, #4F7CF5 100%)",
+                boxShadow: "0 2px 10px rgba(99,102,241,0.30)",
               }}
             >
               {initials}
@@ -201,7 +201,7 @@ export function AppShell({
           >
             {/* Search */}
             <button
-              className="inline-flex h-9 w-9 items-center justify-center rounded-[11px] border text-[rgba(168,176,204,0.6)] transition hover:border-[rgba(178,77,255,0.4)] hover:text-white"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-[11px] border text-[rgba(168,176,204,0.6)] transition hover:border-[rgba(99,102,241,0.4)] hover:text-white"
               style={{
                 borderColor: "rgba(42,45,80,0.65)",
                 background: "rgba(11,14,31,0.6)",
@@ -212,7 +212,7 @@ export function AppShell({
 
             {/* Bell */}
             <button
-              className="relative inline-flex h-9 w-9 items-center justify-center rounded-[11px] border text-[rgba(168,176,204,0.6)] transition hover:border-[rgba(178,77,255,0.4)] hover:text-white"
+              className="relative inline-flex h-9 w-9 items-center justify-center rounded-[11px] border text-[rgba(168,176,204,0.6)] transition hover:border-[rgba(99,102,241,0.4)] hover:text-white"
               style={{
                 borderColor: "rgba(42,45,80,0.65)",
                 background: "rgba(11,14,31,0.6)",
@@ -222,8 +222,8 @@ export function AppShell({
               <span
                 className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full text-[9px] font-bold text-white"
                 style={{
-                  background: "#FF4DB8",
-                  boxShadow: "0 0 8px rgba(255,77,184,0.6)",
+                  background: "#6366F1",
+                  boxShadow: "0 0 8px rgba(99,102,241,0.6)",
                 }}
               >
                 3
@@ -232,7 +232,7 @@ export function AppShell({
 
             {/* Help */}
             <button
-              className="inline-flex h-9 w-9 items-center justify-center rounded-[11px] border text-[rgba(168,176,204,0.6)] transition hover:border-[rgba(178,77,255,0.4)] hover:text-white"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-[11px] border text-[rgba(168,176,204,0.6)] transition hover:border-[rgba(99,102,241,0.4)] hover:text-white"
               style={{
                 borderColor: "rgba(42,45,80,0.65)",
                 background: "rgba(11,14,31,0.6)",
@@ -249,7 +249,7 @@ export function AppShell({
 
             {/* Org switcher */}
             <button
-              className="flex items-center gap-2 rounded-[11px] border px-3.5 py-2 text-[13px] font-medium text-white transition hover:border-[rgba(178,77,255,0.4)]"
+              className="flex items-center gap-2 rounded-[11px] border px-3.5 py-2 text-[13px] font-medium text-white transition hover:border-[rgba(99,102,241,0.4)]"
               style={{
                 borderColor: "rgba(42,45,80,0.65)",
                 background: "rgba(11,14,31,0.6)",
@@ -265,7 +265,7 @@ export function AppShell({
 
             {/* Date range */}
             <button
-              className="flex items-center gap-2 rounded-[11px] border px-3.5 py-2 text-[13px] font-medium text-white transition hover:border-[rgba(178,77,255,0.4)]"
+              className="flex items-center gap-2 rounded-[11px] border px-3.5 py-2 text-[13px] font-medium text-white transition hover:border-[rgba(99,102,241,0.4)]"
               style={{
                 borderColor: "rgba(42,45,80,0.65)",
                 background: "rgba(11,14,31,0.6)",

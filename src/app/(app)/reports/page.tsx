@@ -81,7 +81,7 @@ export default async function ReportsPage() {
           <div className="flex-1 max-w-xs">
             <div className="h-3 rounded-full bg-[rgba(18,31,53,0.95)]">
               <div
-                className="h-3 rounded-full bg-[linear-gradient(90deg,#FF4DB8_0%,#B24DFF_100%)] transition-all"
+                className="h-3 rounded-full bg-[linear-gradient(90deg,#6366F1_0%,#5575F2_100%)] transition-all"
                 style={{ width: `${healthScore}%` }}
               />
             </div>

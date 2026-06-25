@@ -35,7 +35,7 @@ export default async function OrganisationSetupPage() {
                 <span
                   className={`inline-flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
                     index === 0
-                      ? "bg-[linear-gradient(90deg,#FF4DB8_0%,#B24DFF_100%)] text-white"
+                      ? "bg-[linear-gradient(90deg,#6366F1_0%,#5575F2_100%)] text-white"
                       : "bg-[rgba(255,255,255,0.06)] text-[var(--ai-text-secondary)]"
                   }`}
                 >
