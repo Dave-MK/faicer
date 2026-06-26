@@ -2,6 +2,7 @@ import Link from "next/link";
 import { signOutAction } from "@/app/actions/auth";
 import { AppIcon } from "@/components/AppIcons";
 import { FaicerLogo } from "@/components/FaicerLogo";
+import { HeaderActions } from "@/app/(app)/_components/header-actions";
 import { appNavigation, staffNavigation } from "@/lib/reference-content";
 import type { MembershipRole } from "@/lib/types";
 
@@ -235,36 +236,8 @@ export function AppShell({
             {/* Spacer pushes actions to the right */}
             <div className="flex-1" />
 
-            {/* Search */}
-            <button
-              className="inline-flex h-9 w-9 items-center justify-center rounded-[11px] border text-[rgba(168,176,204,0.6)] transition hover:border-[rgba(99,102,241,0.4)] hover:text-white"
-              style={{
-                borderColor: "rgba(40,49,67,0.65)",
-                background: "rgba(21,27,43,0.6)",
-              }}
-            >
-              <AppIcon name="search" className="h-[15px] w-[15px]" />
-            </button>
-
-            {/* Bell */}
-            <button
-              className="relative inline-flex h-9 w-9 items-center justify-center rounded-[11px] border text-[rgba(168,176,204,0.6)] transition hover:border-[rgba(99,102,241,0.4)] hover:text-white"
-              style={{
-                borderColor: "rgba(40,49,67,0.65)",
-                background: "rgba(21,27,43,0.6)",
-              }}
-            >
-              <AppIcon name="bell" className="h-[15px] w-[15px]" />
-              <span
-                className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full text-[9px] font-bold text-white"
-                style={{
-                  background: "#6366F1",
-                  boxShadow: "0 0 8px rgba(99,102,241,0.6)",
-                }}
-              >
-                3
-              </span>
-            </button>
+            {/* Search + notifications (client) */}
+            <HeaderActions navigation={navigation} />
 
             {/* Help */}
             <button
