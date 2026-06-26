@@ -19,9 +19,11 @@ test("owner can create and view a use case", async ({ page }) => {
   await page.waitForURL("**/use-cases/new");
 
   await page.getByLabel("Title").fill("Customer Support Automation");
+  await page.getByLabel("AI Tool").selectOption({ index: 1 });
   await page.getByLabel("Business unit").fill("Operations");
   await page.getByLabel("Risk level").selectOption("medium");
   await page.getByLabel("Status").selectOption("approved");
+  await page.getByLabel("Description").fill("Automate first-line customer support replies with human review.");
   await page.getByLabel("Data involved").fill("Customer emails and ticket data");
   await page.getByLabel("Mitigations").fill("Human review for escalations");
   await page.getByRole("button", { name: "Save use case" }).click();
@@ -37,8 +39,8 @@ test("owner can create a policy and staff can acknowledge it", async ({ page }) 
   await signInAsOwner(page);
 
   await page.goto("/policies");
-  await expect(page.getByRole("heading", { name: "Policies" })).toBeVisible();
-  await page.getByRole("link", { name: "Create policy" }).click();
+  await expect(page.getByRole("heading", { name: "Policy Builder" })).toBeVisible();
+  await page.getByRole("link", { name: "New policy" }).click();
   await page.waitForURL("**/policies/new");
 
   await page.getByLabel("Title").fill("AI Acceptable Use Policy");
@@ -72,7 +74,8 @@ test("owner can create a risk and view risk register", async ({ page }) => {
 
   await page.getByLabel("Title").fill("Data Leakage via LLM Prompt");
   await page.getByLabel("Description").fill("Sensitive data may leak via user prompts");
-  await page.getByLabel("Entity type").selectOption("tool");
+  await page.getByLabel("Entity type").selectOption("ai_tool");
+  await page.getByLabel("Linked entity").selectOption({ index: 1 });
   await page.getByLabel("Severity").selectOption("4");
   await page.getByLabel("Likelihood").selectOption("3");
   await page.getByLabel("Mitigation").fill("Prompt guardrails and output filtering");
@@ -130,7 +133,7 @@ test("admin can create a course and mark it complete", async ({ page }) => {
 
   await page.goto("/training");
   await expect(page.getByRole("heading", { name: "Training" })).toBeVisible();
-  await page.getByRole("link", { name: "Create course" }).click();
+  await page.getByRole("link", { name: "Add course" }).click();
   await page.waitForURL("**/training/new");
 
   await page.getByLabel("Course title").fill("AI Ethics Fundamentals");
@@ -165,7 +168,8 @@ test("reviewer can create an assessment", async ({ page }) => {
   await page.waitForURL("**/assessments/new");
 
   const today = new Date().toISOString().slice(0, 10);
-  await page.getByLabel("Entity type").selectOption("organisation");
+  await page.getByLabel("Entity type").selectOption("ai_tool");
+  await page.getByLabel("Linked entity").selectOption({ index: 1 });
   await page.getByLabel("Assessment date").fill(today);
   await page.getByLabel("Outcome").selectOption("conditional");
   await page.getByLabel("Findings").fill("Controls are in place but documentation is incomplete.");
@@ -186,8 +190,9 @@ test("reviewer can add evidence", async ({ page }) => {
   await page.waitForURL("**/evidence/new");
 
   await page.getByLabel("Title").fill("Q2 Policy Acknowledgement Export");
-  await page.getByLabel("Type").selectOption("document");
-  await page.getByLabel("Linked entity type").selectOption("organisation");
+  await page.locator('select[name="type"]').selectOption("document");
+  await page.locator('select[name="linkedEntityType"]').selectOption("organisation");
+  await page.locator('select[name="linkedEntityId"]').selectOption({ index: 1 });
   await page.getByLabel("Notes").fill("Exported from the platform on 2026-06-01.");
   await page.getByRole("button", { name: "Save evidence" }).click();
 
@@ -200,15 +205,15 @@ test("reviewer can add evidence", async ({ page }) => {
 
 test("dashboard loads with stat cards", async ({ page }) => {
   await signInAsOwner(page);
-  await expect(page.getByText("AI Tools")).toBeVisible();
-  await expect(page.getByText("Health Score")).toBeVisible();
+  await expect(page.getByText("Compliance Overview").first()).toBeVisible();
+  await expect(page.getByText("Top Risks").first()).toBeVisible();
 });
 
 test("governance page loads control effectiveness", async ({ page }) => {
   await signInAsOwner(page);
   await page.goto("/governance");
-  await expect(page.getByRole("heading", { name: "Governance Overview" })).toBeVisible();
-  await expect(page.getByText("Control Effectiveness")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Governance" })).toBeVisible();
+  await expect(page.getByText("Control effectiveness")).toBeVisible();
 });
 
 test("reports page shows health score", async ({ page }) => {

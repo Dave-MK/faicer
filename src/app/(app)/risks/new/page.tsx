@@ -68,7 +68,7 @@ export default async function NewRiskPage({
               defaultValue="ai_tool"
               className="brand-input w-full rounded-2xl px-4 py-3 outline-none transition"
             >
-              <option value="tool">Tool</option>
+              <option value="ai_tool">Tool</option>
               <option value="use_case">Use Case</option>
               <option value="organisation">Organisation</option>
             </select>

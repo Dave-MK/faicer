@@ -6,7 +6,7 @@ test("owner can create a tool record in mock mode", async ({ page }) => {
   await page.getByRole("button", { name: "Sign in with mock access" }).click();
 
   await page.waitForURL("**/dashboard");
-  await page.getByRole("link", { name: "AI Register" }).click();
+  await page.getByRole("link", { name: "AI Inventory" }).click();
   await page.waitForURL("**/tools");
   await page.getByRole("link", { name: "Add tool" }).click();
 
