@@ -17,7 +17,9 @@ export function PublicChrome({ children, current }: PublicChromeProps) {
           style={{ borderColor: "rgba(42,45,80,0.55)" }}
         >
           <div className="flex items-center gap-10">
-            <FaicerLogo variant="lockup" tone="on-dark" className="h-auto" priority />
+            <Link href="/welcome" aria-label="FAICER home" className="transition hover:brightness-110">
+              <FaicerLogo variant="lockup" tone="on-dark" className="h-auto" priority />
+            </Link>
             <nav className="hidden items-center gap-7 lg:flex">
               {publicNavigation.map((item) => {
                 const isCurrent = current === item.href;

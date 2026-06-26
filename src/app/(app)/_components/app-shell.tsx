@@ -76,7 +76,9 @@ export function AppShell({
         >
           {/* Logo */}
           <div className="flex items-start justify-between gap-2 px-5 pt-7 pb-6">
-            <FaicerLogo variant="lockup" tone="on-dark" className="h-auto" />
+            <Link href="/welcome" aria-label="FAICER home" className="transition hover:brightness-110">
+              <FaicerLogo variant="lockup" tone="on-dark" className="h-auto" />
+            </Link>
             <label
               htmlFor="faicer-nav"
               aria-label="Close navigation menu"
@@ -226,7 +228,9 @@ export function AppShell({
                 <path d="M2 4h12M2 8h12M2 12h12" />
               </svg>
             </label>
-            <FaicerLogo variant="mark" tone="on-dark" className="h-8 w-8 shrink-0 lg:hidden" />
+            <Link href="/welcome" aria-label="FAICER home" className="shrink-0 transition hover:brightness-110 lg:hidden">
+              <FaicerLogo variant="mark" tone="on-dark" className="h-8 w-8" />
+            </Link>
 
             {/* Spacer pushes actions to the right */}
             <div className="flex-1" />
