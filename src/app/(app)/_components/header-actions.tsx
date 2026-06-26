@@ -65,6 +65,7 @@ export function HeaderActions({ navigation }: { navigation: readonly NavItem[] }
     function onKey(e: KeyboardEvent) {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
+        setActiveIndex(0);
         setSearchOpen((open) => !open);
       } else if (e.key === "Escape") {
         setSearchOpen(false);
@@ -76,7 +77,6 @@ export function HeaderActions({ navigation }: { navigation: readonly NavItem[] }
 
   useEffect(() => {
     if (searchOpen) {
-      setActiveIndex(0);
       const id = window.setTimeout(() => inputRef.current?.focus(), 0);
       return () => window.clearTimeout(id);
     }
@@ -113,7 +113,10 @@ export function HeaderActions({ navigation }: { navigation: readonly NavItem[] }
       <button
         type="button"
         aria-label="Search"
-        onClick={() => setSearchOpen(true)}
+        onClick={() => {
+          setActiveIndex(0);
+          setSearchOpen(true);
+        }}
         className={buttonClass}
         style={buttonStyle}
       >
