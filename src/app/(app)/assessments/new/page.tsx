@@ -2,10 +2,10 @@ import { AppShell } from "@/app/(app)/_components/app-shell";
 import { requireWorkspaceContext } from "@/lib/auth/workspace";
 import { isSupabaseAuthEnabled } from "@/lib/config/env";
 import { createAssessmentAction } from "@/app/actions/assessments";
-import { listMockToolsForOrganisation, listMockUseCasesForOrganisation, listMockRisksForOrganisation } from "@/lib/data/mock-registry";
+import { listMockToolsForOrganisation, listMockUseCasesForOrganisation, listMockControlsForOrganisation } from "@/lib/data/mock-registry";
 import { listSupabaseTools } from "@/lib/supabase/tools";
 import { listSupabaseUseCases } from "@/lib/supabase/use-cases";
-import { listSupabaseRisks } from "@/lib/supabase/risks";
+import { listSupabaseControls } from "@/lib/supabase/controls";
 
 export default async function NewAssessmentPage({
   searchParams,
@@ -14,7 +14,7 @@ export default async function NewAssessmentPage({
 }) {
   const context = await requireWorkspaceContext(["owner", "admin", "reviewer"]);
   const params = await searchParams;
-  const [tools, useCases, risks] = await Promise.all([
+  const [tools, useCases, controls] = await Promise.all([
     isSupabaseAuthEnabled()
       ? listSupabaseTools(context.organisation.id)
       : listMockToolsForOrganisation(context.organisation.id),
@@ -22,8 +22,8 @@ export default async function NewAssessmentPage({
       ? listSupabaseUseCases(context.organisation.id)
       : listMockUseCasesForOrganisation(context.organisation.id),
     isSupabaseAuthEnabled()
-      ? listSupabaseRisks(context.organisation.id)
-      : listMockRisksForOrganisation(context.organisation.id),
+      ? listSupabaseControls(context.organisation.id)
+      : listMockControlsForOrganisation(context.organisation.id),
   ]);
 
   const today = new Date().toISOString().slice(0, 10);
@@ -54,8 +54,7 @@ export default async function NewAssessmentPage({
             <select name="entityType" defaultValue="ai_tool" className="brand-input w-full rounded-2xl px-4 py-3 outline-none transition">
               <option value="ai_tool">AI Tool</option>
               <option value="use_case">Use Case</option>
-              <option value="risk">Risk</option>
-              <option value="organisation">Organisation</option>
+              <option value="control">Control</option>
             </select>
           </label>
 
@@ -69,10 +68,9 @@ export default async function NewAssessmentPage({
               <optgroup label="Use Cases">
                 {useCases.map((uc) => <option key={uc.id} value={uc.id}>{uc.title}</option>)}
               </optgroup>
-              <optgroup label="Risks">
-                {risks.map((r) => <option key={r.id} value={r.id}>{r.title}</option>)}
+              <optgroup label="Controls">
+                {controls.map((c) => <option key={c.id} value={c.id}>{c.title}</option>)}
               </optgroup>
-              <option value={context.organisation.id}>{context.organisation.name} (org-wide)</option>
             </select>
           </label>
 
