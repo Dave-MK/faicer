@@ -131,6 +131,9 @@ const mockUseCaseSchema = z.object({
   businessUnit: z.string(),
   ownerUserId: z.string().min(1),
   riskLevel: z.enum(["low", "medium", "high", "critical"]),
+  euAiActTier: z
+    .enum(["prohibited", "high", "limited", "minimal", "unclassified"])
+    .default("unclassified"),
   status: z.enum(["draft", "approved", "restricted", "prohibited", "archived"]),
   dataInvolved: z.string(),
   mitigations: z.string(),

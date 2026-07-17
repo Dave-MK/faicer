@@ -16,13 +16,16 @@ import { listSupabaseControls } from "@/lib/supabase/controls";
 import { listSupabaseAssessments } from "@/lib/supabase/assessments";
 import { listSupabasePolicies } from "@/lib/supabase/policies";
 import { listSupabaseCourses } from "@/lib/supabase/training";
+import { getSupabaseDashboardStats } from "@/lib/supabase/dashboard";
 
 export default async function ReportsPage() {
   const context = await requireWorkspaceContext(["owner", "admin", "reviewer"]);
   const orgId = context.organisation.id;
 
   const [stats, risks, controls, assessments, policies, courses] = await Promise.all([
-    getMockDashboardStats(orgId),
+    isSupabaseAuthEnabled()
+      ? getSupabaseDashboardStats(orgId)
+      : getMockDashboardStats(orgId),
     isSupabaseAuthEnabled()
       ? listSupabaseRisks(orgId)
       : listMockRisksForOrganisation(orgId),

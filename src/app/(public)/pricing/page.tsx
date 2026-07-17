@@ -9,8 +9,8 @@ const plans = [
     price: "$19",
     meta: "per user / month",
     features: [
-      "AI activity capture",
-      "Basic policy templates",
+      "AI tool inventory",
+      "Policy builder",
       "Evidence dashboard",
       "Email support",
     ],

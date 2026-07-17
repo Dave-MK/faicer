@@ -16,6 +16,7 @@ export type ToolCategory =
   | "other";
 
 export type UseCaseStatus = "draft" | "approved" | "restricted" | "prohibited" | "archived";
+export type EuAiActTier = "prohibited" | "high" | "limited" | "minimal" | "unclassified";
 export type RiskLevel = "low" | "medium" | "high" | "critical";
 export type RiskStatus = "open" | "mitigated" | "accepted" | "closed";
 export type PolicyStatus = "draft" | "under_review" | "active" | "archived";
@@ -94,6 +95,7 @@ export type MockUseCase = {
   businessUnit: string;
   ownerUserId: string;
   riskLevel: RiskLevel;
+  euAiActTier: EuAiActTier;
   status: UseCaseStatus;
   dataInvolved: string;
   mitigations: string;

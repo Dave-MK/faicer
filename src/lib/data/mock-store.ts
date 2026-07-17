@@ -201,6 +201,7 @@ const useCases = new Map<string, MockUseCase>([
       businessUnit: "Marketing",
       ownerUserId: "user-admin-brightforge",
       riskLevel: "low",
+      euAiActTier: "limited",
       status: "approved",
       dataInvolved: "Internal briefs, product descriptions. No personal data.",
       mitigations: "Human review of all outputs before publishing.",
@@ -221,6 +222,7 @@ const useCases = new Map<string, MockUseCase>([
       businessUnit: "Design",
       ownerUserId: "user-admin-brightforge",
       riskLevel: "medium",
+      euAiActTier: "limited",
       status: "restricted",
       dataInvolved: "Brand assets and colour palettes only.",
       mitigations: "No confidential client IP to be uploaded. Brand-safe assets only.",
@@ -896,6 +898,7 @@ export function createMockUseCase(input: {
   businessUnit: string;
   ownerUserId: string;
   riskLevel: MockUseCase["riskLevel"];
+  euAiActTier: MockUseCase["euAiActTier"];
   status: MockUseCase["status"];
   dataInvolved: string;
   mitigations: string;
@@ -911,6 +914,7 @@ export function createMockUseCase(input: {
     businessUnit: input.businessUnit,
     ownerUserId: input.ownerUserId,
     riskLevel: input.riskLevel,
+    euAiActTier: input.euAiActTier,
     status: input.status,
     dataInvolved: input.dataInvolved,
     mitigations: input.mitigations,
@@ -942,6 +946,7 @@ export function updateMockUseCase(
     businessUnit: string;
     ownerUserId: string;
     riskLevel: MockUseCase["riskLevel"];
+    euAiActTier: MockUseCase["euAiActTier"];
     status: MockUseCase["status"];
     dataInvolved: string;
     mitigations: string;
@@ -957,6 +962,7 @@ export function updateMockUseCase(
     businessUnit: input.businessUnit,
     ownerUserId: input.ownerUserId,
     riskLevel: input.riskLevel,
+    euAiActTier: input.euAiActTier,
     status: input.status,
     dataInvolved: input.dataInvolved,
     mitigations: input.mitigations,

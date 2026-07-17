@@ -3,11 +3,17 @@ import { AppShell } from "@/app/(app)/_components/app-shell";
 import { StatusPill } from "@/app/(app)/_components/workspace-primitives";
 import { AppIcon } from "@/components/AppIcons";
 import { requireWorkspaceContext } from "@/lib/auth/workspace";
+import { isSupabaseAuthEnabled } from "@/lib/config/env";
 import {
   getMockDashboardStats,
   listMockCompletionsForUser,
   listMockCoursesForOrganisation,
 } from "@/lib/data/mock-registry";
+import { getSupabaseDashboardStats } from "@/lib/supabase/dashboard";
+import {
+  listSupabaseCourses,
+  listSupabaseCompletionsForUser,
+} from "@/lib/supabase/training";
 
 /* ── Helpers ── */
 
@@ -253,10 +259,13 @@ export default async function DashboardPage() {
   const context = await requireWorkspaceContext();
   const orgId = context.organisation.id;
 
+  const supabaseEnabled = isSupabaseAuthEnabled();
   const [stats, courses, completions] = await Promise.all([
-    getMockDashboardStats(orgId),
-    listMockCoursesForOrganisation(orgId),
-    listMockCompletionsForUser(context.user.id, orgId),
+    supabaseEnabled ? getSupabaseDashboardStats(orgId) : getMockDashboardStats(orgId),
+    supabaseEnabled ? listSupabaseCourses(orgId) : listMockCoursesForOrganisation(orgId),
+    supabaseEnabled
+      ? listSupabaseCompletionsForUser(context.user.id, orgId)
+      : listMockCompletionsForUser(context.user.id, orgId),
   ]);
 
   if (context.membership.role === "staff") {
@@ -288,15 +297,15 @@ export default async function DashboardPage() {
   const nextSteps = [
     { icon: "assessments" as const, label: "Complete DPIA for Customer Support Bot", due: "Due May 20", level: "high" as const },
     { icon: "policies" as const, label: "Approve Data Retention Policy", due: "Due May 24", level: "medium" as const },
-    { icon: "training" as const, label: "Finish AI Literacy Training – Marketing", due: "Due May 26", level: "low" as const },
+    { icon: "training" as const, label: "Finish AI literacy training – Marketing", due: "Due July 26, 2026", level: "low" as const },
   ];
 
   const recentActivity = [
-    { icon: "assessments" as const, type: "Assessment completed", detail: "Vendor Risk Assessment", time: "Today, 10:24 AM" },
-    { icon: "training" as const, type: "Training completed", detail: "AI Literacy Basics", time: "Yesterday, 4:15 PM" },
-    { icon: "policies" as const, type: "Policy updated", detail: "AI Use Policy v2.1", time: "May 17, 11:02 AM" },
-    { icon: "register" as const, type: "New AI asset added", detail: "Invoice Processing AI", time: "May 16, 3:45 PM" },
-    { icon: "governance" as const, type: "Audit action closed", detail: "Data Retention Check", time: "May 16, 9:30 AM" },
+    { icon: "assessments" as const, type: "Assessment completed", detail: "Vendor risk assessment", time: "July 16, 2026" },
+    { icon: "training" as const, type: "Training completed", detail: "AI literacy basics", time: "July 15, 2026" },
+    { icon: "policies" as const, type: "Policy updated", detail: "AI use policy v2.1", time: "July 14, 2026" },
+    { icon: "register" as const, type: "New AI system added", detail: "Invoice processing assistant", time: "July 13, 2026" },
+    { icon: "governance" as const, type: "Audit action closed", detail: "Data retention check", time: "July 12, 2026" },
   ];
 
   /* Chart constants */
@@ -336,10 +345,10 @@ export default async function DashboardPage() {
       {/* Page title */}
       <div className="mb-6">
         <h1 className="text-[26px] font-bold text-white leading-tight">
-          Welcome back, {firstName} 👋
+          Governance overview for {firstName}
         </h1>
         <p className="mt-1 text-[14px] text-[rgba(168,176,204,0.6)]">
-          Here&apos;s your AI compliance overview.
+          Review posture, priority actions, control coverage, and evidence readiness across your organisation.
         </p>
       </div>
 
@@ -387,7 +396,7 @@ export default async function DashboardPage() {
               className="flex items-center gap-1.5 rounded-[10px] border px-3 py-1.5 text-[12px] text-[rgba(168,176,204,0.7)] hover:text-white"
               style={{ borderColor: "rgba(42,45,80,0.7)", background: "rgba(11,14,31,0.5)" }}
             >
-              Last 30 Days
+              Current posture
               <AppIcon name="chevron" className="h-3.5 w-3.5" />
             </button>
           </div>
@@ -417,10 +426,10 @@ export default async function DashboardPage() {
             <circle cx={pts[pts.length - 1].x} cy={pts[pts.length - 1].y} r="5" fill="#6366F1" stroke="#0B0E1F" strokeWidth="2" />
             {/* Tooltip */}
             <rect x={pts[pts.length - 1].x - 30} y={pts[pts.length - 1].y - 44} width="60" height="38" rx="7" fill="rgba(20,14,40,0.95)" stroke="rgba(99,102,241,0.4)" strokeWidth="1"/>
-            <text x={pts[pts.length - 1].x} y={pts[pts.length - 1].y - 28} textAnchor="middle" fill="rgba(168,176,204,0.7)" fontSize="8">May 18</text>
+            <text x={pts[pts.length - 1].x} y={pts[pts.length - 1].y - 28} textAnchor="middle" fill="rgba(168,176,204,0.7)" fontSize="8">July 16, 2026</text>
             <text x={pts[pts.length - 1].x} y={pts[pts.length - 1].y - 15} textAnchor="middle" fill="white" fontSize="13" fontWeight="700">{healthScore}%</text>
             {/* X-axis labels */}
-            {["Apr 14", "Apr 28", "May 12", "May 26", "Jun 9"].map((label, i) => (
+            {["Baseline", "Controls", "Reviews", "Evidence", "Today"].map((label, i) => (
               <text key={label} x={50 + i * 102.5} y="138" fill="rgba(107,114,128,0.9)" fontSize="9" textAnchor="middle">{label}</text>
             ))}
           </svg>

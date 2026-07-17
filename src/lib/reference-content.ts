@@ -1,8 +1,9 @@
 export const publicNavigation = [
-  { label: "Features", href: "/welcome#features" },
-  { label: "How it works", href: "/welcome#process" },
+  { label: "Platform", href: "/welcome#platform" },
+  { label: "Governance", href: "/welcome#governance" },
+  { label: "Frameworks", href: "/welcome#frameworks" },
   { label: "Pricing", href: "/pricing" },
-  { label: "Docs", href: "/docs" },
+  { label: "Product Tour", href: "/docs" },
 ];
 
 export const appNavigation = [

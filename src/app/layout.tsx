@@ -1,41 +1,35 @@
 import type { Metadata, Viewport } from "next";
-import { Orbitron } from "next/font/google";
 import "@/styles/fonts.css";
 import "@/styles/theme.css";
 import "./globals.css";
 
-const orbitron = Orbitron({
-  subsets: ["latin"],
-  variable: "--font-orbitron",
-  weight: ["700", "800", "900"],
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://faicer.site"),
   title: {
-    default: "FAICER — AI Compliance & Education Register",
-    template: "%s · FAICER",
+    default: "FAICER | AI Governance Platform",
+    template: "%s | FAICER",
   },
-  description: "Fundamental AI Compliance & Education Register. Comply. Educate. Record. Prove.",
+  description:
+    "Govern AI with evidence, not assumptions. FAICER helps organisations manage AI systems, controls, approvals, evidence, and audit readiness.",
   applicationName: "FAICER",
   manifest: "/site.webmanifest",
   openGraph: {
     type: "website",
     url: "https://faicer.site",
     siteName: "FAICER",
-    title: "FAICER — AI Compliance & Education Register",
-    description: "Govern your AI use cases, prove compliance, and train your team. Comply. Educate. Record. Prove.",
+    title: "FAICER | AI Governance Platform",
+    description:
+      "Manage AI systems, assess risk, assign ownership, collect evidence, and strengthen regulatory readiness.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "FAICER — AI Compliance & Education Register",
-    description: "Govern your AI use cases, prove compliance, and train your team.",
+    title: "FAICER | AI Governance Platform",
+    description: "Govern AI with evidence, not assumptions.",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0E1320",
+  themeColor: "#09111f",
 };
 
 export default function RootLayout({
@@ -44,10 +38,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`h-full antialiased ${orbitron.variable}`}>
+    <html lang="en" className="h-full antialiased">
       <body
         data-theme="dark-app"
-        className="min-h-full bg-canvas text-ink selection:bg-[rgba(99,102,241,0.24)]"
+        className="min-h-full bg-canvas text-ink selection:bg-[rgba(94,141,222,0.24)]"
       >
         {children}
       </body>

@@ -14,6 +14,9 @@ export const useCaseSchema = z.object({
   businessUnit: z.string().trim().min(1).max(120),
   ownerUserId: z.string().trim().min(1),
   riskLevel: z.enum(["low", "medium", "high", "critical"]),
+  euAiActTier: z
+    .enum(["prohibited", "high", "limited", "minimal", "unclassified"])
+    .default("unclassified"),
   status: z.enum(["draft", "approved", "restricted", "prohibited", "archived"]),
   dataInvolved: optionalText.pipe(z.string().optional()).transform((v) => v ?? ""),
   mitigations: optionalText.pipe(z.string().optional()).transform((v) => v ?? ""),

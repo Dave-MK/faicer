@@ -14,10 +14,10 @@ type NotificationItem = {
 };
 
 const buttonClass =
-  "inline-flex h-9 w-9 items-center justify-center rounded-[11px] border text-[rgba(168,176,204,0.6)] transition hover:border-[rgba(99,102,241,0.4)] hover:text-white";
+  "inline-flex h-10 w-10 items-center justify-center rounded-xl border text-[rgba(175,189,209,0.72)] transition hover:text-white";
 const buttonStyle = {
-  borderColor: "rgba(40,49,67,0.65)",
-  background: "rgba(21,27,43,0.6)",
+  borderColor: "rgba(52,72,98,0.78)",
+  background: "rgba(10,20,34,0.86)",
 } as const;
 
 function relativeTime(iso: string): string {

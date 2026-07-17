@@ -100,7 +100,7 @@ export default async function HelpPage() {
           <p className="text-sm font-semibold text-[var(--ai-blue)]">Request a tool</p>
           <h2 className="mt-2 text-xl font-semibold text-white">Need a new AI tool?</h2>
           <p className="mt-3 text-sm leading-7 text-[var(--ai-text-secondary)]">
-            If you need access to an AI tool that isn&apos;t in the approved list, submit a request to your governance team. Do not use unapproved tools — even free or personal ones — for work purposes.
+            If you need access to an AI tool that isn&apos;t in the approved list, contact your governance team (owner or admin) to have it assessed and added to the register. Do not use unapproved tools — even free or personal ones — for work purposes.
           </p>
         </WorkspacePanel>
 

@@ -14,6 +14,7 @@ import {
 } from "@/lib/data/mock-registry";
 import { listSupabaseUseCases } from "@/lib/supabase/use-cases";
 import { listSupabaseTools } from "@/lib/supabase/tools";
+import { getEuAiActTierMeta } from "@/lib/frameworks/eu-ai-act";
 
 const riskTone = (level: string) =>
   ({ low: "success", medium: "warning", high: "danger", critical: "danger" })[level] as
@@ -170,6 +171,7 @@ export default async function UseCasesPage({
                 <th>Tool</th>
                 <th>Business unit</th>
                 <th>Risk level</th>
+                <th>EU AI Act</th>
                 <th>Status</th>
                 <th>Next review</th>
               </tr>
@@ -191,6 +193,12 @@ export default async function UseCasesPage({
                     <StatusPill
                       label={uc.riskLevel.charAt(0).toUpperCase() + uc.riskLevel.slice(1)}
                       tone={riskTone(uc.riskLevel)}
+                    />
+                  </td>
+                  <td>
+                    <StatusPill
+                      label={getEuAiActTierMeta(uc.euAiActTier).label}
+                      tone={getEuAiActTierMeta(uc.euAiActTier).tone}
                     />
                   </td>
                   <td>

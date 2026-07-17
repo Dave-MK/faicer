@@ -6,6 +6,7 @@ import {
   findMockUseCaseById,
   listMockToolsForOrganisation,
 } from "@/lib/data/mock-registry";
+import { euAiActTierOptions } from "@/lib/frameworks/eu-ai-act";
 
 export default async function EditUseCasePage({
   params,
@@ -101,6 +102,24 @@ export default async function EditUseCasePage({
               <option value="high">High</option>
               <option value="critical">Critical</option>
             </select>
+          </label>
+
+          <label className="space-y-2">
+            <span className="text-sm font-medium text-ink">EU AI Act risk tier</span>
+            <select
+              name="euAiActTier"
+              defaultValue={useCase.euAiActTier}
+              className="brand-input w-full rounded-2xl px-4 py-3 outline-none transition"
+            >
+              {euAiActTierOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+            <span className="block text-xs text-[var(--ai-text-muted)]">
+              Decision-support, not legal advice. Confirm the tier with a competent person.
+            </span>
           </label>
 
           <label className="space-y-2">

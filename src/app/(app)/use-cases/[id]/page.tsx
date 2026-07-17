@@ -14,6 +14,7 @@ import {
 } from "@/lib/data/mock-registry";
 import { getSupabaseUseCase } from "@/lib/supabase/use-cases";
 import { listSupabaseTools } from "@/lib/supabase/tools";
+import { getEuAiActTierMeta } from "@/lib/frameworks/eu-ai-act";
 
 const statusTone = (s: string) =>
   (
@@ -66,6 +67,7 @@ export default async function UseCaseDetailPage({
 
   const toolName = tools.find((t) => t.id === useCase.toolId)?.name ?? useCase.toolId;
   const canEdit = context.permissions.canManageOrganisation;
+  const tierMeta = getEuAiActTierMeta(useCase.euAiActTier);
 
   return (
     <AppShell
@@ -137,6 +139,56 @@ export default async function UseCaseDetailPage({
               </p>
             </div>
           )}
+
+          <div className="mt-5 rounded-[22px] border border-[var(--ai-border)] bg-[rgba(255,255,255,0.03)] px-5 py-5">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <p className="text-sm font-semibold text-white">EU AI Act classification</p>
+              <StatusPill label={tierMeta.label} tone={tierMeta.tone} />
+            </div>
+            <p className="mt-3 text-sm leading-7 text-[var(--ai-text-secondary)]">
+              {tierMeta.summary}
+            </p>
+            <p className="mt-2 text-xs text-[var(--ai-text-muted)]">{tierMeta.reference}</p>
+
+            {tierMeta.obligations.length > 0 && (
+              <div className="mt-4">
+                <p className="text-xs font-semibold uppercase tracking-wider text-[var(--ai-text-muted)]">
+                  What this obliges you to do
+                </p>
+                <ul className="mt-2 space-y-1.5">
+                  {tierMeta.obligations.map((item) => (
+                    <li
+                      key={item}
+                      className="flex gap-2 text-sm leading-6 text-[var(--ai-text-secondary)]"
+                    >
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--ai-cyan)]" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div className="mt-4 grid gap-3 md:grid-cols-2">
+              <div className="rounded-2xl border border-[var(--ai-border)] bg-[rgba(255,255,255,0.02)] px-4 py-3">
+                <p className="text-xs font-semibold text-[var(--ai-blue)]">ISO/IEC 42001</p>
+                <p className="mt-1.5 text-xs leading-6 text-[var(--ai-text-secondary)]">
+                  {tierMeta.frameworkMapping.iso42001}
+                </p>
+              </div>
+              <div className="rounded-2xl border border-[var(--ai-border)] bg-[rgba(255,255,255,0.02)] px-4 py-3">
+                <p className="text-xs font-semibold text-[var(--ai-blue)]">NIST AI RMF</p>
+                <p className="mt-1.5 text-xs leading-6 text-[var(--ai-text-secondary)]">
+                  {tierMeta.frameworkMapping.nistAiRmf}
+                </p>
+              </div>
+            </div>
+
+            <p className="mt-4 text-xs text-[var(--ai-text-muted)]">
+              Decision-support only — not legal advice. Confirm with a competent person and
+              record the rationale.
+            </p>
+          </div>
         </WorkspacePanel>
 
         <div className="space-y-5">
@@ -157,6 +209,13 @@ export default async function UseCaseDetailPage({
                 label={useCase.riskLevel.charAt(0).toUpperCase() + useCase.riskLevel.slice(1)}
                 tone={riskTone(useCase.riskLevel)}
               />
+            </div>
+          </WorkspacePanel>
+
+          <WorkspacePanel>
+            <p className="text-sm text-[var(--ai-text-secondary)]">EU AI Act tier</p>
+            <div className="mt-3">
+              <StatusPill label={tierMeta.label} tone={tierMeta.tone} />
             </div>
           </WorkspacePanel>
 

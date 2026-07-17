@@ -13,6 +13,7 @@ function mapUseCase(row: Record<string, unknown>): WorkspaceUseCase {
     businessUnit: String(row.business_unit ?? ""),
     ownerUserId: String(row.owner_user_id),
     riskLevel: row.risk_level as WorkspaceUseCase["riskLevel"],
+    euAiActTier: (row.eu_ai_act_tier as WorkspaceUseCase["euAiActTier"]) ?? "unclassified",
     status: row.status as WorkspaceUseCase["status"],
     dataInvolved: String(row.data_involved ?? ""),
     mitigations: String(row.mitigations ?? ""),
@@ -53,6 +54,7 @@ export async function createSupabaseUseCase(input: {
   businessUnit: string;
   ownerUserId: string;
   riskLevel: WorkspaceUseCase["riskLevel"];
+  euAiActTier: WorkspaceUseCase["euAiActTier"];
   status: WorkspaceUseCase["status"];
   dataInvolved: string;
   mitigations: string;
@@ -69,6 +71,7 @@ export async function createSupabaseUseCase(input: {
       business_unit: input.businessUnit,
       owner_user_id: input.ownerUserId,
       risk_level: input.riskLevel,
+      eu_ai_act_tier: input.euAiActTier,
       status: input.status,
       data_involved: input.dataInvolved,
       mitigations: input.mitigations,
@@ -100,6 +103,7 @@ export async function updateSupabaseUseCase(input: {
   businessUnit: string;
   ownerUserId: string;
   riskLevel: WorkspaceUseCase["riskLevel"];
+  euAiActTier: WorkspaceUseCase["euAiActTier"];
   status: WorkspaceUseCase["status"];
   dataInvolved: string;
   mitigations: string;
@@ -114,6 +118,7 @@ export async function updateSupabaseUseCase(input: {
       business_unit: input.businessUnit,
       owner_user_id: input.ownerUserId,
       risk_level: input.riskLevel,
+      eu_ai_act_tier: input.euAiActTier,
       status: input.status,
       data_involved: input.dataInvolved,
       mitigations: input.mitigations,

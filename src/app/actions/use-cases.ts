@@ -16,6 +16,7 @@ function parseInput(formData: FormData) {
     businessUnit: formData.get("businessUnit"),
     ownerUserId: formData.get("ownerUserId"),
     riskLevel: formData.get("riskLevel"),
+    euAiActTier: formData.get("euAiActTier") ?? undefined,
     status: formData.get("status"),
     dataInvolved: formData.get("dataInvolved"),
     mitigations: formData.get("mitigations"),

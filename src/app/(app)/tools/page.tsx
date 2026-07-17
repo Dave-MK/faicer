@@ -110,8 +110,9 @@ export default async function ToolsPage({
       role={context.membership.role}
     >
       <WorkspaceHeader
-        title="AI Tool Register"
-        description="Discover, evaluate and manage AI tools in use across your organisation."
+        eyebrow="AI inventory"
+        title="AI System Register"
+        description="Maintain a governed inventory of AI tools and systems, with review status, provider ownership, and approval controls in one place."
         actions={
           <>
             <button
@@ -119,7 +120,7 @@ export default async function ToolsPage({
               className="brand-button-secondary inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold"
             >
               <AppIcon name="download" className="h-4 w-4" />
-              Import
+              Import register
             </button>
             {context.permissions.canManageOrganisation ? (
               <Link
@@ -127,7 +128,7 @@ export default async function ToolsPage({
                 className="brand-button-primary inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold"
               >
                 <AppIcon name="plus" className="h-4 w-4" />
-                Add tool
+                Add system
               </Link>
             ) : null}
           </>
@@ -204,24 +205,24 @@ export default async function ToolsPage({
 
         <div className="mt-5 grid gap-4 xl:grid-cols-5">
           {[
-            { label: "Total tools", value: totals.total, delta: "+ 18%", tone: "success" },
-            { label: "Approved", value: totals.approved, delta: "+ 16%", tone: "success" },
+            { label: "Registered systems", value: totals.total, delta: "Active inventory", tone: "success" },
+            { label: "Approved", value: totals.approved, delta: "Ready for use", tone: "success" },
             {
               label: "Restricted",
               value: totals.restricted,
-              delta: "+ 12%",
+              delta: "Additional oversight",
               tone: "warning",
             },
             {
               label: "Prohibited",
               value: totals.prohibited,
-              delta: "+ 0%",
+              delta: "Blocked from use",
               tone: "danger",
             },
             {
-              label: "Under review",
+              label: "Due for review",
               value: totals.dueSoon,
-              delta: "+ 25%",
+              delta: "Next 45 days",
               tone: "info",
             },
           ].map((card) => (
@@ -254,7 +255,7 @@ export default async function ToolsPage({
           <table>
             <thead>
               <tr>
-                <th>Tool name</th>
+                <th>System name</th>
                 <th>Provider</th>
                 <th>Category</th>
                 <th>Status</th>

@@ -39,6 +39,8 @@ export function AppShell({
   role,
   children,
 }: AppShellProps) {
+  const navigation = role === "staff" ? staffNavigation : appNavigation;
+  const currentItem = navigation.find((item) => item.key === current);
   const initials = userDisplayName
     .split(" ")
     .map((p) => p[0])
@@ -46,11 +48,9 @@ export function AppShell({
     .slice(0, 2)
     .toUpperCase();
 
-  const navigation = role === "staff" ? staffNavigation : appNavigation;
-
   return (
-    <div className="min-h-screen" style={{ background: "#0A0E18" }}>
-      <div className="mx-auto flex min-h-screen max-w-[1680px] border border-[rgba(40,49,67,0.55)]">
+    <div className="min-h-screen bg-canvas">
+      <div className="mx-auto flex min-h-screen max-w-[1680px] border border-[rgba(36,52,75,0.62)]">
         {/* Mobile nav toggle (CSS-only drawer) */}
         <input
           type="checkbox"
@@ -154,21 +154,21 @@ export function AppShell({
                   className="text-[13.5px] font-semibold"
                   style={{ color: "#6366F1" }}
                 >
-                  Upgrade to Pro
+                  Framework support
                 </p>
               </div>
               <p className="mb-3.5 text-[12px] leading-relaxed text-[rgba(168,176,204,0.65)]">
-                Unlock advanced analytics, custom frameworks, and unlimited users.
+                Supports alignment with the EU AI Act, NIST AI RMF, and ISO/IEC 42001 evidence workflows.
               </p>
               <Link
-                href="/pricing"
+                href="/governance"
                 className="flex items-center justify-center gap-1.5 rounded-[10px] border py-2.5 text-[12.5px] font-semibold transition hover:bg-[rgba(99,102,241,0.08)]"
                 style={{
                   borderColor: "rgba(99,102,241,0.55)",
-                  color: "#6366F1",
+                  color: "#7eb5ff",
                 }}
               >
-                Upgrade Now
+                View governance posture
                 <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                   <path d="M3 8h10M9 4l4 4-4 4" />
                 </svg>
@@ -281,8 +281,7 @@ export function AppShell({
               }}
             >
               <AppIcon name="calendar" className="h-3.5 w-3.5 shrink-0 text-[rgba(168,176,204,0.5)]" />
-              <span>May 12 – May 18, 2024</span>
-              <AppIcon name="chevron" className="h-3.5 w-3.5 shrink-0 text-[rgba(168,176,204,0.4)]" />
+              <span>{currentItem?.label ?? "Workspace"} updated on July 16, 2026</span>
             </button>
 
             {/* Sign-out (hidden, accessible via user profile) */}

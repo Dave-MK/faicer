@@ -1,40 +1,42 @@
 :root {
-  /* FAICER Slate Indigo palette — professional dark */
-  --ai-bg: #0E1320;
-  --ai-bg-deep: #0A0E18;
-  --ai-surface: #151B2B;
-  --ai-surface-raised: #1B2233;
-  --ai-surface-soft: #1E2638;
-  --ai-surface-hover: #242D42;
-  --ai-border: #283143;
-  --ai-border-strong: #394559;
-  --ai-text: #EEF1F8;
-  --ai-text-secondary: #9BA6BD;
-  --ai-text-muted: #67718A;
+  --ai-bg: #09111f;
+  --ai-bg-deep: #060d18;
+  --ai-surface: #101b2c;
+  --ai-surface-raised: #162235;
+  --ai-surface-soft: #1d2b40;
+  --ai-surface-hover: #22324a;
+  --ai-border: #24344b;
+  --ai-border-strong: #344862;
+  --ai-text: #eff4fb;
+  --ai-text-secondary: #afbdd1;
+  --ai-text-muted: #71829a;
 
-  /* Brand accents — indigo / blue */
-  --ai-cyan: #818CF8;        /* primary accent — legible indigo on dark */
-  --ai-blue: #60A5FA;        /* secondary accent — sky blue */
-  --ai-indigo: #6366F1;      /* solid brand indigo */
-  --ai-violet: #6366F1;      /* solid brand indigo */
-  --ai-purple: #818CF8;      /* maps to primary accent */
+  --ai-cyan: #7eb5ff;
+  --ai-blue: #5b8def;
+  --ai-indigo: #3e6fd8;
+  --ai-violet: #5d74d6;
+  --ai-purple: #7a87df;
 
-  /* Semantic */
-  --ai-success: #34D399;
-  --ai-warning: #FBBF24;
-  --ai-danger: #F87171;
-  --ai-info: #60A5FA;
+  --ai-success: #31b47c;
+  --ai-warning: #d79b33;
+  --ai-danger: #d35c5c;
+  --ai-info: #4d8cec;
 
-  /* Gradients — calm indigo → blue */
-  --ai-gradient: linear-gradient(135deg, #6366F1 0%, #5575F2 50%, #3B82F6 100%);
-  --ai-gradient-button: linear-gradient(90deg, #5B6CF0 0%, #4F7CF5 100%);
+  --ai-gradient: linear-gradient(135deg, #234d8f 0%, #315ca3 55%, #4d8cec 100%);
+  --ai-gradient-button: linear-gradient(135deg, #244d90 0%, #3563b2 100%);
 
-  /* Misc */
-  --ai-radius-sm: 8px;
-  --ai-radius-md: 12px;
-  --ai-radius-lg: 16px;
-  --ai-shadow-panel: 0 12px 32px rgba(6, 10, 20, 0.45);
-  --ai-shadow-glow: 0 0 24px rgba(99, 102, 241, 0.18);
+  --ai-radius-sm: 10px;
+  --ai-radius-md: 16px;
+  --ai-radius-lg: 24px;
+  --ai-shadow-panel: 0 20px 44px rgba(2, 10, 24, 0.3);
+  --ai-shadow-glow: 0 0 24px rgba(77, 140, 236, 0.14);
+
+  --surface-subtle: #f3f6fb;
+  --surface-default: #ffffff;
+  --surface-muted: #e7edf5;
+  --foreground: #112033;
+  --foreground-muted: #526378;
+  --border-light: #d7e0ea;
 }
 
 [data-theme="dark-app"] {
@@ -49,22 +51,22 @@
 
 [data-theme="light-surface"] {
   color-scheme: light;
-  --page-bg: #F4F8FD;
-  --panel-bg: #FFFFFF;
-  --panel-raised: #EEF4FB;
-  --panel-border: #D8E3F0;
-  --copy: #142033;
-  --copy-secondary: #52657D;
+  --page-bg: var(--surface-subtle);
+  --panel-bg: var(--surface-default);
+  --panel-raised: var(--surface-muted);
+  --panel-border: var(--border-light);
+  --copy: var(--foreground);
+  --copy-secondary: var(--foreground-muted);
 }
 
 [data-theme="report-print"] {
   color-scheme: light;
-  --page-bg: #FFFFFF;
-  --panel-bg: #FFFFFF;
-  --panel-raised: #F7FAFE;
-  --panel-border: #D6DFEB;
-  --copy: #142033;
-  --copy-secondary: #52657D;
+  --page-bg: #ffffff;
+  --panel-bg: #ffffff;
+  --panel-raised: #f6f8fb;
+  --panel-border: #d6dee8;
+  --copy: #112033;
+  --copy-secondary: #526378;
 }
 
 .ai-panel {
@@ -76,14 +78,14 @@
 
 .ai-primary-button {
   background: var(--ai-gradient-button);
-  color: #FFFFFF;
+  color: #ffffff;
   border: 0;
   border-radius: var(--ai-radius-sm);
   font-weight: 700;
-  padding: .75rem 1rem;
+  padding: 0.75rem 1rem;
 }
 
 .ai-focus-ring:focus-visible {
   outline: 0;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.32);
+  box-shadow: 0 0 0 3px rgba(94, 141, 222, 0.28);
 }
